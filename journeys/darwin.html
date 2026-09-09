@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Charles Darwin, June 18, 1858</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from Darwin's correspondence, paraphrased, and from Unquit: The Oldest Choice.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "darwin", "title": "Charles Darwin, June 18, 1858", "subtitle": "A study at Down House. A letter from the Malay Archipelago. Twenty years of silence.", "object": "The sketch", "sticker": "The sketch.", "footer": "Drawn from Darwin's correspondence, paraphrased, and from Unquit: The Oldest Choice.", "arrive": {"heading": "You are standing where Charles Darwin stood.", "paragraphs": ["He had the idea in 1838. Natural selection. He wrote it out in a sketch in 1842 and a longer essay in 1844, sealed it with instructions to his wife to publish if he died, and then did not publish. For twenty years he gathered evidence, bred pigeons, dissected barnacles for eight of those years, wrote to everyone, and built the case brick by brick, because he knew what the idea would cost and he wanted it to be unanswerable when it landed.", "This morning a letter has arrived from a young naturalist named Alfred Russel Wallace, writing from an island in the Malay Archipelago. Inside is an essay. It is his theory. Not similar. The same. Written in a fever in a few days by a man with none of his twenty years of evidence, and sent to him, of all people, asking if it is worth forwarding to Lyell.", "His infant son is ill with scarlet fever in the next room. He is forty-nine. The work of his life has just arrived in the post in someone else's handwriting.", "Now Charles steps aside and you step in. The study, the sealed essay of 1844, the letter from Ternate and the sick child are his. What twenty years were for is yours."], "button": "Sit down at the desk"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "Wallace's pages are on the blotter. Your own 1844 essay is in the drawer, sealed. Upstairs, the doctor is with the baby. The house is very quiet.", "question": "What are you feeling right now?", "placeholder": "Say it to Lyell, in the letter you have not yet written.", "helper": {"who": "Charles Lyell, by letter, the geologist who told you years ago to publish before someone else did", "says": "You wrote to me about this idea in 1856 and I told you to publish. Before you tell me what has arrived, tell me what you feel.", "options": ["I feel that twenty years of building an unanswerable case have been answered in a few pages by a man with a fever and no pigeons.", "I feel that I have been forestalled, which is the word, and that it is a small word for the size of the thing.", "I feel that I was right about the idea and wrong about the time, and that my son is sick upstairs and I am thinking about priority."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before Lyell is written to, take an inventory. Not of the theory, and not of Darwin. Of yourself.", "question": "What have you already done, in your own life, that proves you can keep building a case for twenty years without applause?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Lyell, by letter", "says": "I can tell you what the man at that desk carries. Five years on a ship being seasick every day of it. Eight years on barnacles that no one asked for, to earn the right to speak. Twenty years of letters to breeders and gardeners and sailors, asking one small question at a time. Now you tell me what you carry. Finish one of these.", "options": ["A time I kept building a case for years without applause: ", "A time I did the unglamorous groundwork so that the idea would be unanswerable: ", "A time someone else said what I had known for years, and I had to decide what that meant: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the study is: it is his now, and my twenty years were for nothing. It sounds like honor. It is shock wearing honor's clothes. You do not have to decide the fate of the theory today. You only have to refuse to let one letter decide twenty years.", "question": "What is the one reason you will not decide today?", "placeholder": "Not a publication plan. One reason the post does not get the vote.", "helper": {"who": "Lyell, by letter", "says": "One letter does not erase twenty years of evidence. It only ends the silence. Tell me why you will not decide today.", "options": ["Because he has the idea and I have the proof, and an idea without proof is what I refused to publish in 1844.", "Because my son is ill, and a man deciding the fate of his life's work while his child has a fever is not deciding. He is reacting.", "Because Lyell and Hooker have seen my essay and know the dates. I do not have to decide anything alone."]}}, {"n": 4, "name": "One step", "prompt": "Not the book. Not the Linnean Society. One step, small enough to finish before the doctor comes down.", "question": "What is it?", "placeholder": "Something you can do at a desk with a letter and a pen.", "helper": {"who": "Lyell, by letter", "says": "Do not write the book today. Write to me. What is the smallest honest thing you can put in a letter this afternoon?", "options": ["I will write to Lyell today, enclose Wallace's essay as he asked, and say plainly: your words have come true with a vengeance, that I should be forestalled. And I will say I would rather burn my book than have him think I behaved badly.", "I will take the 1844 essay out of the drawer and read it beside Wallace's, to see exactly what is the same and what twenty years added.", "I will go upstairs to the child first. The theory has waited twenty years. It can wait an afternoon."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The letter to Lyell is written, or the two essays lie side by side, or you have been upstairs. Wallace's pages are still on the blotter. The idea still has two names.", "question": "What has changed in you?", "placeholder": "Compare it to the post arriving.", "helper": {"who": "Lyell, by letter", "says": "Nothing about the theory changed this afternoon. What changed in you?", "options": ["I read them side by side. The idea is the same. The twenty years are not in his pages, and they are the part that will make it stand.", "I have told Lyell the truth and asked him to be the judge. That is not the same as losing. It is the opposite of hiding.", "My son is ill and my theory has two names and I have written one letter. That is the whole of today, and it is enough."]}}, {"n": 6, "name": "Time passes", "montage": ["Lyell and Hooker act. On July 1, 1858, at the Linnean Society, Darwin's 1844 essay and a letter of 1857 are read alongside Wallace's paper, jointly, in order of date. Neither man is present. Darwin is burying his son, who died of scarlet fever on June 28.", "Wallace, when he learns of it, is delighted to be named beside Darwin and says so for the rest of his life. Darwin abandons the vast book he had planned and writes an abstract instead. The abstract is five hundred pages. It is published in November 1859 as On the Origin of Species and sells out on the first day.", "The twenty years were not the delay before the work. They were the work. When the idea finally landed, it landed with a runway under it that no fever could have built."], "question": "Twenty years of silence, then a letter that said it first. Here is the question the Origin cannot answer for you: what did Darwin lose on June 18?", "choices": [{"label": "Priority. Wallace had it first.", "short": "priority, Wallace had it first", "reply": "He did not, in the end, and the record is careful about it: 1842 and 1844 sketches, letters to Hooker and Gray, the joint reading in date order. But for one afternoon he believed he had lost it, and what he did that afternoon is the journey."}, {"label": "Twenty years.", "short": "twenty years", "reply": "This is what the study said, and it was wrong by November of the following year. The twenty years were not lost. They were the only reason the book was unanswerable."}, {"label": "Nothing. He gained a deadline.", "short": "nothing, he gained a deadline", "reply": "Yes. The letter did not take the idea. It ended the silence. A man who had been building a case for twenty years and could not bring himself to publish was given, in one morning, the one thing his temperament could not supply: an ending. Sometimes the Long Middle needs someone else's fever to close it. The book that followed was the work of twenty years and the courage of a single afternoon."}, {"label": "His son.", "short": "his son", "reply": "Ten days later, and it is the true loss of that month, and the record notes that he was at the graveside while his theory was read aloud in London. The journey does not pretend the theory was the larger thing. It only says that both were true, and he continued."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another morning when someone else says first what you have been building for years. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Lyell, by letter", "says": "One line for the next letter from Ternate. Start with I did.", "options": ["I did tell the truth about the dates and let others judge.", "I did read the two essays side by side and find the twenty years in mine.", "I did go upstairs first."]}, "ice": {"question": "One more line, and this one is yours. What have you been building in silence, and what would it take to end the silence?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the study", "sub": "Your letter, beside his", "paragraphs": ["Down House, June 18, 1858. You sat where Charles Darwin sat, with a stranger's essay on the blotter, your own sealed in a drawer, and a sick child upstairs, and the morning asked you what it asked him. You wrote: {1}", "Before Lyell was written to, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was five years seasick, eight years of barnacles, and twenty years of small questions to breeders and sailors.", "You refused to let one letter decide twenty years. Your reason: {3} That refusal is the deferral. Not today. Not from shock.", "Your first step: {4} {overlap}", "After the step, Wallace's pages were still on the blotter. Inside, you noticed this: {5}", "Then the friends did what friends do when one of them will not act for himself. A joint reading in date order, a funeral the same week, an abstract of five hundred pages, and a book that sold out on its first day.", "Asked what Darwin lost on June 18, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. The letter to Lyell of June 18 says almost exactly that, and it is the reason the joint reading happened.", "He did this too, and asked Lyell and Hooker to read both. A different first step in the same place is still a first step.", "His son died ten days later. Whatever else he did that afternoon, he was a father in a house with scarlet fever in it. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was a letter to Lyell, enclosing Wallace's essay, telling the whole truth. A different first step in the same place is still a first step.", "help": {"zero": "You did not write to Lyell. Darwin did, the same day, and Lyell and Hooker did the rest. Next time, write to the friend who told you years ago to publish. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You wrote to Lyell {n} on this journey. Darwin wrote once and let two friends carry it, because he could not carry it himself that month. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thing you have been building in silence, as you named it: {ice}", "closing": "Down House is a museum and the drawer is empty. What you carry out of the study is not a theory, and it is not Charles. It is the evidence that when someone else said first what you had spent years building, you told the truth about the dates and let the twenty years stand.", "stickerLines": ["Walked with Charles Darwin.", "Down House, June 18, 1858."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The sketch\">\n<g transform=\"rotate(-3 200 200)\" fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M100,90 L300,90 L300,320 L100,320 Z\" stroke-width=\"4\"/><path d=\"M200,296 L200,180 M200,180 L160,150 M200,180 L240,150 M160,150 L140,124 M160,150 L176,122 M240,150 L224,120 M240,150 L262,124 M176,122 L166,104 M176,122 L188,104\" stroke-width=\"2.4\"/><path d=\"M118,116 L150,116\" stroke-width=\"1.6\"/><path d=\"M120,300 L280,300\" stroke-width=\"1.2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

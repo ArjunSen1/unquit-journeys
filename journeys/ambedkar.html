@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. B. R. Ambedkar, Mahad, March 20, 1927</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the record of the Mahad satyagraha, paraphrased, and from the India story list. Reader from within the community before launch.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "ambedkar", "title": "B. R. Ambedkar, Mahad, March 20, 1927", "subtitle": "A field outside Mahad. The morning of the march to the water tank.", "object": "The water", "sticker": "The water.", "footer": "Drawn from the record of the Mahad satyagraha, paraphrased, and from the India story list. Reader from within the community before launch.", "arrive": {"heading": "You are standing where a man stood before a walk to a tank of water.", "paragraphs": ["He was born into a caste that upper-caste India called untouchable. As a boy he sat on a sack at the back of the schoolroom that he carried to and from school himself, because the floor could not be touched by him. He was not allowed to drink from the school water pot. He went on to two doctorates, from Columbia and London, and the bar in England, and came home to a country where a man with those degrees still could not drink from a public tank.", "Three years ago the municipal council of Mahad passed a resolution opening the Chavdar tank to all castes. No untouchable has drunk from it. The resolution is paper. The custom is thousands of years old.", "Yesterday, in a field outside the town, several thousand Dalits gathered for a conference he called. This morning he will lead them to the tank to drink. Upper-caste men in the town know. There will be a response. He does not know how large.", "Now Ambedkar steps aside and you step in. The field, the thousands, the tank and the custom are his. Whether you walk to the water is yours."], "button": "Stand in the field"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The field is full of people who have never in their lives drunk from a public tank. The town is a mile away. The tank is in the middle of it. You have the resolution in your pocket, and it is three years old.", "question": "What are you feeling right now?", "placeholder": "Say it as the boy on the sack, not as the Doctor of Philosophy.", "helper": {"who": "Anant Chitre, who organized the conference and has walked the town this morning", "says": "The town knows. I have seen the men at the tank. Before we decide the order of the march, tell me what you feel.", "options": ["I feel that I have two doctorates and I am about to lead people to drink water, and that this is the correct use of two doctorates.", "I feel the sack I carried to school every morning, and the pot I could not touch, and that the tank is the same pot, in a town instead of a room.", "I feel the thousands behind me and the men in the town ahead, and that whatever happens at the tank, it will be my doing."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the march, take an inventory. Not of the resolution, and not of Ambedkar. Of yourself.", "question": "What have you already done, in your own life, that proves you can walk toward a thing you were told from birth you could not touch?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Anant Chitre", "says": "I can tell you what the man in this field carries. He carried his own sack to school every day because the floor was not for him. He went to Columbia and London on scholarships from a Maharaja and came back. He has argued with the best-educated men in the country and not once used their words for himself. Now you tell me what you carry. Finish one of these.", "options": ["A time I walked toward a thing I was told from birth I could not touch: ", "A time I used everything I had learned for the plainest possible act: ", "A time I led people into a response I could not measure in advance: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the field is: the town will answer, and the answer will fall on them, so do not go. It sounds like care. It is the custom, speaking in the voice of care. You do not have to decide the end of untouchability this morning. You only have to refuse to let the town's response decide whether the walk happens.", "question": "What is the one reason you will not decide against the walk this morning?", "placeholder": "Not a strategy for the town. One reason the threatened response does not get the vote.", "helper": {"who": "Anant Chitre", "says": "Whatever the town does, it will do because we walked. Tell me why we walk anyway.", "options": ["Because the resolution has been paper for three years, and paper does not become water until someone drinks.", "Because these thousands did not come a mile to a field to be told the town is angry. They know the town is angry. They have known for a thousand years.", "Because if the answer to a threatened response is to not drink, then the custom is not in the town. It is in us. And that is the one place I will not let it stay."]}}, {"n": 4, "name": "One step", "prompt": "Not the end of caste. Not the courts. One step, small enough to finish before noon.", "question": "What is it?", "placeholder": "Something a man can do with a tank of water and a crowd.", "helper": {"who": "Anant Chitre", "says": "The tank is a mile away. What is the smallest thing you can do when you reach it?", "options": ["I will walk to the tank, bend down, take water in my hand and drink. One handful. First. Then the rest.", "I will walk at the front, so that whatever the town does, it reaches me before it reaches anyone who followed.", "I will say, before we walk, that we are not going to the tank because the water is different. We are going to establish that we are human."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. You have drunk, or you are at the front, or the sentence about being human has been said to thousands. The tank is the same tank. The town is still the town.", "question": "What has changed in you?", "placeholder": "Compare it to the boy with the sack.", "helper": {"who": "Anant Chitre", "says": "The water tasted of water. What changed?", "options": ["The water was water. It has been water for a thousand years. What changed is who was standing in it.", "I walked at the front and nothing reached me yet and everything is coming. I would walk at the front again.", "I said we are here to establish that we are human, and I heard thousands of people breathe at once."]}}, {"n": 6, "name": "Time passes", "montage": ["He walks to the Chavdar tank, bends, and drinks a handful of water. Thousands follow. Within hours upper-caste men attack the conference; twenty are injured. The next day the town has the tank purified with cow dung and curd and prayers, to undo what a handful of water did.", "In December he returns to Mahad, and in front of the conference, publicly burns the Manusmriti, the ancient text that codifies caste. Twenty years later he is the principal author of the Constitution of India, and the article that abolishes untouchability is in it.", "The town sued to keep the tank closed. The case went to the Bombay High Court. In 1937 the court ruled that the tank was public. It had taken ten years to make a handful of water legal."], "question": "A handful of water from a public tank. Here is the question the Constitution cannot answer for you: what did Ambedkar drink?", "choices": [{"label": "Water.", "short": "water", "reply": "It was water, and the town spent the next day purifying it, and a decade in court over it. Nothing so ordinary has ever caused so much trouble, which tells you it was not only water."}, {"label": "A right the council had already granted.", "short": "a right the council had already granted", "reply": "On paper, three years earlier, and no one had drunk. He said as much: paper does not become water until someone drinks. The right existed. The walk made it true."}, {"label": "The claim to be human, made with the plainest act available.", "short": "the claim to be human, made with the plainest act available", "reply": "Yes. He said it before the march: they were not going to the tank because the water was different. They were going to establish that they were human. Two doctorates, the bar, and the whole of his learning bent to the simplest possible act, a hand in a tank, because the simplest act is the one that cannot be argued with. Every collective in this series has a first drink. This is the one."}, {"label": "Trouble. Twenty injured that night.", "short": "trouble, twenty injured that night", "reply": "Twenty injured, a tank purified, a decade of litigation. He knew the response would come and walked at the front of it. That is not trouble. That is the price he had already decided to pay in the field."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another tank, another custom that has become law and not yet water. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Anant Chitre", "says": "One line for the next tank. Start with I did.", "options": ["I did drink first.", "I did not let the threatened response decide whether we walked.", "I did use everything I had learned for the plainest possible act."]}, "ice": {"question": "One more line, and this one is yours. What in your own life is a resolution on paper that no one has yet drunk from?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the field", "sub": "Your walk to the water, beside his", "paragraphs": ["A field outside Mahad, March 20, 1927. You stood where Ambedkar stood, with thousands behind you who had never drunk from a public tank and a three-year-old resolution in your pocket, and the morning asked you what it asked him. You wrote: {1}", "Before the march, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a sack carried to school every day, two doctorates on a Maharaja's scholarship, and a lifetime of never using their words for himself.", "You refused to let the town's response decide whether the walk happened. Your reason: {3} That refusal is the deferral. Not this morning. Not from the custom in care's voice.", "Your first step: {4} {overlap}", "After the step, the tank was the same tank. Inside, you noticed this: {5}", "Then the town did what towns do, and the years did what years do. Twenty injured, a tank purified, a book burned in December, a decade in court, and a Constitution with an article in it.", "Asked what Ambedkar drank, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. A handful, first, and then thousands.", "He was at the front, and the attack that afternoon came to the conference. A different first step in the same place is still a first step.", "These are his words, or close to them, from the speech before the march. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was a handful of water, drunk first. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to Anant Chitre. Ambedkar did; Chitre organized Mahad and walked the town that morning. Next time, turn to the one who has already been to the tank. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Anant Chitre {n} on this journey. He organized the conference and is the reason there was a field full of people. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the resolution on paper in your own life, as you named it: {ice}", "closing": "The Chavdar tank is still in Mahad and anyone may drink from it. What you carry away is not a Constitution, and it is not him. It is the evidence that when a right was paper you bent down and drank.", "stickerLines": ["Walked with B. R. Ambedkar.", "Mahad, March 20, 1927."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The water\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M70,200 L330,200 L330,320 L70,320 Z\" stroke-width=\"4\"/><path d=\"M84,240 C110,228 136,252 162,240 C188,228 214,252 240,240 C266,228 292,252 316,240\" stroke-width=\"2.4\"/><path d=\"M84,272 C110,260 136,284 162,272 C188,260 214,284 240,272 C266,260 292,284 316,272\" stroke-width=\"1.6\"/><path d=\"M160,140 C176,120 200,116 216,130 C232,144 224,170 200,176 C176,182 152,164 160,140 Z\" stroke-width=\"3\"/><path d=\"M200,176 L200,200\" stroke-width=\"2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

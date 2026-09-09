@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Jordan Pierce, the thirty-first minute</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Jordan Pierce is a composite from The Unquit Athlete, Chapter 1.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "jordan", "title": "Jordan Pierce, the thirty-first minute", "subtitle": "A film room. Eleven months after the ACL. Cleared to play Saturday.", "object": "The brace", "sticker": "The brace.", "footer": "Jordan Pierce is a composite from The Unquit Athlete, Chapter 1.", "arrive": {"heading": "You are standing where Jordan Pierce sat.", "paragraphs": ["She is twenty-seven, a starting central defender, and eleven months ago her knee made a sound in the forty-third minute of a match her team won without her. Eleven months of reconstruction and conditioning. The fitness numbers say ready. The surgeon has signed. Her name is in the lineup for Saturday.", "She is watching film of the match before the injury, and what she sees is a player she can no longer fully access. A woman who stepped into challenges without calculating the contact. Who jumped with both feet committed. Who had not yet learned to be afraid of the thing she was about to do.", "She has just understood something she does not want to tell her coach. The first quit did not happen when the knee gave way. It happened in the eleven months after, in a hundred small protective decisions that calcified into what she has been calling habit and is, more precisely, fear.", "Now Jordan steps aside and you step in. The film, the cleared knee, Saturday and the fear the clearance did not address are hers. Whether you go in fully on Saturday is yours."], "button": "Sit down in the film room"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The screen is paused on a challenge from a year ago. The woman on the screen is you and is not afraid. The brace is in your bag.", "question": "What are you feeling right now?", "placeholder": "Say it as a player who has been cleared, not as one who is fine.", "helper": {"who": "Your coach, in the doorway, who has been trying to explain this to players for seventeen years", "says": "You have been in here an hour. I am not going to ask about the knee. Tell me what you see on that screen.", "options": ["I feel that the knee is fine and something else is not, and it was never on a scan.", "I feel that I have been protecting a joint for eleven months and the protecting has become who I am on the field.", "I feel that the woman on the screen did not know she could be hurt, and I do, and I cannot unknow it."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before Saturday, take an inventory. Not of the knee, and not of Jordan. Of yourself.", "question": "What have you already done, in your own life, that proves you can go back into contact before the contact feels safe?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Your coach", "says": "I can tell you what the player in that chair carries. Eleven months of rehab done perfectly. A reading of forwards so automatic she never had to think about it. A career built on going in fully in moments too fast to calculate. Now you tell me what you carry. Finish one of these.", "options": ["A time I went back in before it felt safe: ", "A time I trusted a thing I had built before it confirmed it was trustworthy: ", "A time I noticed I was protecting instead of competing, and changed it: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the film room is: I will go back in when it feels safe. It sounds like prudence. It is the first quit, extended. Fear releases after re-entry, not before. You do not have to feel ready by Saturday. You only have to refuse to let the feeling decide the going in.", "question": "What is the one reason you will not wait for safe?", "placeholder": "Not a rehab protocol. One reason the fear does not get to schedule Saturday.", "helper": {"who": "Your coach", "says": "It feels safe after. Not before. Tell me why you will not wait for before.", "options": ["Because the eleven months did everything a protocol can do, and the thing that is left is not a protocol problem.", "Because if I wait until it feels safe, I will be waiting on the bench for a feeling that only the field can produce.", "Because the woman on the screen never felt safe either. She felt nothing. She played."]}}, {"n": 4, "name": "One step", "prompt": "Not Saturday. Not the season. One step, small enough to finish in training tomorrow.", "question": "What is it?", "placeholder": "Something you can do in one drill.", "helper": {"who": "Your coach", "says": "One drill tomorrow. What is the smallest full commitment you can make in it?", "options": ["I will go in fully on one challenge in training tomorrow, with the fear present, and not calculate it.", "I will leave the brace in the bag for one drill and find out what the knee actually says.", "I will tell you, out loud, before training: I have been protecting. Watch for it. Call it."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. One challenge was fully committed, or one drill was played without the brace, or the protecting has been named to someone who will call it. Saturday is still Saturday. The fear is still in the room.", "question": "What has changed in you?", "placeholder": "Compare it to the paused screen.", "helper": {"who": "Your coach", "says": "The fear did not leave. What changed?", "options": ["The fear is the same. It has stopped being the one deciding whether I go in.", "I went in once fully and the knee held, and I know that means nothing statistically, and it means everything.", "I named it. A protected player who has named the protecting is already a different player."]}}, {"n": 6, "name": "Time passes", "montage": ["She plays Saturday. The hesitation is visible in the first fifteen minutes. Then, in the thirty-first minute, on a challenge she has no time to calculate, she goes in fully. Not because the fear is gone. Because the moment is real and the calculation is slower than the requirement.", "She finds her coach at the final whistle. The knee is fine, she says. Then: I figured something out in the thirty-first minute. You cannot wait until it feels safe. It feels safe after. Not before.", "The coach writes it down. It is the most precise description she has heard, in seventeen years, of the thing she has been trying to teach."], "question": "Cleared for months. Back in the thirty-first minute. Here is the question the scan cannot answer for you: what put her back into the contact?", "choices": [{"label": "The eleven months of rehab.", "short": "the eleven months of rehab", "reply": "They put her on the field. They did not put her into the contact. The body had been ready for months. Something else had not."}, {"label": "A fast moment with no time to calculate.", "short": "a fast moment with no time to calculate", "reply": "That is where it happened, and the speed mattered. But she had been in fast moments for fifteen minutes and protected through all of them. The thirty-first minute was not faster."}, {"label": "The identity under the fear, stronger than the protection the fear was offering.", "short": "the identity under the fear, stronger than the protection", "reply": "Yes. Rehabilitation is Step One work and it was done perfectly. What put her back in was Step Zero: the player who went in fully, remembered, and trusted before the trust was confirmed. The knowledge built through full contact can only be rebuilt through full contact. It feels safe after. Not before."}, {"label": "Nothing. She just stopped being afraid.", "short": "nothing, she just stopped being afraid", "reply": "She did not stop. She went in with it. That is the entire difference, and the whole chapter."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another clearance that the fear does not honor. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Your coach", "says": "One line for the next thirty-first minute. Start with I did.", "options": ["I did go in before it felt safe.", "I did name the protecting so someone could call it.", "I did trust the thing I built before it proved itself."]}, "ice": {"question": "One more line, and this one is yours. Where in your own life have you been cleared, and are still protecting?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the film room", "sub": "Your thirty-first minute, beside hers", "paragraphs": ["A film room, eleven months after the sound, cleared for Saturday. You sat where Jordan Pierce sat, with a fearless version of yourself paused on the screen and a brace in your bag, and the room asked you what it asked her. You wrote: {1}", "Before Saturday, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was eleven months of rehab done perfectly and a career of going in too fast to calculate.", "You refused to let the feeling schedule the going in. Your reason: {3} That refusal is the deferral. Not until safe. Because safe comes after.", "Your first step: {4} {overlap}", "After the step, the fear was still in the room. Inside, you noticed this: {5}", "Then Saturday did what Saturdays do. Fifteen visible minutes of hesitation and a thirty-first minute with no time to calculate, and a sentence a coach wrote down.", "Asked what put her back into the contact, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["She did this on Saturday, in the thirty-first minute, when the moment was too fast to allow anything else.", "The book does not say what she did about the brace. It says the knee was fine. A different first step in the same place is still a first step.", "She told the coach at the whistle, not before. A different first step in the same place is still a first step."], "stepOverlapFree": "Her first step was the thirty-first minute, and she did not plan it. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to your coach. Jordan did, at the final whistle, and the coach wrote it down. Next time, turn to the one in the doorway. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to your coach {n} on this journey. Jordan's coach had been trying to explain this for seventeen years and finally had the words, from her player. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the place where you have been cleared and are still protecting, as you named it: {ice}", "closing": "The film room is dark. What you carry out is not a clearance, and it is not Jordan. It is the evidence that you know it feels safe after, and you went in anyway.", "stickerLines": ["Walked with Jordan Pierce.", "The thirty-first minute."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The brace\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M140,80 L260,80 L270,170 L200,190 L130,170 Z\" stroke-width=\"4\"/><path d=\"M130,230 L200,210 L270,230 L260,320 L140,320 Z\" stroke-width=\"4\"/><path d=\"M130,170 L130,230 M270,170 L270,230\" stroke-width=\"3\"/><path d=\"M160,120 L240,120 M160,280 L240,280\" stroke-width=\"2\"/><circle cx=\"130\" cy=\"200\" r=\"10\" stroke-width=\"3\"/><circle cx=\"270\" cy=\"200\" r=\"10\" stroke-width=\"3\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

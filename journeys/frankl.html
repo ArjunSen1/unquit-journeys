@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Viktor Frankl, the manuscript in the coat</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from Viktor Frankl's own account in Man's Search for Meaning, paraphrased, and from Unquit: The Oldest Choice. His estate should see the script. A reader from the community before launch.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "frankl", "title": "Viktor Frankl, the manuscript in the coat", "subtitle": "A camp barracks. Winter 1945. The manuscript is gone. A scrap of paper is not.", "object": "The scraps of paper", "sticker": "The scraps.", "footer": "Drawn from Viktor Frankl's own account in Man's Search for Meaning, paraphrased, and from Unquit: The Oldest Choice. His estate should see the script. A reader from the community before launch.", "arrive": {"heading": "You are standing where a doctor stood after his life's work was taken at a gate.", "paragraphs": ["He was a psychiatrist in Vienna with a theory he had been building for a decade: that the primary human drive is not pleasure or power but meaning, and that a person who has a why can bear almost any how. He had written the book. When he was deported with his wife, his parents and his brother, he sewed the manuscript into the lining of his coat.", "At the gate of the first camp, the coat was taken. He was given a dead man's rags instead. In the pocket of the rags was a torn page from a prayer book. The manuscript, the only copy, was gone, and with it, he thought, the thing he had lived for.", "It is now winter 1945. He has survived four camps. His wife, he does not know yet, has not. His parents and brother have not. He is ill with typhus in a barracks in Bavaria, and he has begun, in a fever, to reconstruct the book, on scraps of paper stolen from the camp office, in shorthand, by the light of nothing.", "Now Viktor steps aside and you step in. The barracks, the typhus, the taken manuscript and the scrap of paper are his. What a person does with a why when every how has been removed is yours."], "button": "Lie down in the barracks"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The barracks is dark and the fever is high. Someone near you is dying and someone further away has died. In your hand is a pencil stub and a scrap of paper that was a camp form this morning.", "question": "What are you feeling right now?", "placeholder": "Say it as a man in a fever who has lost the only copy, not as the author of a book in every language.", "helper": {"who": "A fellow prisoner, a doctor from Prague, who has stolen the paper for you", "says": "I took these from the office. I do not know what you are writing. Before you write it, tell me what you feel.", "options": ["I feel that I had a theory about meaning and they took the manuscript at the gate, and I have spent a year finding out whether the theory survives the manuscript.", "I feel the fever and the barracks and the man dying beside me, and I feel that I am about to write a sentence, and I do not know which of those is madness.", "I feel that everything I could be stripped of has been, and I am still choosing what to do with the next hour, and that is the whole of my book."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the first line, take an inventory. Not of the camp, and not of Viktor. Of yourself.", "question": "What have you already done, in your own life, that proves you can choose your response when everything else has been chosen for you?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "The doctor from Prague", "says": "I can tell you what the man in this bunk carries. Four camps survived. A theory about meaning that he has been testing, against his will, in the worst laboratory ever built, and that has held. A pencil stub he has kept for weeks. Now you tell me what you carry. Finish one of these.", "options": ["A time I chose my response when everything else had been chosen for me: ", "A time I kept a why when every how had been removed: ", "A time I began rebuilding a thing that was taken, from nothing, without knowing if I would finish: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the barracks is: the work was in the coat, and the coat is gone, so the work is gone. It sounds like fact. It is the gate speaking, a year later. You do not have to finish the book tonight. You only have to refuse to let the gate decide whether it exists.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a plan for after. One reason the coat does not get the vote.", "helper": {"who": "The doctor from Prague", "says": "They took the paper. Tell me why they did not take the book.", "options": ["Because the book was about meaning, and I have spent a year in the place designed to remove it, and the meaning is still here. That is the book. The manuscript was only where I had written it down.", "Because the last freedom is the choice of how to respond, and no one has taken that, and writing a line on a stolen scrap is that freedom, exercised.", "Because there is a torn page from a prayer book in my pocket that was in a dead man's rags, and I have decided to read it as instruction."]}}, {"n": 4, "name": "One step", "prompt": "Not the book. Not liberation, which is weeks away and no one knows. One step, small enough to finish before the fever takes the light.", "question": "What is it?", "placeholder": "Something a man can do with a pencil stub and a scrap.", "helper": {"who": "The doctor from Prague", "says": "You have paper for one night. What is the smallest thing you can write?", "options": ["I will write one sentence of the book, the one I remember best, in shorthand, and put the scrap inside my shirt.", "I will write down what I have seen this year that proves the theory, in as few words as the scrap allows.", "I will write the name of the first chapter and nothing else, so that the book exists again as a title, and go to sleep."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. One sentence is inside your shirt, or a scrap of evidence is, or a title is. The typhus is the typhus. The manuscript is still in a pile somewhere, or burned. Your wife, you do not know.", "question": "What has changed in you?", "placeholder": "Compare it to the gate.", "helper": {"who": "The doctor from Prague", "says": "The camp is the same camp. What changed in the bunk?", "options": ["The book exists again. One sentence of it. That is more than existed this morning.", "I wrote down what I have seen and it is worse than the theory and the theory survived it. I know now that it is true.", "I have a title inside my shirt and a fever, and I have decided to survive the fever, because there is a chapter to write. That is a why. The theory said it would work like this."]}}, {"n": 6, "name": "Time passes", "montage": ["He survives the typhus, partly, he says, because he had a book to finish. The camp is liberated in April. He learns that his wife died in another camp weeks earlier, and that his mother, father and brother are dead. He goes back to Vienna alone.", "In nine days, in 1946, he dictates the book from the scraps and from memory. He calls it Man's Search for Meaning. It has been translated into fifty languages and has sold more than sixteen million copies. It says that everything can be taken from a person but one thing: the last of the human freedoms, to choose one's attitude in any given set of circumstances.", "He wrote it in a coat. It was taken at a gate. He wrote it again on stolen scraps in a fever, in the place built to prove it wrong."], "question": "The manuscript taken, the book rewritten in a fever. Here is the question sixteen million copies cannot answer for you: what did they take at the gate?", "choices": [{"label": "His life's work.", "short": "his life's work", "reply": "They took the manuscript. The work turned out to be somewhere else, and he spent a year finding out where."}, {"label": "Everything.", "short": "everything", "reply": "Nearly. His wife, his parents, his brother, his home, his name, his clothes, the paper his ideas were written on. The book is about what the nearly is made of."}, {"label": "Only the paper. The last freedom was never in the coat.", "short": "only the paper, the last freedom was never in the coat", "reply": "Yes. The book he lost at the gate argued that the primary human drive is meaning, and that a person who has a why can bear almost any how. The camp was the test, run against his will, and he passed it in a fever on stolen scraps. What they took was where the idea was written. The idea was in the choosing, and the choosing was the one thing the gate could not confiscate. This is continuation through grief at the far edge of what a human being can carry, and it was carried."}, {"label": "Nothing. He was lucky to survive.", "short": "nothing, he was lucky to survive", "reply": "Survival in those camps had luck in it, and he said so, and refused to make his survival a moral. What was not luck was the pencil stub, kept for weeks, and the sentence written in a fever."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another gate, and something taken from the lining of your coat. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "The doctor from Prague", "says": "One line for the next gate. Start with I did.", "options": ["I did write the sentence again on a stolen scrap.", "I did not let the gate decide whether the work existed.", "I did choose my response when every other choice had been taken."]}, "ice": {"question": "One more line, and this one is yours. What was taken from the lining of your own coat, and where is the scrap of paper?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the barracks", "sub": "Your scrap of paper, beside his", "paragraphs": ["A camp barracks in Bavaria, winter 1945, a fever and a pencil stub. You lay where Viktor Frankl lay, with the only copy of your life's work gone at a gate a year before, and the dark asked you what it asked him. You wrote: {1}", "Before the first line, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was four camps survived and a theory about meaning tested in the worst laboratory ever built.", "You refused to let the gate decide whether the work existed. Your reason: {3} That refusal is the deferral. Not tonight. Not on the gate's word.", "Your first step: {4} {overlap}", "After the step, the typhus was the typhus. Inside, you noticed this: {5}", "Then the spring did what the spring did. Liberation. A wife and parents and brother learned dead. Vienna alone. Nine days of dictation from scraps, and a book in fifty languages that says everything can be taken but one thing.", "Asked what they took at the gate, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. The reconstruction on stolen scraps in shorthand, during typhus, is his own account.", "The book he dictated in 1946 is exactly this: what he saw, and what it proved. A different first step in the same place is still a first step.", "He said the book gave him a reason to survive the fever. Whether he began with a title, he does not say. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was a sentence in shorthand on a stolen scrap. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to the doctor from Prague. Frankl wrote that fellow prisoners kept him alive more than once, and the paper came from somewhere. Next time, turn to the one who stole the paper. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to the doctor from Prague {n} on this journey. Frankl was clear that no one survived those places alone. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thing taken from the lining of your own coat, as you named it: {ice}", "closing": "The camp is a memorial. The book is in every language. What you carry out of the barracks is not the book, and it is not him. It is the evidence that when everything else was taken you chose your response, and wrote it on a scrap.", "stickerLines": ["Walked with Viktor Frankl.", "A barracks in Bavaria, winter 1945."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The scraps\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M110,140 L200,124 L206,190 L118,206 Z\" stroke-width=\"3\"/><path d=\"M190,200 L290,190 L296,260 L196,270 Z\" stroke-width=\"3\"/><path d=\"M130,230 L210,236 L206,290 L126,284 Z\" stroke-width=\"3\"/><path d=\"M126,160 L184,150 M128,178 L170,170\" stroke-width=\"1.2\"/><path d=\"M208,218 L270,212 M210,236 L256,232 M212,252 L270,248\" stroke-width=\"1.2\"/><path d=\"M144,252 L192,256 M144,268 L176,270\" stroke-width=\"1.2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

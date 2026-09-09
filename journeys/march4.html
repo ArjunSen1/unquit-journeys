@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Arjun Sen, March 4th</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. From Unquit Forever and Already, by Arjun Sen. This journey visits the hardest hour of a real life. It does not visit how that hour might have ended. If every door looks closed for you tonight, in the United States you can call or text 988.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "march4", "title": "Arjun Sen, March 4th", "subtitle": "A mountain road outside Boulder. Half past five. Every door closed.", "object": "The U-turn", "sticker": "The U-turn.", "footer": "From Unquit Forever and Already, by Arjun Sen. This journey visits the hardest hour of a real life. It does not visit how that hour might have ended. If every door looks closed for you tonight, in the United States you can call or text 988.", "arrive": {"heading": "You are standing where Arjun Sen stood.", "paragraphs": ["In September he coughed blood in the middle of a presentation. Three doctors and five nurses told him he might not see Christmas. He did the arithmetic on the back of a report: fewer than a hundred days. He walked out, mailed his own case to every cancer center he could find, and flew to New York with a cashier's check for everything he owned. In the memo line he wrote FOR LIFE.", "Then the doors began to close, one after another. Half pay. No pay. Fired the day before Thanksgiving by a man who said the company wanted him to focus on his health. No job meant no insurance. The loan he took to pay for New York had doubled the mortgage. Chemotherapy at five in the morning. Separated from his wife. And in the middle of it, a phone call from Kolkata: Maiji, his grandmother, the North Star of his whole life, had died, and he could not go to the funeral and could not tell his father why.", "One night that winter he wrote a sentence on a post-it and stuck it to the bathroom mirror, then scratched out the first half and left only the end. He made two lists of the people who mattered. He picked a date. He flew to Kolkata to see his parents, to Mumbai to see his brother, to Miami to see his cousin. He gave Trey and Sudip framed photographs. He gave his three-year-old daughter a snow globe with a father and daughter dancing inside it, and when he said goodbye she asked if he was going to Disney World.", "It is March 4th. He cleaned every drawer last night. This morning he put on his favorite pink golf shirt, wiped the dust off Maiji's picture, sat on his daughter's bed among her sleeping toys, typed an email to a company that no longer employed him and deleted it, and booked a ninety-minute massage because if not now, when. He ate a slice of pizza and pulled the cheese. He sat outside his daughter's school and did not go in. He drank a latte on Pearl Street and watched people who had somewhere to be.", "At half past five he started driving. There has been an accident ahead. The road is one lane, the traffic is not moving, and the phone on the passenger seat has just rung once. He looked at the name and ended the call.", "Now Arjun steps aside and you step in. The car, the jam, the closed doors and the phone are his. He had decided there was nothing else to try. Whether you pick up when it rings again is yours."], "button": "Sit in the car"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The hazard lights of the car ahead blink on the windshield. The heater is on. The phone is face down on the seat. It has been quiet for two minutes and you have started to believe it will stay quiet.", "question": "What are you feeling right now?", "placeholder": "Say it the way you have not said it to anyone on the farewell tour.", "helpLabel": "It rings again. Answer it.", "helper": {"who": "Nancy, your nurse from New York, on the phone", "says": "Arjun, you hung up on me? Really? No one hangs up on me. Do not tell me you are fine. Tell me what it is.", "options": ["I feel that every door I know of is closed, and I have stopped looking for the ones I do not know.", "I feel finished, and finished is quieter than I expected it to be.", "I feel that I have already said goodbye to everyone, so there is nothing left in my hands to hold."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before anything is decided, take an inventory. Not of the doors that closed. Not of the man in the driver's seat. Of yourself.", "question": "What have you already done, in your own life, that proves you can find a door no one has shown you?", "placeholder": "One thing you did. Not one thing you believe.", "fillIn": true, "helpLabel": "Keep her on the line.", "helper": {"who": "Nancy", "says": "I can tell you what the man in that car carries. He walked out of a hospital that gave him a hundred days and mailed his own case to every cancer center in the country. He wrote FOR LIFE on a check for everything he had. He got fired and negotiated his own severance from three months to six in the same hour, with a woman he could not stand. Now you tell me what you carry. Finish one of these.", "options": ["A time I asked the question no one in the room was asking: ", "A time I bet everything I had on a door I could not yet see: ", "A time I went to work the morning after the worst news of my life: "]}}, {"n": 3, "name": "The deferral", "prompt": "The sentence tonight is: there is nothing else to try. It sounds like a conclusion. It is exhaustion in the shape of a conclusion. You do not have to disprove it. You only have to refuse to let it be decided in a traffic jam at half past five, at the end of a farewell tour.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a plan for the doors. One reason to wait for the morning.", "helpLabel": "Let her finish.", "helper": {"who": "Nancy", "says": "Listen to me. You are a survivor and not a quitter, and with your luck you will fail at whatever you are planning tonight and be known as the man who failed at both. Give me one reason to wait until morning.", "options": ["Because I have believed there was nothing else to try once before, in a dark house with the blinds down, and a three-year-old climbed on the couch and opened them.", "Because there is someone on the phone, and a man with someone on the phone does not get to say he is alone.", "Because a decision made at the end of a farewell tour is the tour talking. Nobody who has just said goodbye to everyone is thinking clearly."]}}, {"n": 4, "name": "One step", "prompt": "The traffic still is not moving. Not a plan for the job, the insurance or the mortgage. You do not have one and you will not have one tonight. One step, small enough to finish before the lane opens.", "question": "What is it?", "placeholder": "Something you can do from the driver's seat.", "helpLabel": "Ask her.", "helper": {"who": "Nancy", "says": "Where are you exactly? Forget the doors. What can you do with the car you are sitting in?", "options": ["I will put the hazards on and turn the car around. It will take five tries in this traffic. I will take five.", "I will say the whole list out loud to her. Job, insurance, mortgage, Maiji. All of it, to one person.", "I will drive back to Boulder, fill the tank, and call her from the gas station. Nothing more than that tonight."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The car is facing the other way, or the list has been said out loud, or there is a gas station ahead with a phone call waiting at it. Every door is exactly where it was at half past five.", "question": "What has changed in you?", "placeholder": "Compare it to the two quiet minutes before the phone rang again.", "helpLabel": "Tell her.", "helper": {"who": "Nancy", "says": "Are you still there? What is different?", "options": ["For the first time in months I am not alone. And I am afraid again. The fear is how I know I am back.", "The headwind is the same wind. I turned the car, and now it is behind me.", "Nothing about my life changed in the last ten minutes. Every door is where it was. I am facing the other way."]}}, {"n": 6, "name": "Time passes", "montage": ["Nancy stays on the line down the mountain. She sends you to a hotel in Boulder where a young nurse she once trained is waiting in the lobby because Nancy asked her to be. You eat tomato soup with a stranger at midnight and write a plan on deli napkins. Nancy takes a red-eye from New York. In the morning she gets out of a cab and, before a word, smacks you on the cheek for hanging up, then again for the red-eye, and then pulls you into a hug for the U-turn. At breakfast she tells you why there are pink ribbons on her wheelchair. Each one is a patient she lost. I do not want you to be a ribbon, she says.", "That afternoon you walk into the office of the CEO who let you go and say the only thing you need: I really need health insurance. He says, then come back and work with us. You start the same day. Within months you have named a bagel brand that the whole country will know.", "Twenty-one surgeries follow. More than ten thousand days follow. A book. A marathon. A word that did not exist. Every door that opened in the twenty years after this night opened after the U-turn, and not one of them could have opened before it."], "question": "Every door was closed. So here is the question the years cannot answer for you: what opened?", "choices": [{"label": "The phone.", "short": "the phone", "reply": "The phone rang twice and was answered once. A phone does not open a door. A person picking it up the second time does."}, {"label": "A door no one had shown you. The CEO's office.", "short": "a door no one had shown you", "reply": "That door was open the whole time. It looked closed because you had stopped walking toward doors. Scott said it himself: every question you do not ask is a guaranteed no."}, {"label": "Nothing. The doors stayed closed. You turned around.", "short": "nothing, the doors stayed closed and you turned around", "reply": "Yes. Not one door opened that night. The job, the insurance, the mortgage, Maiji, all exactly as they were at half past five. What changed was the direction of the car. The headwind became a tailwind because a man turned, not because the wind did. Every door in this story opened after that. None could have opened before."}, {"label": "Your eyes.", "short": "your eyes", "reply": "Also true, and it is what he wrote on a napkin at breakfast the next morning: my world is exactly the same today as it was yesterday. The only difference is my mind. That may be the oldest Unquit sentence in this whole series."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another night when every door looks closed. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helpLabel": "One more thing, Nancy says.", "helper": {"who": "Nancy", "says": "Give me the sentence you want to read the next time every door looks closed. Start it with I did.", "options": ["I did pick up the phone the second time.", "I did turn the car around while every door was still closed.", "I did let one person hear the whole list."]}, "ice": {"question": "One more line, and this one is yours. Which door in your own life looks closed right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the traffic jam", "sub": "Your U-turn, beside his", "paragraphs": ["March 4th, half past five, a mountain road with an accident ahead. You sat where Arjun Sen sat, with every door he knew of closed and a phone face down on the seat, and the hour asked you what it asked him. You wrote: {1}", "Before anything was decided, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a check that said FOR LIFE, a case mailed to every cancer center in the country, and a severance he argued from three months to six in the same hour he was fired.", "You refused to let a traffic jam at the end of a farewell tour decide. Your reason: {3} That refusal is the deferral. Not tonight. Not from this exhaustion.", "Your first step: {4} {overlap}", "After the step, every door was exactly where it had been. Inside, you noticed this: {5}", "Then time did what it does when a car is pointed the other way. A stranger in a hotel lobby, soup at midnight, a red-eye, two smacks and a hug, a plan on a napkin, a CEO who said come back, and more than ten thousand days.", "Asked what opened that night, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. Hazards on, five tries, the oncoming traffic stopped completely, and then he was heading downhill with Nancy on the speaker asking if he was still there.", "He did this too, on the way down the mountain. The whole list to one person. Nancy said she was overwhelmed just hearing it, and that life would not have chosen him for it if he could not carry it.", "That was Nancy's instruction, and he followed it: Baseline and Foothills, fill the tank, call me. A different first step in the same traffic jam is still a first step."], "stepOverlapFree": "His first step was a U-turn with the hazards on. Five tries. Then the whole list said out loud to one person on the way down the mountain. A different first step in the same traffic jam is still a first step.", "help": {"zero": "You did not answer the phone. Arjun did, the second time it rang, and he has never fully explained why. Everything after that night depended on it. Next time, pick up. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You answered the phone and kept Nancy on the line {n}. Arjun hung up once and picked up the second time, and everything after depended on it. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the door in your own life that looks closed, as you named it: {ice}", "closing": "The doors did not open that night. They opened later, one by one, to a man who was facing them again. What you carry off that road is not a plan, because there was none, and it is not Arjun. It is the evidence that with every door closed you turned the car around.", "personalNote": {"from": "A note from Arjun", "text": "This one is mine. I was the man in the car, and I hung up on Nancy, and she called back. I have never been able to explain why I picked up the second time. I have stopped needing to. What I know is that not one door opened that night, and every door that opened in the twenty years since opened after I turned the car, and none of them could have opened before. You just made that turn for me again, in your own words, on a night that was not yours. Thank you for showing me one more time that there is always a way. I wish I had had you in my Unquit Circle on March 4th. Now, in a way, I do."}, "stickerLines": ["Walked with Arjun Sen.", "March 4th, half past five."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The U-turn\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <path d=\"M150,340 L150,160 C150,96 250,96 250,160 L250,300\" stroke-width=\"5\"/>\n  <path d=\"M214,266 L250,306 L286,266\" stroke-width=\"5\"/>\n  <path d=\"M120,346 C132,354 168,354 180,346\" stroke-width=\"2\"/>\n  <path d=\"M150,340 L150,352\" stroke-width=\"5\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

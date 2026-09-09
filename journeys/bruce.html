@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Robert the Bruce and the spider, told by Maiji</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. The Bruce and the spider is a legend, first written down centuries after his death, and the journey says so. The frame is Maiji telling it to Arjun on a verandah in Kolkata, from Unquit Forever.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "bruce", "title": "Robert the Bruce and the spider, told by Maiji", "subtitle": "A verandah in Kolkata, and a cave on a Scottish island. Winter 1306. Six defeats.", "object": "The web", "sticker": "The web.", "footer": "The Bruce and the spider is a legend, first written down centuries after his death, and the journey says so. The frame is Maiji telling it to Arjun on a verandah in Kolkata, from Unquit Forever.", "arrive": {"heading": "You are standing where a defeated king hid, and a grandmother is telling you about it.", "paragraphs": ["Maiji told it with her hands. A king, she said, not a great one yet. Crowned in the spring, beaten in the summer, beaten again, his brothers captured and killed, his wife and daughter taken, his army scattered. By winter he is hiding in a cave on an island off the coast with a handful of men and nothing else. Six times he has fought the English and six times he has lost.", "He is lying on his back in the cave. Above him a spider is trying to fix a thread from one rock to another so that it can begin a web. The distance is too far. It falls. It climbs back and tries again. It falls. He counts. Six.", "The story is a legend. No one wrote it down for five hundred years. Maiji did not care and neither should you. What she cared about was the seventh attempt, and the fact that a man watching a spider had already made six of his own.", "Now the king steps aside and you step in. The cave, the six defeats, the spider on its sixth fall and the winter are his. Maiji is on the verandah. Whether the spider gets a seventh is yours."], "button": "Lie down in the cave"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The cave floor is wet. Your men are asleep or pretending. The spider has fallen for the sixth time and is climbing back up the rock face, slowly, the way a thing does when it has done this before.", "question": "What are you feeling right now?", "placeholder": "Say it as a king in a cave, not as a name on a monument.", "helper": {"who": "Maiji, on the verandah, pausing the story", "says": "Wait. Before I tell you what he did, tell me what you would feel, lying there, having lost six times. That is the part of a story worth anything.", "options": ["I feel that six defeats is not bad luck. It is a verdict, and the spider is about to confirm it.", "I feel that I am a king lying in a cave watching an insect because there is nothing else in Scotland I am allowed to look at.", "I feel that if the spider falls a seventh time I will take it as a sign, and I am ashamed of a king who needs a spider."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the seventh attempt, take an inventory. Not of the armies, and not of the king. Of yourself.", "question": "What have you already done, in your own life, that proves you can go a seventh time after six defeats?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Maiji", "says": "I will tell you what he carried, and then you tell me what you carry, because that is how the stories work. He had been crowned with his own hands when no one would do it for him. He had lost brothers and kept fighting. He was still alive, in a cave, in winter, with men who had not left. Now finish one of these.", "options": ["A time I went a seventh time after six defeats: ", "A time I kept the people around me when everyone else had left: ", "A time I counted my failures honestly and did not let the count decide: "]}, "fillIn": true, "helpLabel": "Ask Maiji what he carried."}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the cave is: six defeats have decided it. It sounds like arithmetic. It is a cold cave doing sums. You do not have to decide the fate of Scotland tonight. You only have to refuse to let the sixth defeat decide whether there is a seventh attempt.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a battle plan. One reason the count does not get the vote.", "helper": {"who": "Maiji", "says": "Arjun, the spider did not know it had fallen six times. It only knew the rock. Tell me why he did not decide that night.", "options": ["Because six is a number and a number does not know what the seventh will be.", "Because my men are still in the cave, and a man with men in the cave has not been decided.", "Because the spider is climbing back up. The spider has not decided. I am not going to be out-decided by a spider."]}, "helpLabel": "Let Maiji explain."}, {"n": 4, "name": "One step", "prompt": "Not the crown. Not Bannockburn, which is eight years away and does not exist. One step, small enough to finish in a cave in winter.", "question": "What is it?", "placeholder": "Something a king can do lying on his back.", "helper": {"who": "Maiji", "says": "He did not raise an army that night. What do you think he did first?", "options": ["I will watch the spider try a seventh time, and whatever it does, I will get up in the morning and gather the men.", "I will send one man across the water to find out who is still with us. One. Tonight.", "I will say the word out loud in the cave, to no one: again."]}, "helpLabel": "Ask her what he did first."}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The spider has tried a seventh time, or a man is rowing across the water in the dark, or a word has been said to a wet cave. The defeats are still six. The English are still in Scotland.", "question": "What has changed in you?", "placeholder": "Compare it to the sixth fall.", "helper": {"who": "Maiji", "says": "The cave is the same cave. Tell me what changed in him, and in you.", "options": ["The spider made it. I know that means nothing. I know it means everything. Both are true and I am getting up.", "I said again. It is a small word. It is the only one that mattered tonight.", "Six defeats are the same six. They have stopped being the last thing that happened."]}, "helpLabel": "Tell Maiji."}, {"n": 6, "name": "Time passes", "montage": ["The spider fixes its thread on the seventh attempt and begins the web. The king gets up. In the spring he crosses back to the mainland and begins again, not with battles but with raids, patience and years. It takes eight of them.", "In June 1314, at Bannockburn, his army destroys an English force twice its size. Scotland is his. He rules for fifteen more years and dies in his bed, which for a king of that century is its own kind of victory.", "No one wrote down the spider for five hundred years. Maiji told it anyway, on a verandah, to a boy who would need it, and she did not once say whether it was true. She said: if at first you do not succeed, try, try, try again. Then she said the important part. He had already tried six times. The story is not about the seventh. It is about a man who had six in him and did not know it."], "question": "Six defeats, a spider, a seventh. Here is the question the legend cannot answer for Maiji: what did the spider teach him?", "choices": [{"label": "To try again.", "short": "to try again", "reply": "That is the line everyone knows, and Maiji said it, and then she said it was not the point. Try again is advice. Advice does not get a king out of a cave."}, {"label": "Nothing. It is a legend.", "short": "nothing, it is a legend", "reply": "It is a legend, written down five centuries later. Maiji knew that and told it anyway, because the truth of a story is not always in whether it happened."}, {"label": "That he had already done six times what he was about to admire a spider for doing once more.", "short": "that he had already done six times what he was about to admire a spider for doing once more", "reply": "Yes. That is what Maiji told the boy, and it is the whole of Step Zero. The spider did not teach him anything he had not already done. It showed him. He lay in a cave counting a spider's failures and did not notice he was counting his own continuations. Every one of those six defeats was a man who got up afterward. He was already the spider. He needed to see it."}, {"label": "Patience.", "short": "patience", "reply": "Eight years of it, after the cave. Patience is what the seventh attempt looked like from outside. From inside it was a man who had decided, once, in a cave, and did not need to decide again."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another cave, another sixth defeat, another spider. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Maiji, finishing the story", "says": "Now, before you sleep, tell me the one thing you will keep from this. Start with I did.", "options": ["I did count my defeats and notice they were also my continuations.", "I did say again in the cave.", "I did get up in the morning and gather the men."]}, "helpLabel": "One more from Maiji.", "ice": {"question": "One more line, and this one is yours. How many times have you already climbed back up the rock, and have you counted them?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the cave and on the verandah", "sub": "Your sixth defeat, beside his", "paragraphs": ["A cave on a Scottish island in the winter of 1306, and a verandah in Kolkata. You lay where a defeated king lay, with a spider on its sixth fall above you, and a grandmother paused the story to ask what you felt. You wrote: {1}", "Before the seventh attempt, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a crown put on with his own hands, brothers lost and a fight kept, and men who had not left the cave.", "You refused to let the sixth defeat decide the seventh attempt. Your reason: {3} That refusal is the deferral. Not tonight. Not from a cold cave doing sums.", "Your first step: {4} {overlap}", "After the step, the defeats were still six. Inside, you noticed this: {5}", "Then eight years did what eight years do when a man has decided once in a cave. Raids, patience, Bannockburn, fifteen years of a crown, and a death in bed. And a grandmother who told the story without once saying whether it was true.", "Asked what the spider taught him, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["This is the legend. He watched the seventh attempt and got up in the morning.", "The record has him gathering support through the winter and spring of 1307 from the western isles. A different first step in the same place is still a first step.", "Maiji would say of course he did. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was to watch the seventh attempt and get up. A different first step in the same place is still a first step.", "help": {"zero": "You did not ask Maiji on this journey. Arjun did, and she told him this story more than once, and the second time was on a phone to a hospital. Next time, ask the one who has the story. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You asked Maiji {n} on this journey. She told this one with her hands, and never said whether it was true, and it worked anyway. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the times you have already climbed back up the rock, as you counted them: {ice}", "closing": "The cave is on an island no one can agree on, and the spider was never written down for five centuries. What you carry out is not a crown, and it is not the king, and it is not even Maiji. It is the evidence that you had already done six times what you were about to admire a spider for doing once.", "stickerLines": ["Walked with Robert the Bruce, and with Maiji.", "A cave in winter, 1306. A verandah in Kolkata."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The web\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M80,120 L320,120\" stroke-width=\"3\"/><path d=\"M200,120 L200,330\" stroke-width=\"1.2\"/><path d=\"M200,120 L110,300 M200,120 L290,300 M200,120 L60,220 M200,120 L340,220\" stroke-width=\"1.2\"/><path d=\"M170,180 C190,172 210,172 230,180 M150,220 C180,208 220,208 250,220 M130,262 C170,246 230,246 270,262\" stroke-width=\"1\"/><path d=\"M60,220 C100,206 140,224 170,180 M340,220 C300,206 260,224 230,180\" stroke-width=\"1\"/><circle cx=\"215\" cy=\"256\" r=\"6\" fill=\"#8e1b1b\" stroke=\"none\"/><path d=\"M215,256 L225,248 M215,256 L227,258 M215,256 L224,266 M215,256 L205,248 M215,256 L203,258 M215,256 L206,266\" stroke-width=\"1.4\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

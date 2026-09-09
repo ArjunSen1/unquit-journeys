@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Elena Rodriguez, the last Tuesday</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Elena Rodriguez and Marisol are composites from Chapter One of The Unquit Stories.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "elena", "title": "Elena Rodriguez, the last Tuesday", "subtitle": "A parking garage in San Antonio. Tuesday evening. Nineteen years in.", "object": "The bird drawing", "sticker": "The drawing.", "footer": "Elena Rodriguez and Marisol are composites from Chapter One of The Unquit Stories.", "arrive": {"heading": "You are standing where Elena Rodriguez stood.", "paragraphs": ["She has been an immigration attorney for nineteen years, and she has never lost a case the way she lost this one. Losing is part of the work. You learn that in the first year or you leave. She learned it, and built what she calls a structured grief: you feel it, and then you file the next brief.", "Diego Herrera was different. Forty-one, a construction foreman, twenty-two years in the country, three daughters born in San Antonio, taxes paid every year, never a parking ticket, a green card application that should have taken eighteen months and took four years and was denied this afternoon on a technicality that changed while the file sat in a drawer.", "In her own desk drawer, under a folder of case files, is a drawing of a bird that Diego's youngest daughter, Lucia, made at their first meeting because she was nervous and that is what she does when she is nervous. Elena has kept it for four years. She has never displayed it. She has never mentioned it.", "She is in the parking garage with the engine off, and she has just called her sister and said the two words she has said before and never meant: I am done. This time she means it.", "Now Elena steps aside and you step in. The garage, the denial, the nineteen years and the phone are hers. Whether Lucia's family hears from their lawyer tomorrow is yours."], "button": "Sit in the car"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The garage is nearly empty. The phone is against your ear and your sister has gone quiet on the other end, waiting. The denial is in the passenger seat in a manila envelope.", "question": "What are you feeling right now?", "placeholder": "Say it to your sister, not to the bar association.", "helper": {"who": "Marisol, your sister, on the phone", "says": "You have said I am done before. Before I tell you what I think of it, tell me what you actually feel right now.", "options": ["I feel that I have been tired for three years and today the tiredness finally found a case it could win.", "I feel that a good man did everything right for twenty-two years and I could not protect him from a drawer.", "I feel like I am about to walk away from nineteen years and the only thing stopping me is a child's drawing in my desk that I have never looked at on purpose."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about the work, take an inventory. Not of the case, and not of Elena. Of yourself.", "question": "What have you already done, in your own life, that proves you can lose and file the next brief?", "placeholder": "One thing you did. Not one thing you believe.", "fillIn": true, "helper": {"who": "Marisol", "says": "I can tell you what my sister carries. Nineteen years in a practice where the odds are never in her favor. Hundreds of losses she felt and did not let destroy her. A membrane she built that was never detachment, because she watched what detachment does to clients. And a drawing kept for four years by a woman who says she does not keep things. Now you tell me what you carry. Finish one of these.", "options": ["A time I lost, felt it fully, and filed the next brief anyway: ", "A time I kept caring in a system designed to reward not caring: ", "A time I kept something for years without knowing why, and then found out: "]}}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the garage is: I am done. It sounds like a decision made after nineteen years. It is a decision made after one afternoon. You do not have to answer whether you are still a lawyer tonight. You only have to refuse to let the worst denial of your career decide the career.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a reason to stay in the law. One reason to wait until tomorrow.", "helper": {"who": "Marisol", "says": "You are not done. You are tired. They are different things, and you know it. Tell me why you will wait until you can tell them apart.", "options": ["Because tired and done feel identical in a parking garage at six o'clock and are not identical in the morning.", "Because Diego has a family who has not heard from me yet, and I do not quit on a client through silence.", "Because I have said this before and been wrong, and the evidence of my own mouth deserves a night's sleep before I believe it."]}}, {"n": 4, "name": "One step", "prompt": "The garage lights will go off at eight. Not the appeal. Not the rest of your career. One step, small enough to finish before the lights.", "question": "What is it?", "placeholder": "Something you can do from a parked car with a phone and a drawer at the office.", "helper": {"who": "Marisol", "says": "You do not have to decide about the law tonight. What is the smallest thing a lawyer who has not quit does before she goes home?", "options": ["I will hang up with you and call the family. Not with a plan. To tell them the decision came and I have read it and we will talk tomorrow.", "I will go back upstairs, open the drawer, and look at the drawing on purpose for the first time in four years.", "I will read the denial once more, not as the lawyer who lost, but as the lawyer who will file the appeal, and find one sentence in it that is wrong."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The family has heard your voice, or the bird is on the desk in the light, or there is one wrong sentence underlined in the denial. The case is still lost tonight. The nineteen years are still heavy.", "question": "What has changed in you?", "placeholder": "Compare it to I am done.", "helper": {"who": "Marisol", "says": "The denial is the same denial. What is different in the car?", "options": ["I am still tired. I am no longer done. My sister was right, and I hate that.", "The drawing has been holding something up for four years without my looking at it. Now I know what.", "I found one sentence in the denial that is wrong. One is enough to start."]}}, {"n": 6, "name": "Time passes", "montage": ["Before she can start the car, the phone rings. It is not Diego. It is Lucia, who is eleven now, and who has been told the news, and who has called the lawyer's cell phone herself to say that Elena was the bravest person in their story, and thank you.", "The drawing is still in the drawer. She has always known where it was. She says to her sister, carefully: tell Lucia that we are not finished yet.", "The appeal is filed. The book does not say how it ends. It says that on a Tuesday, in a parking garage, a woman who had said I am done found out what her drawer had been holding up."], "question": "She kept a child's drawing for four years without looking at it. Here is the question the appeal cannot answer for you: what was the drawing holding up?", "choices": [{"label": "The case.", "short": "the case", "reply": "The case was held up by briefs and filings. A drawing in a drawer does not move a court. It moves the person who has to go back to court."}, {"label": "Her career.", "short": "her career", "reply": "Closer. Nineteen years is a long time to carry a structured grief, and something has to carry it. But a career is a container, and this series has said what happens when you confuse the container for the thing."}, {"label": "The reason. The thing the exhaustion had covered.", "short": "the reason, the thing the exhaustion had covered", "reply": "Yes. A nervous child drew a bird at a first meeting, and a lawyer who says she does not keep things kept it under a folder for four years because some part of her knew it was load-bearing before her thinking did. The drawing is the drawer. Everyone who lasts in hard work has one. Know where yours is before the Tuesday you need it."}, {"label": "Nothing. It was a drawing.", "short": "nothing, it was a drawing", "reply": "It was a drawing, and she never displayed it or mentioned it, and she always knew where it was. Things we never look at and never lose are not nothing. They are the things holding up the floor."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another Tuesday, another garage, and the same two words. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Marisol", "says": "One line for the next time you tell me you are done. Start with I did.", "options": ["I did tell tired from done, and I waited until morning to be sure.", "I did call the family before I decided anything about myself.", "I did know where the drawing was."]}, "ice": {"question": "One more line, and this one is yours. What is in your own drawer, under the folders, that you have never looked at on purpose?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the parking garage", "sub": "Your Tuesday, beside hers", "paragraphs": ["San Antonio, a Tuesday evening, nineteen years in. You sat where Elena Rodriguez sat, with a denial in the passenger seat and your sister silent on the phone, and the evening asked you what it asked her. You wrote: {1}", "Before anything was decided, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was nineteen years of losing without detaching, and a drawing kept by a woman who does not keep things.", "You refused to let one afternoon decide nineteen years. Your reason: {3} That refusal is the deferral. Not tonight. Not while tired and done still feel the same.", "Your first step: {4} {overlap}", "After the step, the case was still lost tonight. Inside, you noticed this: {5}", "Then the phone rang, and it was an eleven-year-old who had drawn a bird four years earlier, calling to say thank you. Tell Lucia, she said to her sister, that we are not finished yet.", "Asked what the drawing was holding up, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["She did nearly this. She was reaching for the phone to call the client when the client's daughter called her first.", "She did not need to open the drawer. She had always known where it was, and that night she said so out loud. A different first step in the same garage is still a first step.", "The appeal was filed. Whether it began with one wrong sentence, the chapter does not say. A different first step in the same garage is still a first step."], "stepOverlapFree": "Her first step was to say, out loud, to her sister, that they were not finished yet. A different first step in the same garage is still a first step.", "help": {"zero": "You did not stay on the line with Marisol. Elena did, and Marisol said the one sentence that mattered: you are not done, you are tired, they are different things. Next time, stay on. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You stayed on the line with Marisol {n} on this journey. She is the one who said tired and done are different things, and Elena has never forgotten it. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thing in your own drawer, as you named it: {ice}", "closing": "The garage empties every evening at six. What you carry out is not a verdict, and it is not Elena. It is the evidence that you can tell tired from done, and that you know where your drawing is.", "stickerLines": ["Walked with Elena Rodriguez.", "San Antonio, the last Tuesday."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The drawing\">\n<g transform=\"rotate(-4 200 200)\" fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n\n  <path d=\"M100,90 L300,90 L300,320 L100,320 Z\" stroke-width=\"3\"/>\n  <path d=\"M160,220 C150,190 176,170 200,182 C212,170 240,176 236,204 C234,224 210,236 190,232 C176,230 164,226 160,220 Z\" stroke-width=\"3\"/>\n  <path d=\"M236,204 L262,196 M236,204 L258,214\" stroke-width=\"3\"/>\n  <path d=\"M176,182 C170,166 178,156 190,160\" stroke-width=\"2.6\"/>\n  <path d=\"M182,232 L176,256 M196,234 L198,258\" stroke-width=\"2.6\"/>\n  <path d=\"M120,290 C160,280 240,280 280,290\" stroke-width=\"1.6\"/>\n  <circle cx=\"206\" cy=\"176\" r=\"2\" fill=\"#8e1b1b\" stroke=\"none\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

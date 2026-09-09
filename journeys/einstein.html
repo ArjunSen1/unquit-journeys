@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Albert Einstein, the decade</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the record of the general theory's development, paraphrased, and from Unquit: The Oldest Choice.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "einstein", "title": "Albert Einstein, the decade", "subtitle": "A study in Berlin. November 1915. Eight years of equations that will not close.", "object": "The blackboard", "sticker": "The blackboard.", "footer": "Drawn from the record of the general theory's development, paraphrased, and from Unquit: The Oldest Choice.", "arrive": {"heading": "You are standing where a physicist stood in front of a board that had been wrong for eight years.", "paragraphs": ["In 1905, at twenty-six, working as a patent clerk, he published four papers that changed physics. One of them was the special theory of relativity. Two years later he had the thought he called the happiest of his life: a man falling from a roof does not feel his own weight. Gravity and acceleration are the same thing. He knew, from that moment, that the theory had to be extended to gravity.", "It has taken eight years and it is not done. The mathematics is beyond what he learned. He has had to be taught, by a friend from student days, a geometry he had dismissed. He has published equations and withdrawn them. He has been publicly close, and wrong, more than once. A rival in Germany's other great university is, this month, days from the same equations.", "It is November 1915. He has been giving weekly lectures to the Prussian Academy on the theory as he builds it, and the theory has changed between lectures. The board is covered in a version that does not yet close.", "Now Albert steps aside and you step in. The board, the eight years, the rival and the geometry he had to be taught are his. Whether you go back to the board is yours."], "button": "Stand at the blackboard"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The board has been erased and rewritten so often the chalk is ghosted into it. Last week's lecture is already wrong. Thursday's is in four days.", "question": "What are you feeling right now?", "placeholder": "Say it as a man eight years into a thought, not as the face on the poster.", "helper": {"who": "Marcel Grossmann, the friend who taught you the geometry, by letter from Zurich", "says": "You wrote to me years ago that you had to learn the mathematics or go mad. Before we talk about the equations, tell me what you feel in front of that board.", "options": ["I feel that I had the happiest thought of my life eight years ago and have spent every year since finding out that I did not have the tools to think it.", "I feel Hilbert in Gottingen, days behind me or days ahead, and I feel that I do not care who is first and I feel that I do.", "I feel that I have been wrong in public for a decade and that being wrong in public is the only way this has ever moved."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before Thursday's lecture, take an inventory. Not of the equations, and not of Einstein. Of yourself.", "question": "What have you already done, in your own life, that proves you can stay with a problem for years past the point where you knew how?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Grossmann, by letter", "says": "I can tell you what the man at that board carries. A patent clerk who rewrote physics at twenty-six without a university post. A man who wrote to a friend and said teach me, at thirty-three, because his own mathematics had run out. Eight years of being publicly close and publicly wrong and going back to the board. Now you tell me what you carry. Finish one of these.", "options": ["A time I stayed with a problem years past the point where I knew how: ", "A time I asked to be taught the thing I had dismissed: ", "A time I was wrong in public and went back to the board: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence at the board is: eight years without closing means it does not close. It sounds like mathematics. It is fatigue with chalk on its hands. You do not have to finish the theory this week. You only have to refuse to let the eighth year decide the ninth.", "question": "What is the one reason you will not decide this week?", "placeholder": "Not a proof. One reason the eight years do not get the vote.", "helper": {"who": "Grossmann, by letter", "says": "Eight years without a closed equation. Tell me why that is not a result.", "options": ["Because the thought was right in 1907 and has not stopped being right. Only the tools have been wrong, and tools can be changed.", "Because it has been moving. Wrong in a different place each year is not the same as wrong.", "Because Hilbert is close, and a thing that two people are days from is not a thing that does not exist."]}}, {"n": 4, "name": "One step", "prompt": "Not the theory. Not the eclipse that will prove it four years from now. One step, small enough to finish before Thursday.", "question": "What is it?", "placeholder": "Something a man can do at a board with chalk.", "helper": {"who": "Grossmann, by letter", "says": "Thursday is a lecture. What is the smallest thing you can do before it?", "options": ["I will erase the board entirely and write the equations from the beginning, in the geometry you taught me, without looking at last week's.", "I will compute one number from the current equations: the shift in Mercury's orbit that no one has ever explained. If it comes out right, the equations are close whether or not they close.", "I will write to Hilbert, plainly, that I am close, and that I would rather we both be right than argue over who was first."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The board is fresh and the equations are written from the beginning, or there is a number for Mercury on a page, or a letter to Gottingen is in the post. Thursday is still coming. The theory is still not closed.", "question": "What has changed in you?", "placeholder": "Compare it to the ghosted chalk.", "helper": {"who": "Grossmann, by letter", "says": "The equations did not close overnight. What changed at the board?", "options": ["The board is clean and the equations are shorter than they were. Eight years and they got shorter. That is a direction.", "Mercury came out right. Forty-three seconds of arc a century, unexplained for sixty years, and the equations that do not yet close have just explained it. I had palpitations. That is not a metaphor.", "I wrote to Hilbert. Whatever happens on Thursday, I have stopped racing and started finishing."]}}, {"n": 6, "name": "Time passes", "montage": ["On November 18 he presents the calculation for Mercury's orbit. It comes out right, forty-three seconds of arc, and he says later that he was beside himself for days. On November 25 he presents the final field equations. They close. Hilbert's version arrives within days, and they argue briefly and then do not.", "In 1919 an eclipse expedition measures starlight bending around the sun by exactly the amount the equations predict, and he becomes the most famous scientist alive. He said the happiest thought was the one in 1907. Everything after was eight years of finding out how to say it.", "The decade was not a delay before the theory. It was the theory being built, in public, wrongly, on a board that had to be erased every week."], "question": "The happiest thought in 1907, the equations in 1915. Here is the question the eclipse cannot answer for you: what were the eight years?", "choices": [{"label": "A delay caused by inadequate mathematics.", "short": "a delay caused by inadequate mathematics", "reply": "The mathematics was inadequate, and he said so, and asked to be taught. But a delay is time waiting. He was not waiting."}, {"label": "A race with Hilbert.", "short": "a race with Hilbert", "reply": "For a few weeks in November it was, and both men behaved better than the story usually says. Eight years is not a race. It is a residence."}, {"label": "The thought being built into a language that could hold it, in public, wrongly, one erased board at a time.", "short": "the thought being built into a language that could hold it", "reply": "Yes. He had the idea in 1907 and did not have the tools to think it, and the eight years were the tools being acquired and the idea being wrong in a different place each year until it was not. Arrival, for the hardest things, looks like this: a decade of a board erased weekly, with the whole academy watching. The happiest thought was one afternoon. Saying it took eight years."}, {"label": "Genius, taking its time.", "short": "genius, taking its time", "reply": "Genius had the thought in one afternoon in 1907. Everything else was work, and letters asking to be taught, and being wrong on Thursdays."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another board that will not close. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Grossmann, by letter", "says": "One line for the next eighth year. Start with I did.", "options": ["I did ask to be taught the thing I had dismissed.", "I did erase the board and write it again from the beginning.", "I did not let the eighth year decide the ninth."]}, "ice": {"question": "One more line, and this one is yours. What thought have you had that you do not yet have the tools to think, and how long have you given it?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, at the blackboard", "sub": "Your eighth year, beside his", "paragraphs": ["A study in Berlin, November 1915, a board ghosted with eight years of chalk. You stood where a physicist stood, with a rival days away and Thursday's lecture already wrong, and the board asked you what it asked him. You wrote: {1}", "Before Thursday, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a patent clerk who rewrote physics and a man who wrote to a friend at thirty-three and said teach me.", "You refused to let the eighth year decide the ninth. Your reason: {3} That refusal is the deferral. Not this week. Not with chalk on your hands.", "Your first step: {4} {overlap}", "After the step, the theory was still not closed. Inside, you noticed this: {5}", "Then November did what November did. Mercury on the eighteenth. The field equations on the twenty-fifth. An eclipse four years later, and the most famous face in science.", "Asked what the eight years were, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this in the first weeks of November 1915, abandoning the previous approach and starting again.", "He did this. The Mercury calculation on November 18 was the moment he knew, and he described his own heart's reaction. A different first step in the same place is still a first step.", "They corresponded that month, sharply and then warmly. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was to erase and begin again in the geometry he had been taught. A different first step in the same place is still a first step.", "help": {"zero": "You did not write to Grossmann. Einstein did, in 1912, saying he had to learn the mathematics or go mad, and Grossmann taught him. Next time, write to the one who knows the geometry. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You wrote to Grossmann {n} on this journey. Einstein dedicated a paper to him and said the theory would not exist without him. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thought you do not yet have the tools to think, as you named it: {ice}", "closing": "The study in Berlin is gone and the equations are on every physics wall. What you carry out is not a theory, and it is not him. It is the evidence that you can stay with a thought for eight years past the point where you knew how, and ask to be taught.", "stickerLines": ["Walked with Albert Einstein.", "Berlin, November 1915."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The blackboard\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M70,80 L330,80 L330,300 L70,300 Z\" stroke-width=\"4\"/><path d=\"M60,300 L340,300 M60,312 L340,312\" stroke-width=\"3\"/><path d=\"M100,130 L160,130 M180,130 L220,130 M240,130 L300,130\" stroke-width=\"2\"/><path d=\"M100,180 C120,160 140,200 160,180 M180,180 L240,180 M260,170 L260,190 M290,180 L300,180\" stroke-width=\"2\"/><path d=\"M100,240 L130,240 M150,230 L150,250 M170,240 L300,240\" stroke-width=\"2\"/><path d=\"M110,286 L190,286\" stroke-width=\"1\" stroke-dasharray=\"2 4\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

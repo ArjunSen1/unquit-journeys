@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Julian of Norwich, the twenty years</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from Revelations of Divine Love and the record of her life, paraphrased, and from Unquit: The Oldest Choice. Faith-tradition reader before launch.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "julian", "title": "Julian of Norwich, the twenty years", "subtitle": "A cell built onto the side of a church. Norwich. Year ten of not understanding.", "object": "The cell window", "sticker": "The window in the wall.", "footer": "Drawn from Revelations of Divine Love and the record of her life, paraphrased, and from Unquit: The Oldest Choice. Faith-tradition reader before launch.", "arrive": {"heading": "You are standing where a woman stood in a room she chose never to leave.", "paragraphs": ["In May 1373, at thirty, she was so ill that a priest was called to give her the last rites. Over the following hours she had sixteen visions. She did not die. She wrote them down, briefly, and understood almost nothing of what they meant.", "Then she did something few people do. Rather than decide what they meant, or forget them, or build a following on them, she had herself enclosed. A cell attached to the wall of a church in Norwich, with one window to the street for those who came to ask counsel and one to the altar. She would not leave it for the rest of her life. And she would spend twenty years, she said, trying to understand what she had seen.", "The plague has come to Norwich three times in her lifetime. It has taken half the city. The people who come to her window are burying children. She has sixteen visions, an assurance that all shall be well that she does not understand, and a stone room.", "It is year ten. Now Julian steps aside and you step in. The cell, the two windows, the visions and the not-understanding are hers. Whether you stay with a thing you do not understand is yours."], "button": "Sit down in the cell"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The street window is shuttered for the night. The altar window shows one candle. On the desk is the short text you wrote ten years ago and have reread more times than you can count, and it is not longer than it was.", "question": "What are you feeling right now?", "placeholder": "Say it as a woman in year ten of not understanding, not as a saint in a window.", "helper": {"who": "The woman who comes to the street window every Thursday, whose name you have never asked", "says": "I come to you because you seem to know something. Tonight I am asking you. Before you tell me anything, tell me what you feel in there.", "options": ["I feel that I was shown sixteen things and have understood almost none of them in ten years, and people come to my window as if I had.", "I feel that all shall be well was said to me by someone who did not explain how, and I have buried it under a decade of trying.", "I feel that I chose this room and cannot now remember the woman who chose it, and I am not sure she was right."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before another year, take an inventory. Not of the visions, and not of Julian. Of yourself.", "question": "What have you already done, in your own life, that proves you can stay with something you do not understand rather than force it to mean?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "The woman at the window", "says": "I can tell you what the woman in that cell carries, from the street side. Ten years in one room by choice. A window that has never once been shut to anyone in daylight. Sixteen things she will not pretend to understand when pretending would be easier and would fill the church. Now you tell me what you carry. Finish one of these.", "options": ["A time I stayed with something I did not understand rather than force it to mean: ", "A time I refused to pretend I knew, when pretending would have been rewarded: ", "A time I kept a window open to people while I was still in the dark myself: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the cell is: ten years and no understanding means there is nothing to understand. It sounds like humility. It is impatience wearing humility's robe. You do not have to understand the visions this year. You only have to refuse to let a decade decide that the twenty are not worth it.", "question": "What is the one reason you will not decide this year?", "placeholder": "Not a theology. One reason the decade does not get the vote.", "helper": {"who": "The woman at the window", "says": "Ten years is a long time not to understand. Tell me why it is not long enough to give up.", "options": ["Because I was told all shall be well and not told how, and the not being told is the thing I was given to sit with. Sitting with it is not failing at it.", "Because the people at my window do not need me to understand. They need me to be here. I can do that without understanding.", "Because a thing that was worth enclosing myself for is not a thing that ten years can settle. If it were, I would have chosen a smaller room."]}}, {"n": 4, "name": "One step", "prompt": "Not understanding. Not the long text. One step, small enough to finish before the candle at the altar burns down.", "question": "What is it?", "placeholder": "Something a woman can do in a stone room with a pen and two windows.", "helper": {"who": "The woman at the window", "says": "I do not need you to understand tonight. What is the smallest thing you can do in there before morning?", "options": ["I will reread the short text once more, and add one sentence about one vision, only what I have learned, not what I have decided.", "I will open the street window at first light as I always have, and let the first person who comes ask, and answer only what I know.", "I will sit with the sentence all shall be well for one hour without trying to make it explain itself."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. One sentence has been added, or the window is open to the first face, or an hour has passed with a sentence that did not explain itself. The visions are as unexplained as they were. The plague is still in the city.", "question": "What has changed in you?", "placeholder": "Compare it to the shuttered window.", "helper": {"who": "The woman at the window", "says": "You still do not understand. What changed?", "options": ["I added one sentence. It is true and it is small and it took ten years. That is the pace of this.", "I opened the window without understanding and someone was helped anyway. Perhaps that is what the window is for.", "I sat with all shall be well for an hour and it did not explain itself, and I noticed it did not need to. I needed it to. That is different."]}}, {"n": 6, "name": "Time passes", "montage": ["She stays twenty years, and then the rest of her life. Around year twenty she writes the long text: the sixteen visions, reflected on, six times the length of the first, still refusing to pretend to a certainty she does not have. She writes that she saw no wrath in God and could not reconcile it with what the church taught, and that she would not resolve the contradiction falsely.", "Her book is the first in English known to be written by a woman. It is almost unknown for five hundred years. It surfaces in the twentieth century and is read now by people who have never heard of Norwich, for one sentence they can carry: all shall be well, and all shall be well, and all manner of thing shall be well.", "She did not understand it when she heard it. She understood it enough, after twenty years, to write it down and let others sit with it. That is what the cell was for."], "question": "Twenty years in a stone room with sixteen things she did not understand. Here is the question the book cannot answer for you: what did the twenty years produce?", "choices": [{"label": "Understanding, finally.", "short": "understanding, finally", "reply": "Some, and hard won, and she is careful in the long text to say how much she still does not know. She never claimed the understanding was complete. She claimed she had stayed."}, {"label": "A book.", "short": "a book", "reply": "The first in English by a woman, unread for five centuries, now carried in pockets. The book was what the twenty years left behind. It was not what they were."}, {"label": "A way of staying with what she did not understand, without forcing it to mean.", "short": "a way of staying with what she did not understand, without forcing it to mean", "reply": "Yes. This is faith without certainty, and it is one of the hardest shapes continuation takes. Not believing you know. Staying in the room with what you do not, for twenty years, with a window open to people who are also in the dark. She could have declared a meaning in year one and filled the church. She waited, and wrote down only what she had actually learned, and the waiting is the book."}, {"label": "Nothing anyone noticed for five hundred years.", "short": "nothing anyone noticed for five hundred years", "reply": "True, and she would not have minded. The window was open every day for the people on the street. The book was for whoever came later. Neither needed to be noticed to be done."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another thing you do not understand and are tempted to force into meaning. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "The woman at the window", "says": "One line for the next stone room. Start with I did.", "options": ["I did stay with what I did not understand.", "I did keep the window open while I was still in the dark.", "I did write down only what I had actually learned."]}, "ice": {"question": "One more line, and this one is yours. What in your own life have you been shown and not yet understood, and how long have you given it?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the cell", "sub": "Your tenth year, beside hers", "paragraphs": ["A cell on the side of a church in Norwich, year ten. You sat where Julian sat, with a short text that had not grown and two windows, and the night asked you what it asked her. You wrote: {1}", "Before another year, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was ten years in one room by choice and a window never once shut in daylight.", "You refused to let a decade decide the twenty. Your reason: {3} That refusal is the deferral. Not this year. Not from impatience in humility's robe.", "Your first step: {4} {overlap}", "After the step, the visions were as unexplained as before. Inside, you noticed this: {5}", "Then twenty years did what twenty years do when a woman refuses to pretend. A long text six times the short one, a contradiction left unresolved because resolving it would be false, five centuries of silence, and one sentence carried in pockets.", "Asked what the twenty years produced, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["This is close to how the long text was made: a decade and more of additions, each only what she had learned.", "She did this every day. The street window was her whole ministry. A different first step in the same place is still a first step.", "She wrote that she was told this and could not understand how it could be true, and sat with it for twenty years. A different first step in the same place is still a first step."], "stepOverlapFree": "Her first step, every day, was the window at first light. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to the woman at the window. Julian did, in a sense, every day; the people who came were the reason the cell had a street side. Next time, turn to the one asking. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to the woman at the window {n} on this journey. Julian's counsel to the people of Norwich is the only thing anyone knew of her for five hundred years. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thing you have been shown and not understood, as you named it: {ice}", "closing": "The cell was destroyed and rebuilt and you can sit in it. What you carry out is not understanding, and it is not Julian. It is the evidence that you can stay in the room with what you do not understand and keep the window open.", "stickerLines": ["Walked with Julian of Norwich.", "A cell in Norwich, year ten."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The window in the wall\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M70,70 L330,70 L330,330 L70,330 Z\" stroke-width=\"4\"/><path d=\"M140,120 L260,120 L260,280 L140,280 Z\" stroke-width=\"4\"/><path d=\"M200,120 L200,280 M140,200 L260,200\" stroke-width=\"2.4\"/><path d=\"M90,100 L120,100 M300,100 L310,100 M90,300 L130,300 M280,300 L310,300 M90,200 L120,200 M280,200 L310,200\" stroke-width=\"1.2\"/><path d=\"M180,150 C186,140 194,140 200,150\" stroke-width=\"1.6\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

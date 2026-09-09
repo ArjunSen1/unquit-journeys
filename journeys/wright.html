@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. The Wright brothers, December 14 to 17, 1903</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the Wright brothers' own diaries and letters, paraphrased, and from the record of the Kill Devil Hills lifesaving station witnesses. This journey is for two people at one screen.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "wright", "title": "The Wright brothers, December 14 to 17, 1903", "subtitle": "Kill Devil Hills, North Carolina. A machine broken on its first try. Two brothers.", "object": "The coin", "sticker": "The coin.", "footer": "Drawn from the Wright brothers' own diaries and letters, paraphrased, and from the record of the Kill Devil Hills lifesaving station witnesses. This journey is for two people at one screen.", "two": {"a": "Wilbur's chair", "b": "Orville's chair"}, "arrive": {"heading": "You are standing where two brothers stood. Both of you.", "paragraphs": ["This journey is for two. Decide who takes which chair. Wilbur's chair is the one who just broke the machine. Orville's chair is the one who flies next. You will each answer every step from your own chair.", "Four years of gliders, wind tunnels and letters to anyone who would answer. Two bicycle mechanics from Dayton with no degrees and no backing, who taught themselves the mathematics the experts had gotten wrong. A camp on a sand dune in North Carolina, where the wind is steady and there is nothing to hit. A machine built by hand and shipped in crates. Winter closing in. Money running low. Samuel Langley, with government money and the Smithsonian behind him, crashed into the Potomac six days ago in front of the press.", "On December 14 the wind was light, so they laid the launching rail down the slope of the big dune. They tossed a coin for who would go first. Wilbur won. He climbed on, released, rose too steeply, stalled, and came down into the sand after three and a half seconds. The elevator frame was cracked. A skid was broken. The machine could not fly again without repair.", "It is the evening of December 14. The repairs will take two or three days. The season is nearly over. The next attempt, if there is one, will be Orville's.", "Now Wilbur and Orville step aside and the two of you step in. The broken machine, the dune, the coin and the calendar are theirs. What each of you does before the next wind is yours."], "button": "Sit down in the camp, both of you"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The machine is in the shed with its front end splintered. The stove is lit. Outside, the wind you needed has finally come, one day too late to use.", "question": "What are you feeling right now? Each of you, from your own chair.", "placeholder": "Say it to your brother, not to the newspapers.", "helper": {"who": "The other chair", "says": "There is only one other person on this dune who understands what today was. Hear what he might be feeling before you answer.", "optionsA": ["I feel that I had the machine for three and a half seconds and I flew it into the ground, and that is the whole of what the record will say.", "I feel that I pulled up too hard because I wanted it too much, which is the one mistake four years of practice should have removed.", "I feel that the fault was in my hands and the repair is in his, and I have never liked that arrangement."], "optionsB": ["I feel that he did the thing we have never done, he left the ground under power, and all he can see is the landing.", "I feel that in three days it is my turn, and I now know exactly what not to do, which is a gift I did not ask for.", "I feel the cold, and the calendar, and that if we go home now we will spend the winter explaining a broken skid."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the repairs begin, take an inventory. Not of the machine, and not of the Wrights. Of yourselves, one chair at a time.", "question": "What have you already done, in your own life, that proves you can fix a thing that broke on the first try?", "placeholder": "One thing you did. Not one thing you believe.", "fillIn": true, "helper": {"who": "The other chair", "says": "Four years ago you two decided the published tables were wrong and built a wind tunnel out of a box to prove it. You were right. Each of you, finish one of these.", "optionsA": ["A time I broke something on the first try and repaired it myself: ", "A time I was wrong in front of people whose opinion I cared about, and kept going: ", "A time I trusted the numbers I had checked over the numbers I had been given: "], "optionsB": ["A time I went second, after watching someone I love fail, and used what I saw: ", "A time I stayed at the work in bad weather when the sensible thing was to go home: ", "A time I fixed a thing with my hands that I had only understood on paper: "]}}, {"n": 3, "name": "The deferral", "prompt": "The sentence tonight, in one chair, is: it does not fly. In the other, it is: we are out of season and out of money. Both want tonight to close the year. Neither has looked at the machine in daylight.", "question": "What is the one reason you will not decide tonight? Each of you.", "placeholder": "Not a repair plan. One reason to wait for the morning.", "helper": {"who": "The other chair", "says": "Nobody decides a flying machine by lamplight. Why will each of you wait?", "optionsA": ["Because a stall is a fact about my hands on the elevator, not about the machine. The machine did what I told it.", "Because I felt it lift. Three and a half seconds is not a failure. It is a measurement.", "Because we have never once decided anything without both of us looking at it first, and he has not looked yet."], "optionsB": ["Because a cracked elevator frame is two days of work, and two days is not a verdict on four years.", "Because the wind that came tonight will come again, and it is the wind we built the machine for.", "Because if we go home now, the winter will be spent arguing with a broken skid instead of fixing it."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The wind is still up. Not the flight. Not the telegram home. One step each, small enough to finish before noon.", "question": "What is it? Each of you.", "placeholder": "Something that can be done with the tools in the shed.", "helper": {"who": "The other chair", "says": "One of you has to fix the frame and one of you has to learn from the landing. What is the smallest thing each chair can do this morning?", "optionsA": ["I will take the elevator frame apart and set the cracked piece on the bench where he can see it. Then I will start on the skid.", "I will tell him exactly what my hands did in the three and a half seconds, so that his do not do it.", "I will walk the rail and check every joint. If the machine flies on Thursday, the rail is the first thing it touches."], "optionsB": ["I will fix the skid while he does the frame. Two repairs at once is a day saved.", "I will sit in the machine on the bench, hands on the elevator, and practice not pulling up. Twenty times.", "I will walk to the lifesaving station and ask the men to come Thursday. If it flies, someone has to see it."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The frame is on the bench, or the skid is mended, or the men at the station have said yes. The machine still has not flown. The calendar still says December.", "question": "What has changed in you? Each of you.", "placeholder": "Compare it to the shed last night.", "helper": {"who": "The other chair", "says": "Nothing has flown yet. What changed in each chair?", "optionsA": ["The landing is still mine. It has stopped being the whole story.", "I stalled it on Monday. On Thursday he will not, because I told him how. That is a different kind of first.", "The machine is in pieces on a bench and I have never been more sure it flies."], "optionsB": ["I know what not to do. I did not know that on Sunday.", "It is my turn. I have stopped wishing it were not.", "We are still here, in December, with the wind we wanted. Everyone else went home."]}}, {"n": 6, "name": "Time passes", "montage": ["The repairs take three days. On the morning of Thursday, December 17, the wind is blowing hard and cold off the Atlantic, harder than they would like. They lay the rail on flat sand this time. Five men from the lifesaving station walk over. One of them, John Daniels, has never used a camera. Orville hands him one and tells him to squeeze the bulb if the machine leaves the rail.", "At 10:35 Orville releases. The machine lifts, dips, rises, and stays in the air for twelve seconds and a hundred and twenty feet. Daniels squeezes the bulb. They fly three more times, taking turns. Wilbur's last flight is fifty-nine seconds and eight hundred and fifty-two feet. Then a gust catches the machine on the ground, tumbles it, and it never flies again.", "That afternoon they walk to the weather station and send a telegram to their father in Dayton. Success. Four flights Thursday morning. Inform press. Home Christmas."], "question": "The first flight is dated December 17. Here is the question the date cannot answer for you: when did the machine fly?", "choices": [{"label": "December 17, at 10:35 in the morning.", "short": "December 17, at 10:35 in the morning", "reply": "That is when it stayed up, and when the picture was taken, and it is the date on every plaque. It is also three days after the machine first left the ground under power and came down broken."}, {"label": "December 14. It left the ground. It just did not stay.", "short": "December 14, when it left the ground and did not stay", "reply": "Wilbur wrote home that night that the machine had lifted and that the trouble was entirely his, and that they now had no doubt it would fly. He was measuring, not failing. But the world does not put plaques on Mondays."}, {"label": "In the three days between, in the shed, on the bench.", "short": "in the three days between, in the shed", "reply": "Yes. Thursday was the evidence. The decision was made on Monday night by two brothers who looked at a cracked frame and saw two days of work instead of the end of a year. Every first flight in history has a broken skid three days before it. The skid is where the flight is decided."}, {"label": "Four years earlier, when they built the wind tunnel out of a box.", "short": "four years earlier, when they built the wind tunnel", "reply": "Also true, and the older answer. The brothers who fixed a skid in three days were the same brothers who had thrown out the published tables and measured the air themselves. Thursday did not make them unquitters. It found two."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another first try that breaks on landing. Write one sentence for that evening. Not advice. Evidence. Each of you.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "The other chair", "says": "One line each, for the next cracked frame. Start with I did.", "optionsA": ["I did not let three and a half seconds become the whole story.", "I did tell him exactly what my hands did wrong, so his would not.", "I did put the broken piece on the bench where we could both see it."], "optionsB": ["I did fix the skid while he fixed the frame.", "I did go second, and I used what I saw.", "I did stay in December when everyone else went home."]}, "ice": {"question": "One more line, and this one belongs to both of you. What in your own work is on the bench right now, cracked from a first try?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You two, on the dune", "sub": "Your three days, beside theirs", "paragraphs": ["Kill Devil Hills, the evening of December 14, 1903. Two of you sat where two brothers sat, with the machine splintered in the shed and the right wind arriving a day late, and the night asked you what it asked them. From Wilbur's chair: {1} From Orville's chair: {1b}", "Before the repairs, you each did what every unquitter does first. You looked for evidence, and it was your own. Wilbur's chair: {2} Orville's chair: {2b} Theirs was a wind tunnel built from a box and four years of trusting their own numbers over everyone else's.", "You both refused to let the lamplight decide. From Wilbur's chair: {3} From Orville's chair: {3b} That refusal is the deferral. Not tonight. Not before daylight.", "Your first steps. Wilbur's chair: {4} Orville's chair: {4b} {overlap}", "After the steps, the machine still had not flown. Wilbur's chair noticed: {5} Orville's chair noticed: {5b}", "Then the wind did what the wind does, three days later. Twelve seconds, a hundred and twenty feet, a photograph by a man who had never held a camera, four flights, a gust, and a telegram home for Christmas.", "Asked together when the machine flew, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["This is what they did. Two days of repair, both of them, in the shed, with Wilbur's account of the stall guiding Orville's hands on Thursday.", "Orville's Thursday flight was steadier than Wilbur's Monday because he knew about the pull-up. Whether he practiced on the bench, the record does not say. It says he did not stall.", "They did this. Five men from the lifesaving station came on Thursday. One of them took the most famous photograph in aviation on his first try with a camera. A different first step on the same dune is still a first step."], "stepOverlapFree": "Their first steps were the repair, two days of it, and a walk to the lifesaving station to ask for witnesses. A different first step on the same dune is still a first step.", "help": {"zero": "Neither of you turned to the other chair. The Wrights had no one else on that dune either, which is exactly why they turned to each other, in every letter and every argument for forty years. Next time, look across. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to the other chair {n} on this journey. The Wrights argued every point with each other for four years and called it the method. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are both taking with you", "iceLine": "And the thing on your own bench, cracked from a first try, as you named it together: {ice}", "closing": "The dune is a monument now, and the plaque says Thursday. What you carry off the sand is not the flight, and it is not the brothers. It is the evidence that on the Monday night, with the machine in pieces, the two of you saw two days of work.", "stickerLines": ["Walked with Wilbur and Orville Wright.", "Kill Devil Hills, December 1903."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The coin\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"200\" cy=\"200\" r=\"98\" stroke-width=\"4\"/>\n  <circle cx=\"200\" cy=\"200\" r=\"84\" stroke-width=\"1.6\"/>\n  <text x=\"200\" y=\"218\" text-anchor=\"middle\" font-family=\"Calibri, Carlito, Arial, sans-serif\" font-weight=\"700\" font-size=\"52\" letter-spacing=\"3\" fill=\"#8e1b1b\" stroke=\"none\">1903</text>\n  <path d=\"M154,150 C168,136 232,136 246,150\" stroke-width=\"2.2\"/>\n  <path d=\"M154,250 C168,264 232,264 246,250\" stroke-width=\"2.2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

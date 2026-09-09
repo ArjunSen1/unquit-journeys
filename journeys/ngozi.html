@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Robert Ngozi, the empty room</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Robert Ngozi and Curtis are composites from Chapter Two of The Unquit Stories.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "ngozi", "title": "Robert Ngozi, the empty room", "subtitle": "An equipment closet at Lincoln High. The last day of school. Twenty-eight years.", "object": "The starting blocks", "sticker": "The blocks.", "footer": "Robert Ngozi and Curtis are composites from Chapter Two of The Unquit Stories.", "arrive": {"heading": "You are standing where Robert Ngozi stood.", "paragraphs": ["He has been a track coach at Lincoln High for twenty-eight years. Somewhere around year seven it stopped being a job and became the explanation for who he was. Four state champions. Seventeen regional qualifiers. One girl who reached the Olympic trials. Three generations of families in this city who say Coach Robert and mean something specific. He and his wife never had children, and he does not pretend the two facts are unrelated.", "The school board consolidated the athletic programs across three campuses. It was fiscal, not personal. His position was absorbed into a shared department run from a school that has not called him.", "It is the last day of the school year. He is in the equipment closet, looking at the starting blocks and batons and lane markers arranged by the system he built in 1998 and refined every year since. Tonight he will go home, make dinner, go to bed at nine fifteen because that is when he goes to bed in season, and lie in the dark thinking: I do not know what I am now.", "Now Robert steps aside and you step in. The closet, the blocks, the twenty-eight years and the question are his. Who you are without this is yours."], "button": "Stand in the equipment closet"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The blocks are stacked the way you stack them. The batons are in their bag. The building is quiet in the way it is only quiet on the last day. No one has come to say anything, because there is nothing anyone can say.", "question": "What are you feeling right now?", "placeholder": "Say it to the blocks. They have heard everything else.", "helper": {"who": "Curtis, the neighbor's seventeen-year-old, who will knock on your door in July", "says": "Coach. I know it is not July yet. But you are going to need someone to say it to, so say it to me now.", "options": ["I feel that twenty-eight years was the explanation for who I am, and the explanation just got consolidated.", "I feel that I never had children and I know exactly why that is in my head tonight.", "I feel like I have been fired from myself. The school kept the job. It just took me out of it."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before anything is decided about who you are, take an inventory. Not of the trophies, and not of Robert. Of yourself.", "question": "What have you already done, in your own life, that proves you are more than the position you held?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Curtis", "says": "I can tell you what Coach carries. Twenty-eight years of seeing what a kid is doing wrong and saying the true thing about it without making the kid smaller. A system built in 1998 and made better every year since. A girl who went to the trials and still calls. Now you tell me what you carry. Finish one of these.", "options": ["A time I was more than the position I held: ", "A time I saw what someone was doing and said the true thing about it: ", "A time I kept a practice alive after its container was gone: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the closet is: I do not know what I am now. It sounds like a question. It is grief pretending to be a question. You do not have to answer who you are tonight. You only have to refuse to let the last day of school decide it.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a plan for retirement. One reason the closet does not get the vote.", "helper": {"who": "Curtis", "says": "Nobody figures out who they are in an equipment closet. Tell me why you will wait.", "options": ["Because I have been a coach for twenty-eight years and have been without a job for eight hours. The arithmetic is not in the closet's favor.", "Because the thing I am good at did not get consolidated. Only the room I did it in did.", "Because it is nine fifteen and I go to bed at nine fifteen in season, and the season is over, and I am going to bed anyway, and that is a fact about me the board cannot touch."]}}, {"n": 4, "name": "One step", "prompt": "Not a new job. Not a new identity. One step, small enough to finish before you lock the closet.", "question": "What is it?", "placeholder": "Something a coach can do with his hands.", "helper": {"who": "Curtis", "says": "In July I am going to ask you to watch me run, and you are going to say yes because you cannot watch anyone run badly without saying something. What is the smallest thing you can do tonight so that July finds you?", "options": ["I will take one set of starting blocks home. Not to keep. To have.", "I will write down the system, the whole thing, from 1998 to now, so that it exists somewhere that is not this closet.", "I will call the girl who went to the trials, not to be comforted, to ask how her knee is."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. A set of blocks is in the car, or the system is on paper, or a former athlete has told you about her knee. The position is still gone. The closet is still locked.", "question": "What has changed in you?", "placeholder": "Compare it to the stacked blocks.", "helper": {"who": "Curtis", "says": "The board did not change its mind. What changed in you?", "options": ["The room is gone. The thing I did in the room is in the trunk of my car.", "I wrote down twenty-eight years and it was not a job description. It was a way of seeing.", "I am still a man without a position. I am no longer a man without a practice."]}}, {"n": 6, "name": "Time passes", "montage": ["In July the neighbor's son, seventeen and fast in the way fast people are before anyone has taught them how to use it, asks if Robert will watch him run. Robert says yes because he has nothing else to do and because he is not capable of watching Curtis run badly without saying something. He says something. Curtis asks a question. Two hours later Robert is demonstrating block starts in the driveway, and he is entirely himself for the first time in two months.", "What the loss of the program made visible was something he had not known he needed to see. His identity had never been the position. It had been the practice: seeing what a young runner was doing and knowing how to say the true thing about it. Positions can be consolidated. Capacities cannot.", "He coaches Curtis all summer. Then two of Curtis's friends. The driveway is not a track. It does not need to be."], "question": "Twenty-eight years, then a driveway. Here is the question the board cannot answer for you: what did the consolidation take?", "choices": [{"label": "Everything. The job was who he was.", "short": "everything, the job was who he was", "reply": "That is what the closet said, and it was wrong by August. If the job had been who he was, the driveway would have been empty."}, {"label": "The room, the title and the paycheck.", "short": "the room, the title and the paycheck", "reply": "Yes, and those are real losses and he grieved them. But look at what stayed after they went. The list is longer than the list of what left."}, {"label": "Only the container. The thread was never in it.", "short": "only the container, the thread was never in it", "reply": "Yes. The identity was the practice, not the position. The board could consolidate a program. It could not consolidate the way a man sees a runner. The single thread, the last thing that still feels like yourself when every marker of identity is stripped away, was never on the payroll. It was in his eye, and his eye went home with him."}, {"label": "Nothing. He was always going to coach.", "short": "nothing, he was always going to coach", "reply": "Also true, and it is what Step Zero says. He did not become a coach again in July. He found out in July that he had never stopped. The driveway was the mirror."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another consolidation, another closet, another night of not knowing what you are now. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Curtis", "says": "One line for the next empty room. Start with I did.", "options": ["I did tell the container from the thread.", "I did take the blocks home.", "I did say the true thing about how the kid was running, because I could not not."]}, "ice": {"question": "One more line, and this one is yours. What practice of yours is being mistaken for a position right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the equipment closet", "sub": "Your last day, beside his", "paragraphs": ["Lincoln High, the last day of the school year, twenty-eight years in. You stood where Robert Ngozi stood, among blocks stacked the way you stack them, and the closet asked you what it asked him. You wrote: {1}", "Before anything was decided, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was twenty-eight years of saying the true thing about a runner without making the runner smaller.", "You refused to let the last day of school decide who you are. Your reason: {3} That refusal is the deferral. Not tonight. Not in the closet.", "Your first step: {4} {overlap}", "After the step, the position was still gone. Inside, you noticed this: {5}", "Then July did what July does when a fast kid lives next door. A question, a driveway, block starts, and a man entirely himself for the first time in two months.", "Asked what the consolidation took, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["The chapter does not say what he took home. It says the driveway had everything it needed by July. A different first step in the same place is still a first step.", "The system existed in him, which is where Curtis found it. A different first step in the same place is still a first step.", "The girl who went to the trials still calls him. Whether he called first that night, the chapter does not say. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was to go home, make dinner and go to bed at nine fifteen, in season. July did the rest. A different first step in the same place is still a first step.", "help": {"zero": "You did not talk to Curtis. Robert did not either, until July, and the two months between were the worst of his life. Next time, let the kid knock early. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You talked to Curtis {n} on this journey, months before he would have knocked. Robert waited until July. You saved yourself two months. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the practice being mistaken for a position in your own life, as you named it: {ice}", "closing": "The equipment closet has someone else's system in it now. What you carry out is not a title, and it is not Robert. It is the evidence that you know the difference between the room and the thing you did in it.", "stickerLines": ["Walked with Robert Ngozi.", "Lincoln High, the last day."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The blocks\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M60,300 L340,300\" stroke-width=\"4\"/>\n  <path d=\"M110,300 L110,270 L170,270 L200,300 M230,300 L230,250 L290,250 L320,300\" stroke-width=\"4\"/>\n  <path d=\"M110,270 L110,300 M170,270 L170,300 M230,250 L230,300 M290,250 L290,300\" stroke-width=\"1.6\"/>\n  <path d=\"M120,285 L160,285 M240,270 L280,270\" stroke-width=\"1.4\"/>\n  <path d=\"M60,300 L60,316 M340,300 L340,316\" stroke-width=\"3\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

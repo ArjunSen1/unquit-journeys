@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Marcus Webb, the single thread</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Marcus Webb is a composite from Chapter Two of The Unquit Stories. Restaurant vocabulary throughout.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "marcus", "title": "Marcus Webb, the single thread", "subtitle": "A restaurant kitchen on Magazine Street. After close. The next day's mise en place.", "object": "The recipe card", "sticker": "The recipe card.", "footer": "Marcus Webb is a composite from Chapter Two of The Unquit Stories. Restaurant vocabulary throughout.", "arrive": {"heading": "You are standing where Marcus Webb stood, after everyone had gone home.", "paragraphs": ["He had lost most things by fifty-two, and he kept precise track of the order. The restaurant first, or rather the flood took the restaurant, the insurance dispute took the rebuild money, and the bank took the rest. Marcelline's, named for his mother, fifteen years in a New Orleans neighborhood that was not fashionable when he opened it. The kind of place, a newspaper wrote, that the city makes by accident and keeps by intention.", "Then the apartment, when the savings went. Seven months with his brother in Metairie, which is a specific education in humility at fifty-two. Now a room in a house in the Bywater, paid for by working as a prep cook at a Creole restaurant on Magazine Street, where the other cooks are in their twenties and know him as Marcus, who is quiet and fast and does not eat on his break.", "He does not tell them what he was. What he had been is not a credential. But every night, after the cleaning is done and the checklist is complete and the younger cooks have gone, he goes through the next day's mise en place. Verifies what is prepped. Notes what the morning needs. Makes small adjustments that will make the opening cook's morning easier. It is not his job. No one asked.", "Now Marcus steps aside and you step in. The empty kitchen, the lost restaurant, the room in the Bywater and the mise en place are his. What the last thing that still feels like yourself is worth is yours."], "button": "Stand in the kitchen after close"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The kitchen is clean and quiet. The walk-in hums. The prep list for tomorrow is on the board and you have read it twice already, correcting nothing yet.", "question": "What are you feeling right now?", "placeholder": "Say it as a prep cook, not as the chef the newspaper wrote about.", "helper": {"who": "Danny, the opening cook, twenty-four, who has come back for his jacket and found you here", "says": "You are always here after close. Nobody asked you to be. Before you tell me it is nothing, tell me what it is.", "options": ["I feel that I have lost everything in an order I can recite, and the only thing left on the list is this, and it is not even my job.", "I feel fifty-two in a kitchen full of twenty-four-year-olds who think I am quiet and fast, and I am, and I was also something else.", "I feel that I go through tomorrow's mise en place every night because it is the last thing that still feels like me, and I am afraid of what happens if I stop."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the list, take an inventory. Not of what was lost, and not of Marcus. Of yourself.", "question": "What have you already done, in your own life, that proves you can keep the last thread when everything else is stripped away?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Danny", "says": "I can tell you what the man at this board carries. Fifteen years of a restaurant people came back to because someone cared what they ate. Seven months at a brother's, which is its own kind of course. And every night, a mise en place checked for a cook who never knew who checked it. Now you tell me what you carry. Finish one of these.", "options": ["A time I kept the last thread when everything else was stripped away: ", "A time I did the unasked thing that made someone else's morning easier: ", "A time what I had been was not a credential, and I did the work anyway: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the kitchen is: I lost it all, and this is what is left, and this is small. It sounds like an inventory. It is grief counting the wrong column. You do not have to decide what you are tonight. You only have to refuse to let the size of the thread decide its worth.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a comeback plan. One reason the smallness does not get the vote.", "helper": {"who": "Danny", "says": "You check the mise en place every night. That is small. Tell me why it is not nothing.", "options": ["Because the flood took the building and the insurance took the money and the bank took the rest, and none of them took this. That makes it the strongest thing I own, not the smallest.", "Because the single thread is what remains when everything else is gone, and it is rarely large, and it is never nothing.", "Because someone's morning is easier tomorrow because of tonight, and that was the entire point of Marcelline's, and it did not need a building."]}}, {"n": 4, "name": "One step", "prompt": "Not a new restaurant. Not the old one. One step, small enough to finish before you lock the kitchen.", "question": "What is it?", "placeholder": "Something you can do at a prep board after close.", "helper": {"who": "Danny", "says": "You are going to check the list anyway. What is the smallest thing you can do differently tonight?", "options": ["I will check the mise en place, as I do every night, and this time I will sign it. My name. So the opening cook knows who.", "I will fix the one thing on the setup that has been wrong for a week and that no one has noticed, and leave a note about why.", "I will tell Danny one thing about Marcelline's. Not the review. One dish, and why."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The list is signed, or the setup is fixed with a note, or a twenty-four-year-old knows one dish from a restaurant that no longer exists. The room in the Bywater is still the room. The flood still happened.", "question": "What has changed in you?", "placeholder": "Compare it to the quiet kitchen.", "helper": {"who": "Danny", "says": "Nothing about what you lost changed. What changed at the board?", "options": ["My name is on the list. It is the first thing I have signed in a year that was not a lease for a room.", "I fixed the thing and said why. The saying why is the chef. The fixing is the prep cook. They were the same man the whole time.", "I told him about one dish and he asked how it was made. I have not been asked that in a year. I am still someone who knows."]}}, {"n": 6, "name": "Time passes", "montage": ["He keeps checking the mise en place. The chapter does not give him a second restaurant or a redemption. It gives him the thread, and it is careful about what the thread is: not the title, not the building, not the review. The care about what someone else will eat tomorrow, expressed in the smallest available form.", "The single thread is what remains when everything else has been stripped away. It is rarely large. It is rarely the most obvious expression of a person's identity. It is the last thing that still feels like yourself, and the whole of the person is in it, compressed.", "The younger cooks eventually learn who he was. It changes nothing about the mise en place. It was never about them knowing."], "question": "Everything lost, in order, and one unasked task after close. Here is the question the flood cannot answer for you: what was the mise en place?", "choices": [{"label": "A habit.", "short": "a habit", "reply": "It was that, and habits are how threads survive. But a habit is a description of frequency. It does not say what was being kept."}, {"label": "The chef, refusing to be a prep cook.", "short": "the chef, refusing to be a prep cook", "reply": "No. He was a prep cook and did the job well and did not tell anyone what he had been. The mise en place was not a refusal. It was the chef and the prep cook being the same man."}, {"label": "The last form of the care that Marcelline's was built on.", "short": "the last form of the care that Marcelline's was built on", "reply": "Yes. The restaurant was the kind of place where someone cared what you ate. The flood took the place. It did not take the caring, which compressed itself into fifteen minutes after close, for a cook who did not know who was doing it. The single thread is not the largest thing about you. It is the thing that is still there when the largest things are gone, and it is the whole of you, folded small."}, {"label": "Nothing. It was not even his job.", "short": "nothing, it was not even his job", "reply": "It was not his job. That is precisely why it was the thread. Jobs are containers. The unasked thing after close is the content."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another flood, another order of losses you can recite. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Danny", "says": "One line for the next kitchen after close. Start with I did.", "options": ["I did keep the thread when everything else was gone.", "I did sign the list.", "I did the unasked thing that made someone's morning easier."]}, "ice": {"question": "One more line, and this one is yours. What is the last thing that still feels like yourself, and is it small?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the kitchen after close", "sub": "Your thread, beside his", "paragraphs": ["A kitchen on Magazine Street after close, a prep list on the board. You stood where Marcus Webb stood, with a room in the Bywater and everything else lost in an order you could recite, and the kitchen asked you what it asked him. You wrote: {1}", "Before the list, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was fifteen years of a restaurant people came back to, and a mise en place checked every night for a cook who never knew.", "You refused to let the size of the thread decide its worth. Your reason: {3} That refusal is the deferral. Not tonight. Not on grief's column.", "Your first step: {4} {overlap}", "After the step, the flood had still happened. Inside, you noticed this: {5}", "Then the nights did what nights do when a man keeps the thread. The list checked. The morning easier. A twenty-four-year-old who eventually learned, and a mise en place that did not change because of it.", "Asked what the mise en place was, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["The chapter does not have him sign. It has him stay unknown. Signing is your step; his was doing it unsigned for months. A different first step in the same place is still a first step.", "This is what he did every night: small adjustments that made the opening cook's morning marginally easier. A different first step in the same place is still a first step.", "He did not tell the younger cooks, the chapter says. Telling one is your step. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step, every night, was the next day's mise en place, unasked. A different first step in the same place is still a first step.", "help": {"zero": "You did not talk to Danny. Marcus did not either; he did the thread alone, and the chapter honors that. But the opening cook was who the thread was for. Next time, let him know. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You talked to Danny {n} on this journey. Marcus never did, and the mise en place was for him anyway. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the last thing that still feels like yourself, as you named it: {ice}", "closing": "The kitchen on Magazine Street opens at six. What you carry out of it is not a restaurant, and it is not Marcus. It is the evidence that you know what your single thread is, and that it is the whole of you folded small.", "stickerLines": ["Walked with Marcus Webb.", "Magazine Street, after close."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The recipe card\">\n<g transform=\"rotate(-4 200 200)\" fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M100,110 L300,110 L300,290 L100,290 Z\" stroke-width=\"4\"/><path d=\"M120,140 L200,140\" stroke-width=\"2.6\"/><path d=\"M120,170 L280,170 M120,192 L260,192 M120,214 L280,214 M120,236 L220,236 M120,258 L280,258\" stroke-width=\"1.4\"/><path d=\"M250,124 C262,116 274,126 266,136 C260,142 252,136 250,124 Z\" stroke-width=\"1.6\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

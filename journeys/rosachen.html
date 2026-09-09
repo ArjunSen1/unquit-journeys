@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Rosa Chen at Efua's door</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Rosa Chen and Efua Boateng are composites from The Unquit Athlete. This is the first journey in the series played from the helper's side of the door.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "rosachen", "title": "Rosa Chen at Efua's door", "subtitle": "A hallway in an athletes' residence. Day nine. A door you could walk past.", "object": "The knock", "sticker": "The knock.", "footer": "Rosa Chen and Efua Boateng are composites from The Unquit Athlete. This is the first journey in the series played from the helper's side of the door.", "arrive": {"heading": "You are standing where a helper stood, on the wrong side of a door.", "paragraphs": ["Everything in this series so far has put you in the chair of the person at the edge. This journey turns you around. You are Rosa Chen, a teammate, standing in a hallway outside a door that has not opened in nine days.", "Behind it is Efua Boateng, twenty-three, who failed to qualify last Sunday by a margin she has told no one, because she has told no one anything. She has come to training and gone home. She has answered messages with one word. The coaches have noticed and decided she needs space. Her family is in Accra and thinks it went fine.", "You are not her closest friend. You are the one who noticed that nine days of one-word answers is not space. You are standing outside the door with nothing to offer. No fix, no plan, no words you have rehearsed. You could walk past. Most people do, and are not wrong to, exactly.", "Now Rosa steps aside and you step in. The hallway, the door, the nine days and the nothing in your hands are hers. Whether you knock is yours."], "button": "Stand in the hallway"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The hallway is quiet. The door is the same as every door on the corridor. You have walked past it eight times this week.", "question": "What are you feeling right now?", "placeholder": "Say it as the one outside the door, not as the one who knows how this ends.", "helper": {"who": "Efua, inside, not speaking, but you can hear the television", "says": "You cannot hear her. But you can imagine what nine days of a closed door sound like from inside. Before you knock, say what you feel out here.", "options": ["I feel that it is not my place, and that not my place is what everyone on this corridor has been saying for nine days.", "I feel that I have nothing to say and that knocking with nothing to say is worse than not knocking.", "I feel that if I were behind that door I would want someone to knock and would not open it, and I do not know what to do with both of those."]}, "helpLabel": "Listen at the door."}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the knock, take an inventory. Not of Efua, and not of Rosa. Of yourself.", "question": "What have you already done, in your own life, that proves you can walk toward someone who has gone quiet?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Efua, inside", "says": "She has been on this team two years. Someone once knocked on her door. Someone once did not. Before you knock, tell yourself what you carry. Finish one of these.", "options": ["A time I walked toward someone who had gone quiet: ", "A time someone knocked on my door with nothing to offer and it was enough: ", "A time I noticed what everyone else had decided to call space: "]}, "fillIn": true, "helpLabel": "Listen again."}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the hallway is: it is not my place, and she needs space. It sounds like respect. It is the reason the corridor has been quiet for nine days. You do not have to fix anything tonight. You only have to refuse to let not my place decide whether the door gets knocked on.", "question": "What is the one reason you will not walk past tonight?", "placeholder": "Not a plan for her. One reason the hallway does not get the vote.", "helper": {"who": "Efua, inside", "says": "Nine days. The coaches called it space. Tell yourself why you will not.", "options": ["Because nine days of one-word answers is not space. It is a person waiting to see if anyone notices.", "Because I have nothing to offer and that is exactly what a knock does not require.", "Because I have walked past eight times and each time I knew. Knowing eight times is enough."]}, "helpLabel": "Listen."}, {"n": 4, "name": "One step", "prompt": "Not a rescue. Not the right words. One step, small enough to finish before you lose your nerve.", "question": "What is it?", "placeholder": "Something you can do with a hand and a door.", "helper": {"who": "Efua, inside", "says": "She is not going to open it right away. What is the smallest thing you can do anyway?", "options": ["I will knock. Twice. And then wait longer than is comfortable.", "I will knock and say one thing through the door: I am here, I have nothing to say, I am not leaving for ten minutes.", "I will sit down on the floor outside the door so that if she opens it I am not standing over her."]}, "helpLabel": "Knock."}, {"n": 5, "name": "What you feel now", "prompt": "It is done. You have knocked twice and are waiting, or a sentence has been said through the door, or you are sitting on the corridor floor. The door has not opened yet. It may not.", "question": "What has changed in you?", "placeholder": "Compare it to walking past.", "helper": {"who": "Efua, inside, and the television has gone quiet", "says": "You knocked. Something on the other side changed, even if the door did not. What changed on yours?", "options": ["I knocked. Whatever happens, I am no longer one of the people who decided it was space.", "I said I was not leaving for ten minutes. It has been four. I am still here. That is the whole of what I can do, and I am doing it.", "I am sitting on the floor with nothing to offer, and I have stopped believing that nothing to offer is a reason not to be here."]}, "helpLabel": "Wait."}, {"n": 6, "name": "Time passes", "montage": ["The door opens on the second knock, or the fifth, or after eleven minutes of you sitting on the floor. Efua does not say much. She says the time, finally, out loud, to one person. She says she has not told her family. She says nine days is the longest she has ever gone without saying anything true.", "You do not fix it. You do not have a plan for the next qualification. You sit in the room for an hour and most of it is quiet. Then you leave, and the next day she answers a message with a whole sentence.", "The helpers in this series have arrived with nothing and stayed. Iris with soup. Marta in a parking lot. A man with a coffee mug who only waved. This is what it looks like from their side: a hallway, a door, eight times walked past, and a ninth time not."], "question": "You knocked with nothing to offer. Here is the question the open door cannot answer for you: what did the knock do?", "choices": [{"label": "It fixed nothing.", "short": "it fixed nothing", "reply": "It fixed nothing, and the chapter is glad of it. Helpers who arrive to fix are a different species and often make it worse. You arrived to be there."}, {"label": "It got her to say the time out loud.", "short": "it got her to say the time out loud", "reply": "It did, and that mattered, and it was hers to say. The knock did not extract it. The knock made a room where it could be said."}, {"label": "It ended nine days of everyone deciding she needed space.", "short": "it ended nine days of everyone deciding she needed space", "reply": "Yes. The hardest part of helping is not the help. It is the walk from the corridor to the door, past the sentence that says it is not your place. Every helper in this series made that walk with nothing in their hands. Now you have made it too. The knock does not require an answer. It requires a person who notices, and does not walk past a ninth time."}, {"label": "Nothing. She would have come out eventually.", "short": "nothing, she would have come out eventually", "reply": "Possibly. Ask her whether eventually and day nine are the same. Ask anyone who has been on the other side of a door."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another door, another corridor where everyone has decided it is space. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Efua, at the open door", "says": "One line for the next hallway. Start with I did.", "options": ["I did knock with nothing to offer.", "I did not walk past a ninth time.", "I did stay longer than was comfortable."]}, "ice": {"question": "One more line, and this one is yours. Whose door have you walked past eight times?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the hallway", "sub": "Your knock, beside hers", "paragraphs": ["An athletes' residence, day nine, a door like every other door on the corridor. You stood where Rosa Chen stood, with nothing in your hands and eight times walked past behind you, and the hallway asked you what it asked her. You wrote: {1}", "Before the knock, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was noticing what everyone else had decided to call space.", "You refused to let not my place decide the door. Your reason: {3} That refusal is the deferral. Not tonight. Not from the corridor's quiet.", "Your first step: {4} {overlap}", "After the step, the door had not yet opened. Inside you, this: {5}", "Then the door did what doors do, on the second knock or the fifth or after eleven minutes on the floor. A time said out loud to one person. An hour, mostly quiet. A whole sentence the next day.", "Asked what the knock did, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["She did this. Twice, and then a wait that the chapter says felt very long.", "The chapter has her say almost exactly this through the door. A different first step in the same place is still a first step.", "The chapter does not say whether she sat. It says she stayed. A different first step in the same place is still a first step."], "stepOverlapFree": "Her first step was a knock and a wait. A different first step in the same place is still a first step.", "help": {"zero": "You did not listen at the door. Rosa did, in the sense that matters: she imagined the inside of nine days and let that decide her. Next time, listen first. The knock is easier after.", "some": "You listened at the door {n} on this journey. Imagining the inside of nine days is what turned Rosa around in the hallway."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the door you have walked past eight times, as you named it: {ice}", "closing": "The corridor has other doors and other ninth days. What you carry out of it is not a rescue, and it is not Rosa. It is the evidence that you know how to knock with nothing in your hands.", "stickerLines": ["Walked with Rosa Chen.", "A hallway, day nine."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The knock\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M110,60 L290,60 L290,340 L110,340\" stroke-width=\"4\"/><path d=\"M130,80 L270,80 L270,320 L130,320 Z\" stroke-width=\"1.6\"/><circle cx=\"256\" cy=\"200\" r=\"8\" stroke-width=\"3\"/><path d=\"M60,180 C48,168 48,148 60,136 M74,168 C66,160 66,148 74,140\" stroke-width=\"2.4\"/><path d=\"M84,154 L112,154\" stroke-width=\"2.4\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Nelson Mandela, the conditional release</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the public record, including the statement read by Zindzi Mandela at Jabulani Stadium on February 10, 1985, paraphrased, and from Unquit: The Oldest Choice.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "mandela", "title": "Nelson Mandela, the conditional release", "subtitle": "Pollsmoor Prison, Cape Town. February 1985. Year twenty-two.", "object": "The window", "sticker": "The window.", "footer": "Drawn from the public record, including the statement read by Zindzi Mandela at Jabulani Stadium on February 10, 1985, paraphrased, and from Unquit: The Oldest Choice.", "arrive": {"heading": "You are standing where Nelson Mandela stood.", "paragraphs": ["He has been in prison for twenty-one years. Eighteen of them on Robben Island, in a cell he could cross in three strides, breaking rocks in a lime quarry that damaged his eyes. Three years ago he was moved to Pollsmoor, on the mainland, to a shared cell on a roof with a small garden he tends in oil drums. He is sixty-six. He came in at forty-four.", "Ten days ago the State President stood up in Parliament and made an offer. Mandela can walk free, tomorrow if he likes, on one condition: that he renounce violence as a political instrument, unconditionally, in public. The offer is aimed at him alone. The organization he leads remains banned. His comrades remain in prison. The laws remain the laws.", "The offer is not stupid. He is sixty-six. His wife is under banning orders. His eldest son died while he was inside and he was not allowed to bury him. His mother died while he was inside and he was not allowed to bury her. Every year he remains is a year he will never have. Some people who love him want him to take it.", "He has a pen, paper, and permission to send out a statement. His daughter Zindzi will read it aloud in Soweto on Sunday. The whole country will hear what he decides.", "Now he steps aside and you step in. The cell, the twenty-one years, the offer and the blank page are his. What Zindzi reads on Sunday is yours."], "button": "Sit down at the table in the cell"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The page is blank. Through the window you can see the mountain and a slice of the sky you have been rationed for twenty-one years. In two days you could be standing under all of it.", "question": "What are you feeling right now?", "placeholder": "Say it to the page before the country hears the answer.", "helper": {"who": "Walter Sisulu, in the same cell, who came in with you in 1964", "says": "Before you write a word for them, say a true one to me. We have not lied to each other in twenty-one years. What do you feel?", "options": ["I feel sixty-six, and I feel every year I did not have with my children, and I feel the offer in my hands like a door with light under it.", "I feel that they have finally found the price of my freedom and it is exactly the thing that makes me me.", "I feel that if I say yes, I walk out alone into a country where everyone I walked in with is still inside, and I do not know what that man's name is."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the statement is written, take an inventory. Not of the offer, and not of the prisoner. Of yourself.", "question": "What have you already done, in your own life, that proves you can refuse a thing you badly want because of what it would cost who you are?", "placeholder": "One thing you did. Not one thing you believe.", "fillIn": true, "helper": {"who": "Walter Sisulu", "says": "I can tell you what the man at that table carries. He stood in a courtroom in 1964 and told the judge he was prepared to die for what he believed, and then he did not die, which is harder. He has been offered his freedom before, quietly, and said no before. He exercises every morning in a cell three strides wide and has done it for twenty-one years. Now you tell me what you carry. Finish one of these.", "options": ["A time I refused something I badly wanted because of what taking it would make me: ", "A time I kept a discipline for years in a place that gave me no reason to: ", "A time I would not walk out alone when the people I came in with were still inside: "]}}, {"n": 3, "name": "The deferral", "prompt": "Two sentences are in the cell. One says: take it, you have given enough, no one could blame you. The other says: refuse it today, loudly, before you are tempted. Both want an answer before Sunday. Neither has read the offer as carefully as a lawyer would.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not an argument either way. One reason to read the offer again in the morning.", "helper": {"who": "Walter Sisulu", "says": "You are a lawyer. You have never signed anything without reading it twice. Tell me why tonight is not the night.", "options": ["Because I want to know what the word unconditional means to the man who wrote it, and I have not asked yet.", "Because a decision made at sixty-six in a cell with a window is my own longing talking, and the country is not asking my longing.", "Because Zindzi reads it on Sunday. Whatever I write, she has to be able to say it to ten thousand people and mean it."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The page is still blank. Not the whole statement. Not the next five years. One step, small enough to finish before the warder comes for the letters.", "question": "What is it?", "placeholder": "Something you can do with a pen and a fellow prisoner.", "helper": {"who": "Walter Sisulu", "says": "You do not have to write the statement. Write one sentence of it. Which one?", "options": ["I will write the first sentence to the people and not to the President: I cherish my own freedom dearly, but I care even more for yours.", "I will write down the questions the offer does not answer. What freedom is offered while the organization is banned? While my comrades are inside? While the laws stand?", "I will read the offer aloud to Walter and let him tell me what it is really asking."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. One sentence is on the page, or a list of questions is, or Walter has told you what the offer is really asking. The window is the same. The mountain is the same. You are still inside.", "question": "What has changed in you?", "placeholder": "Compare it to the blank page.", "helper": {"who": "Walter Sisulu", "says": "Nothing outside the wall has changed. What changed at the table?", "options": ["The longing is the same size. It has stopped writing the statement.", "I understood the offer. It is not freedom. It is a smaller cell with a nicer view, and the door locks from their side.", "I stopped asking whether I have given enough. I asked what the statement is for, and it is not for me."]}}, {"n": 6, "name": "Time passes", "montage": ["On Sunday, February 10, 1985, in Jabulani Stadium in Soweto, his daughter Zindzi reads the statement to a crowd that has not heard his words in public for more than twenty years. He cherishes his own freedom, she reads, but he cares even more for theirs. What freedom is he being offered while the organization of the people remains banned, while his comrades are in prison, while he needs a permit to live in his own country? Only free men can negotiate. Prisoners cannot enter into contracts. He will not sell the birthright of the people to be free.", "He stays inside five more years. He is released on February 11, 1990, unconditionally, with the organization unbanned and the negotiations he refused to conduct as a prisoner about to begin as a free man. In 1994 he is elected President of the country that jailed him. He serves one term and goes home.", "He said later that he went in as an angry young man and came out knowing himself. The years did not delay the arrival. They made the man who could arrive."], "question": "He was offered freedom and refused it. Here is the question the five extra years cannot answer for you: what did he refuse?", "choices": [{"label": "Freedom.", "short": "freedom", "reply": "He did not refuse freedom. He said so in the first sentence. He refused a particular thing that was wearing freedom's clothes, and the whole statement is the work of telling them apart."}, {"label": "The President's terms.", "short": "the President's terms", "reply": "Closer. The terms were a contract, and he named the flaw: prisoners cannot enter into contracts. But refusing terms is what lawyers do. What he did was older than law."}, {"label": "A door that opened for him alone.", "short": "a door that opened for him alone", "reply": "Yes. The offer was for one man, and the whole of who he was had been built for many. To walk through it alone would have been to become someone else on the way out. He refused to purchase his freedom with his identity, and five years later the door opened for everyone. That is what freedom at the price of who you are looks like when it is declined."}, {"label": "Nothing. He was in no position to refuse anything.", "short": "nothing, he was in no position to refuse anything", "reply": "This is exactly what the offer was designed to make everyone believe. A man in a cell with a pen refused a President in public and was heard by ten thousand people. Position is not the same as power. He had almost none of the first. He had all of the second, and he knew which one he was spending."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another door that opens for you alone at a price. Write one sentence for that morning. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Walter Sisulu", "says": "One line for the next offer. Start with I did.", "options": ["I did not walk out alone while the people I came in with were still inside.", "I did read the offer twice before I let my longing answer it.", "I did refuse to buy my freedom with who I am."]}, "ice": {"question": "One more line, and this one is yours. What door in your own life is open for you alone, and what is the price on it?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, at the table in the cell", "sub": "Your offer, beside his", "paragraphs": ["Pollsmoor Prison, February 1985, year twenty-two. You sat where Nelson Mandela sat, with a blank page and an offer of freedom on one condition, and the cell asked you what it asked him. You wrote: {1}", "Before the statement, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a courtroom in 1964, a quiet offer refused once already, and twenty-one years of exercising every morning in a cell three strides wide.", "You refused to let your longing write the statement. Your reason: {3} That refusal is the deferral. Not tonight. Not before reading it twice.", "Your first step: {4} {overlap}", "After the step, the window and the mountain were the same and you were still inside. Inside you, this: {5}", "Then time did what it does when a man will not buy his freedom with himself. A daughter's voice in a stadium, five more years, an unconditional release, a ballot, and a presidency handed back after one term.", "Asked what he refused, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. The statement Zindzi read begins with almost exactly that sentence, addressed to the people and not to the President.", "He did this. The statement is built from those questions, asked one after another, each ending in the same place: what freedom is this?", "He did this, in a shared cell, for months, with Sisulu and the others. Nothing he wrote in prison was written alone. A different first step at the same table is still a first step."], "stepOverlapFree": "His first step was a sentence to the people rather than to the President, and a list of questions the offer could not answer. A different first step at the same table is still a first step.", "help": {"zero": "You did not turn to Walter Sisulu on this journey. Mandela did, for fifty years, and said no decision of his was ever made without him. Next time, turn to the one in the cell with you. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Walter Sisulu {n} on this journey. Mandela called him the man who made him, and shared the cell at Pollsmoor with him when the offer came. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the door open for you alone in your own life, as you named it: {ice}", "closing": "The cell is a museum. The stadium is still there. What you carry out is not a presidency, and it is not him. It is the evidence that when a door opened for you alone, you read the price on it and would not pay.", "stickerLines": ["Walked with Nelson Mandela.", "Pollsmoor, February 1985."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The window\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n\n  <path d=\"M110,80 L290,80 L290,320 L110,320 Z\" stroke-width=\"4\"/>\n  <path d=\"M155,80 L155,320 M200,80 L200,320 M245,80 L245,320\" stroke-width=\"4\"/>\n  <path d=\"M110,200 L290,200\" stroke-width=\"4\"/>\n  <path d=\"M120,300 C150,262 190,256 220,272 C246,286 268,282 282,268\" stroke-width=\"2\"/>\n  <path d=\"M120,300 L282,300\" stroke-width=\"1\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

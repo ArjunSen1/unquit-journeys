@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys</title>
+<style>
+  :root{--ink:#000;--muted:#6b6b6b;--red:#8e1b1b;--rule:#e6e6e6;--font:Calibri,Carlito,"Segoe UI","Helvetica Neue",Arial,sans-serif}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55}
+  header{padding:28px 40px 0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline}
+  header b{font-weight:600}header b span{color:var(--red)} header a{color:inherit;text-decoration:none} header nav a{color:var(--muted);margin-left:22px;text-decoration:underline;text-underline-offset:4px}
+  main{max-width:760px;margin:0 auto;padding:88px 40px 120px}
+  h1{font-size:52px;line-height:1.05;font-weight:600;margin:0 0 16px;letter-spacing:-.01em}
+  h2{font-size:28px;font-weight:600;margin:72px 0 20px}
+  .lead{font-size:24px;color:var(--red);margin:0 0 48px}
+  p{max-width:34em;margin:0 0 20px}
+  .list{border-top:1px solid var(--ink)}
+  a.j,div.j{display:block;text-decoration:none;color:inherit;padding:28px 0;border-bottom:1px solid var(--rule)}
+  a.j:hover .t,a.j:focus-visible .t{color:var(--red)} a.j:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+  .t{font-size:28px;font-weight:600;line-height:1.15;margin:0 0 6px}
+  .w{color:var(--red);font-size:17px;margin:0 0 12px}
+  .d{margin:0;max-width:34em}
+  .k{font-size:15px;color:var(--muted);margin:12px 0 0}
+  .order{border-top:1px solid var(--ink)}
+  .row{display:grid;grid-template-columns:44px 1fr auto;gap:16px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+  .row .n{color:var(--red);font-weight:600;font-size:17px}
+  .row .name{font-size:19px}
+  .row .name a{color:inherit;text-decoration:none}
+  .row .name a:hover{color:var(--red)}
+  .row .e{font-size:14px;color:var(--muted);text-align:right;white-space:nowrap}
+  .row.coming .name{color:var(--muted)}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:700px){main{padding:56px 24px 80px}h1{font-size:40px}header,footer{padding-left:24px;padding-right:24px}.row .e{display:none}}
+</style>
+</head>
+<body>
+<header><b><a href="index.html">UNQUIT<span>®</span> JOURNEYS</a></b><nav><a href="ledger.html">Your evidence</a></nav></header>
+<main>
+  <h1>Their ice. Your decision.</h1>
+  <p class="lead">You never become anyone else here. You stand where they stood.</p>
+  <p>Each journey puts you in the exact moment before a story could go either way. The situation is theirs. Every decision is yours. Seven steps, a helper at every door, and at the end a printed story of your own choices set beside theirs, with your words in red.</p>
+  <p>Each takes about twelve minutes. Nothing you write leaves this device. The one sentence you lock in at the end is kept for you under Your evidence.</p>
+  <h2>Start here</h2>
+  <div class="list">
+    <a class="j" href="journeys/zero.html">
+      <p class="t">The food truck man, Journey Zero</p>
+      <p class="w">Texas. Today.</p>
+      <p class="d">A faded pelican, a phone, a message not yet sent. Nobody learned his name. Nobody knows how it ended.</p>
+      <p class="k">Unknown. Stillness before the story goes either way.</p>
+    </a>
+  </div>
+  <p class="note" style="color:#6b6b6b;font-size:14px;margin:0 0 24px">Testing build, September 2026. Eighty-six journeys are live for review. Journeys marked consent required are included for testing only and will not be public until their subjects have agreed.</p>
+  <h2>Journeys you can walk today, in order</h2>
+  <div class="list">
+    <a class="j" href="journeys/arjuna.html">
+      <p class="t">Arjuna, the lowered bow</p>
+      <p class="w">India. Ancient.</p>
+      <p class="d">Every face you love is on the field, on one side or the other. The bow slips. The charioteer will not tell you what to do.</p>
+      <p class="k">Yours vs not yours. Every face you love on both sides.</p>
+    </a>
+    <a class="j" href="journeys/shackleton.html">
+      <p class="t">Ernest Shackleton</p>
+      <p class="w">Antarctica. 1915.</p>
+      <p class="d">The ship is being crushed. The crossing has been over since January. Twenty-seven men are watching your face.</p>
+      <p class="k">Arrival. Twenty-seven men watching your face.</p>
+    </a>
+    <a class="j" href="journeys/walter.html">
+      <p class="t">Walter Nkemelu</p>
+      <p class="w">United States. Today.</p>
+      <p class="d">Nine years on a corner with a STOP sign. No one would notice if you did not come back. That is not self-pity. It is arithmetic.</p>
+      <p class="k">Long Middle. Replaceable, as arithmetic.</p>
+    </a>
+    <a class="j" href="journeys/lijjat.html">
+      <p class="t">The seven women of Lijjat</p>
+      <p class="w">Mumbai. 1959.</p>
+      <p class="d">Seven women, eighty borrowed rupees, and a monsoon that has stopped the sun for four months.</p>
+      <p class="k">Collective. Starting with almost nothing, together.</p>
+    </a>
+    <a class="j" href="journeys/march4.html">
+      <p class="t">Arjun Sen, March 4th</p>
+      <p class="w">A mountain road outside Boulder. Half past five.</p>
+      <p class="d">Fired, uninsured, mortgage doubled, grandmother gone, a farewell tour finished. Every door closed. Then the phone rings a second time.</p>
+      <p class="k">Arrival. Deciding quietly and calling it peace. The first personal journey, with a note from Arjun.</p>
+    </a>
+    <a class="j" href="journeys/curie.html">
+      <p class="t">Marie Curie, April 1906</p>
+      <p class="w">Paris. The week after the rue Dauphine.</p>
+      <p class="d">Pierre is gone. The shed still smells the same. The Sorbonne is offering you his chair, and no woman has ever held one.</p>
+      <p class="k">Continuation through grief. Grief inside the work.</p>
+    </a>
+    <a class="j" href="journeys/sanders.html">
+      <p class="t">Colonel Harland Sanders, 1956</p>
+      <p class="w">Corbin, Kentucky. The morning after the auction.</p>
+      <p class="d">The interstate moved seven miles west and took forty years with it. On the table, a first Social Security check. A hundred and five dollars.</p>
+      <p class="k">Arrival, late. Told by the world that it is too late.</p>
+    </a>
+    <a class="j" href="journeys/harriet.html">
+      <p class="t">Harriet Chen, what quitters know</p>
+      <p class="w">A library carrel. Three years in.</p>
+      <p class="d">A good chapter on the screen, an unsigned withdrawal form in the drawer, and two sentences that feel identical and are not.</p>
+      <p class="k">The Right Quit. Relief that might be wisdom.</p>
+    </a>
+    <a class="j" href="journeys/gandhi.html">
+      <p class="t">Mohandas Gandhi, Pietermaritzburg</p>
+      <p class="w">A railway waiting room. June 7, 1893.</p>
+      <p class="d">Put off a train with a first-class ticket in your pocket. Your coat is in a locked room. It is winter, and the sensible thing is to go home.</p>
+      <p class="k">Redirect of a life. Humiliation that clarifies.</p>
+    </a>
+    <a class="j" href="journeys/abena.html">
+      <p class="t">Abena Mensah</p>
+      <p class="w">Chorlton, Manchester. The seventh day.</p>
+      <p class="d">Two failed exams, six days at a kitchen table not studying, a phone turned off. Someone has knocked on the door with a covered pot.</p>
+      <p class="k">Arrival. Shame that stops your hands. The helper at the door.</p>
+    </a>
+    <a class="j" href="journeys/tubman.html">
+      <p class="t">Harriet Tubman, Philadelphia</p>
+      <p class="w">A boarding house kitchen. December 1850.</p>
+      <p class="d">Free for fourteen months, wages in a tin, a new law that makes the North unsafe, and word that your niece will be sold in Baltimore before Christmas.</p>
+      <p class="k">Return. Arriving, and going back.</p>
+    </a>
+    <a class="j" href="journeys/nakamura.html">
+      <p class="t">Gordon and Ada Nakamura</p>
+      <p class="w">A kitchen table. Thirty-eight years in. For two people.</p>
+      <p class="d">One of you has just said, I am not sure I am still happy. The other has to hear it. Pass the device. Both of your words end up in the story.</p>
+      <p class="k">Together. The first journey for two.</p>
+    </a>
+    <a class="j" href="journeys/kurien.html">
+      <p class="t">Verghese Kurien, Anand</p>
+      <p class="w">A government creamery in Gujarat. 1950.</p>
+      <p class="d">You never wanted to be here. The release order is on the desk, the train is at four, and a quiet man is standing in the doorway with his hands folded.</p>
+      <p class="k">Redirect. Being somewhere you did not choose.</p>
+    </a>
+    <a class="j" href="journeys/wright.html">
+      <p class="t">The Wright brothers, December 14 to 17, 1903</p>
+      <p class="w">Kill Devil Hills. A machine broken on its first try. For two people.</p>
+      <p class="d">Wilbur won the coin toss, stalled, and cracked the elevator frame. The right wind came a day late. The next attempt is Orville's. Pass the device.</p>
+      <p class="k">Arrival in three days. It broke on the first try.</p>
+    </a>
+    <a class="j" href="journeys/confucius.html">
+      <p class="t">Confucius, the fourteen years</p>
+      <p class="w">A road between Chen and Cai. The seventh day without food.</p>
+      <p class="d">Soldiers around the camp, students too weak to stand, and Zilu in the tent flap asking whether a gentleman also comes to this. The zither is across your knees.</p>
+      <p class="k">Continuation that outlives you. Believing yourself a failure while building centuries.</p>
+    </a>
+    <a class="j" href="journeys/hundred.html">
+      <p class="t">Arjun Sen, fewer than a hundred days</p>
+      <p class="w">A house in Denver with the blinds down. September 1996. Day two.</p>
+      <p class="d">Eight people said you may not see Christmas. The reports are in a language only doctors read. A small voice on the answering machine says she has a surprise.</p>
+      <p class="k">Arrival, ten thousand days. Asking what you can do today. With a note from Arjun.</p>
+    </a>
+    <a class="j" href="journeys/priyan.html">
+      <p class="t">Priya Nakamura, the shoulder</p>
+      <p class="w">A surgeon's office. Week one of six.</p>
+      <p class="d">Sixteen years a swimmer, four on a national team. This morning the surgeon stopped saying repair and started saying preservation. Two years more, or the shoulder for life.</p>
+      <p class="k">The Right Quit. Retirement as rising.</p>
+    </a>
+    <a class="j" href="journeys/mandela.html">
+      <p class="t">Nelson Mandela, the conditional release</p>
+      <p class="w">Pollsmoor Prison. February 1985. Year twenty-two.</p>
+      <p class="d">Freedom tomorrow, on one condition, for you alone. A blank page, a window with a slice of mountain, and a daughter who will read your answer to ten thousand people on Sunday.</p>
+      <p class="k">Arrival. Freedom at the price of who you are.</p>
+    </a>
+    <a class="j" href="journeys/osei.html">
+      <p class="t">Daniel Osei, forty dollars</p>
+      <p class="w">A lobby in Minneapolis. A Tuesday in February. Three hours off the plane.</p>
+      <p class="d">It is getting dark. It is nine degrees outside. He has forty dollars, no bed, and a certainty that he has made a mistake.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/parks.html">
+      <p class="t">Rosa Parks, day 200 of the boycott</p>
+      <p class="w">Montgomery, Alabama. A June morning in 1956. Walking again.</p>
+      <p class="d">Two weeks ago a federal court ruled that the bus segregation is unconstitutional. The city has appealed. Nothing has changed on the street.</p>
+      <p class="k">Collective.</p>
+    </a>
+    <a class="j" href="journeys/job.html">
+      <p class="t">Job on the ash heap</p>
+      <p class="w">Outside the town. After the seventh day of silence.</p>
+      <p class="d">His wife has told him to curse and die. He has not. He has said the one sentence the story turns on: though I am slain, yet will I hope. He has not said why. He does not know why.</p>
+      <p class="k">Continuation without explanation.</p>
+    </a>
+    <a class="j" href="journeys/elena.html">
+      <p class="t">Elena Rodriguez, the last Tuesday</p>
+      <p class="w">A parking garage in San Antonio. Tuesday evening. Nineteen years in.</p>
+      <p class="d">She is in the parking garage with the engine off, and she has just called her sister and said the two words she has said before and never meant: I am done. This time she means it.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/milkha.html">
+      <p class="t">Milkha Singh, 1947</p>
+      <p class="w">A refugee train into Delhi. Autumn 1947. Seventeen.</p>
+      <p class="d">There is nothing in his hands and nothing behind him. The only thing his body knows how to do well is the thing his father told him to do.</p>
+      <p class="k">Arrival with a loss inside it.</p>
+    </a>
+    <a class="j" href="journeys/swimmer.html">
+      <p class="t">The swimmer in Indianapolis</p>
+      <p class="w">A parking lot outside a natatorium. The meet is over. Three hundredths of a second.</p>
+      <p class="d">We do not know her name or her event or what happened to her afterward. Someone saw her in the lot, and saw what she did next, and wrote a book because of it. That is the whole record.</p>
+      <p class="k">Unknown.</p>
+    </a>
+    <a class="j" href="journeys/ithaca.html">
+      <p class="t">Odysseus and Penelope</p>
+      <p class="w">Two rooms. An island in the west, and a hall in Ithaca. Year nineteen.</p>
+      <p class="d">In Ithaca, a hundred and eight suitors eat her husband's herds and tell her he is dead, and that she must choose one of them. She has said she will choose when she finishes weaving a shroud for her father-in-law.</p>
+      <p class="k">Together, across distance.</p>
+    </a>
+    <a class="j" href="journeys/marathon.html">
+      <p class="t">Arjun Sen, June 1, 2008</p>
+      <p class="w">A start line in Steamboat Springs. Four thirty in the morning. Sixty-five thousand five hundred steps.</p>
+      <p class="d">It is 4:30 a.m. His name is written on the front and back of his vest in large letters, because someone told him strangers will cheer you by name and he will need every stranger. He has just done the arithmetic.</p>
+      <p class="k">Collective.</p>
+    </a>
+    <a class="j" href="journeys/kalam.html">
+      <p class="t">A. P. J. Abdul Kalam and Satish Dhawan</p>
+      <p class="w">Sriharikota. August 10, 1979. The rocket has fallen into the sea.</p>
+      <p class="d">He is the project director. His name is on it. The mission control room has gone quiet in the way rooms do when everyone is waiting to see who will be blamed. The press is waiting outside.</p>
+      <p class="k">Collective.</p>
+    </a>
+    <a class="j" href="journeys/carlos.html">
+      <p class="t">Carlos Mendes, the good day redesigned</p>
+      <p class="w">A desk in Sao Paulo. Eight in the morning. Two hours staring at your own drawings.</p>
+      <p class="d">He will take medical leave. His doctor will call it exhaustion. His wife will call it predictable. A colleague will call twice and then stop calling.</p>
+      <p class="k">Redesign.</p>
+    </a>
+    <a class="j" href="journeys/tyre.html">
+      <p class="t">Alexander at Tyre, told by Maiji</p>
+      <p class="w">A verandah in Kolkata, and a causeway in the sea. 332 BC. Month one of seven.</p>
+      <p class="d">Maiji told the boy this story when he was small. Years later, when he was thirty-two and eight doctors had given him fewer than a hundred days, she said it to him again on the phone: this, Arjun, is your Siege of Tyre.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/onoda.html">
+      <p class="t">Hiroo Onoda, Lubang Island</p>
+      <p class="w">A jungle in the Philippines. February 20, 1974. The war ended twenty-nine years ago.</p>
+      <p class="d">Yesterday a young Japanese traveler named Norio Suzuki, who set out to find a panda, the abominable snowman and Lieutenant Onoda, in that order, found him. Suzuki has told him the war is over.</p>
+      <p class="k">The Anti-Unquit.</p>
+    </a>
+    <a class="j" href="journeys/ngozi.html">
+      <p class="t">Robert Ngozi, the empty room</p>
+      <p class="w">An equipment closet at Lincoln High. The last day of school. Twenty-eight years.</p>
+      <p class="d">It is the last day of the school year. He is in the equipment closet, looking at the starting blocks and batons and lane markers arranged by the system he built in 1998 and refined every year since.</p>
+      <p class="k">Redirect.</p>
+    </a>
+    <a class="j" href="journeys/nightingale.html">
+      <p class="t">Florence Nightingale, Scutari</p>
+      <p class="w">A barrack hospital above the Bosphorus. November 1854. Week one.</p>
+      <p class="d">Tomorrow the wounded from a battle called Inkerman will arrive by the shipload, more than the doctors can touch, and the door will open whether the doctors want it to or not. She does not know that tonight.</p>
+      <p class="k">Arrival by systems.</p>
+    </a>
+    <a class="j" href="journeys/epictetus.html">
+      <p class="t">Epictetus, the slave</p>
+      <p class="w">A house in Rome. Around AD 70. A man who owns nothing, including himself.</p>
+      <p class="d">None of that has happened. Tonight he is a slave in a house in Rome, and he has been told, by a master with the law behind him, that he is nothing.</p>
+      <p class="k">Long Middle.</p>
+    </a>
+    <a class="j" href="journeys/tyler.html">
+      <p class="t">Tyler Ross, five hundred free throws</p>
+      <p class="w">A high school gym in the Mississippi Delta. After practice. Miss number four hundred and ninety-nine.</p>
+      <p class="d">So Tyler has been shooting after practice, alone, with the coach counting, and attending to the process, and the ball has not gone in. Coach Simmons counted. Four hundred and ninety-nine misses.</p>
+      <p class="k">Arrival by process.</p>
+    </a>
+    <a class="j" href="journeys/rosa.html">
+      <p class="t">Rosa Espinoza, the rest of your life</p>
+      <p class="w">A closed restaurant kitchen in Austin. Sunday morning. Year two.</p>
+      <p class="d">It is Sunday morning. The restaurant is closed. She is standing in the kitchen with the lights off and the walls she painted herself, and she understands, clearly, that the reasonable decision is to walk away.</p>
+      <p class="k">Arrival, then ordinary life.</p>
+    </a>
+    <a class="j" href="journeys/dominic.html">
+      <p class="t">Dominic Ferrara, the physics of falling</p>
+      <p class="w">A bus home from a surgical center in Hartford. Late October. Forty years of stone.</p>
+      <p class="d">He sat against the cathedral wall for a few minutes before he called for help. Not composing himself.</p>
+      <p class="k">Redirect.</p>
+    </a>
+    <a class="j" href="journeys/darwin.html">
+      <p class="t">Charles Darwin, June 18, 1858</p>
+      <p class="w">A study at Down House. A letter from the Malay Archipelago. Twenty years of silence.</p>
+      <p class="d">His infant son is ill with scarlet fever in the next room. He is forty-nine. The work of his life has just arrived in the post in someone else&#x27;s handwriting.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/camille.html">
+      <p class="t">Camille Broussard, love as infrastructure</p>
+      <p class="w">An apartment in Treme, New Orleans. A January morning. The sound is muffled.</p>
+      <p class="d">The trumpet is on its stand by the window. She has not picked it up in nine days, because she is afraid of what she will not hear.</p>
+      <p class="k">Redirect.</p>
+    </a>
+    <a class="j" href="journeys/ramanujan.html">
+      <p class="t">Srinivasa Ramanujan, January 1913</p>
+      <p class="w">A clerk&#x27;s desk at the Madras Port Trust. A third letter to England. Two have gone unanswered.</p>
+      <p class="d">The men around him say to stop. Cambridge does not answer clerks. Two silences are an answer.</p>
+      <p class="k">Arrival, and a short life.</p>
+    </a>
+    <a class="j" href="journeys/moses.html">
+      <p class="t">Moses at the edge of Nebo</p>
+      <p class="w">A mountain east of the Jordan. Year forty. The land is visible.</p>
+      <p class="d">He is a hundred and twenty. He is on a mountain called Nebo, and from here he can see the whole of the land. The river. The plain. The hills beyond. He has been told, plainly, that he will not cross. The people will.</p>
+      <p class="k">Long Middle, for others.</p>
+    </a>
+    <a class="j" href="journeys/sylvia.html">
+      <p class="t">Sylvia Oduya, the first inch</p>
+      <p class="w">A hallway in Memphis. Two months after the funeral. Shoes by the door.</p>
+      <p class="d">Michael died on a Tuesday in November. People brought food and said the right things and went back to their lives.</p>
+      <p class="k">Arrival, small.</p>
+    </a>
+    <a class="j" href="journeys/miriam.html">
+      <p class="t">Miriam Okafor, work that matters</p>
+      <p class="w">A cubicle in a Chicago child welfare office. A Friday. Year twenty-three.</p>
+      <p class="d">It is a Friday. Her caseload is what it always is, which is too much. A case she has carried for three years closed this week the way cases in this system close, which is to say not cleanly.</p>
+      <p class="k">Long Middle.</p>
+    </a>
+    <a class="j" href="journeys/lincoln.html">
+      <p class="t">Abraham Lincoln, November 1858</p>
+      <p class="w">A law office in Springfield, Illinois. The week after the Senate election. Lost.</p>
+      <p class="d">He is in his law office. The debates are in the newspapers. The seat is Douglas&#x27;s. A friend has written to ask how he is, and he is answering.</p>
+      <p class="k">Arrival, delayed.</p>
+    </a>
+    <a class="j" href="journeys/gilgamesh.html">
+      <p class="t">Gilgamesh after Enkidu</p>
+      <p class="w">A riverbank at the edge of the world. The plant is gone. The boatman is waiting.</p>
+      <p class="d">This morning, bathing in a pool on the way home, he left the plant on the bank. A snake ate it and shed its skin and was gone. Everything he crossed the world for is in the belly of a snake.</p>
+      <p class="k">Return after failure.</p>
+    </a>
+    <a class="j" href="journeys/jordan.html">
+      <p class="t">Jordan Pierce, the thirty-first minute</p>
+      <p class="w">A film room. Eleven months after the ACL. Cleared to play Saturday.</p>
+      <p class="d">She has just understood something she does not want to tell her coach. The first quit did not happen when the knee gave way.</p>
+      <p class="k">Arrival after re-entry.</p>
+    </a>
+    <a class="j" href="journeys/nina.html">
+      <p class="t">Nina Volkov, the ambition that cannot be taken</p>
+      <p class="w">A university office, half packed. The contract was not renewed. Twenty-six years.</p>
+      <p class="d">There is an ambition that lives in other people&#x27;s opinions of you. It needs an audience, and when the audience goes, it goes. There is another kind. She is standing in a half-packed office trying to find out which one she has.</p>
+      <p class="k">Redirect.</p>
+    </a>
+    <a class="j" href="journeys/isaiah.html">
+      <p class="t">Isaiah Monroe, the public park</p>
+      <p class="w">An unlocked high school track. Six in the morning. No team, no coach, no program.</p>
+      <p class="d">He is not training for anything. There is nothing to train for.</p>
+      <p class="k">Redirect.</p>
+    </a>
+    <a class="j" href="journeys/bannister.html">
+      <p class="t">Roger Bannister, May 6, 1954</p>
+      <p class="w">Iffley Road track, Oxford. Five in the afternoon. The wind is wrong.</p>
+      <p class="d">It is May 6, 1954, at Iffley Road in Oxford. Two friends, Chris Brasher and Chris Chataway, will pace him. The wind has been gusting at fifteen miles an hour all afternoon, enough to add seconds to a mile.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/ambedkar.html">
+      <p class="t">B. R. Ambedkar, Mahad, March 20, 1927</p>
+      <p class="w">A field outside Mahad. The morning of the march to the water tank.</p>
+      <p class="d">Yesterday, in a field outside the town, several thousand Dalits gathered for a conference he called. This morning he will lead them to the tank to drink. Upper-caste men in the town know. There will be a response.</p>
+      <p class="k">Collective.</p>
+    </a>
+    <a class="j" href="journeys/vivekananda.html">
+      <p class="t">Swami Vivekananda, Chicago, September 1893</p>
+      <p class="w">A rail yard in Chicago. Dawn. The address is lost.</p>
+      <p class="d">It is morning. He has walked into a neighborhood of large houses and asked at door after door for directions or food, in a saffron robe and a turban, and been refused at every one.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/josephine.html">
+      <p class="t">Josephine Marceau, the ceramics class</p>
+      <p class="w">A community center in Baton Rouge. A Tuesday evening. Year three of just breathing.</p>
+      <p class="d">Her friend Marta has been asking her to come to a ceramics class at the community center for two years. She has said no for two years. This Tuesday she said yes, for reasons she cannot fully explain and does not want to examine.</p>
+      <p class="k">Arrival, becoming.</p>
+    </a>
+    <a class="j" href="journeys/torres.html">
+      <p class="t">Camille Torres, the curb at mile 22</p>
+      <p class="w">A curb on the north side of Chicago. Mile 22 of the marathon. The ankle is gone.</p>
+      <p class="d">She is sitting on a curb. Runners she has been pacing with for two hours are passing. Some look at her. Most do not, because they have their own race.</p>
+      <p class="k">Arrival, then the real goal.</p>
+    </a>
+    <a class="j" href="journeys/morrison.html">
+      <p class="t">Toni Morrison at four in the morning</p>
+      <p class="w">A kitchen in Queens. Four in the morning. Two sons asleep. Work at nine.</p>
+      <p class="d">So she has been getting up at four. Before the boys wake. Before the commute. At the kitchen table, with a pencil and a legal pad, in the only hour that is not already owed to someone. She has been doing this for months.</p>
+      <p class="k">Long Middle.</p>
+    </a>
+    <a class="j" href="journeys/bruce.html">
+      <p class="t">Robert the Bruce and the spider, told by Maiji</p>
+      <p class="w">A verandah in Kolkata, and a cave on a Scottish island. Winter 1306. Six defeats.</p>
+      <p class="d">The story is a legend. No one wrote it down for five hundred years. Maiji did not care and neither should you.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/julian.html">
+      <p class="t">Julian of Norwich, the twenty years</p>
+      <p class="w">A cell built onto the side of a church. Norwich. Year ten of not understanding.</p>
+      <p class="d">The plague has come to Norwich three times in her lifetime. It has taken half the city. The people who come to her window are burying children.</p>
+      <p class="k">Faith without certainty.</p>
+    </a>
+    <a class="j" href="journeys/priyanair.html">
+      <p class="t">Priya Nair, the unsent email</p>
+      <p class="w">A resident&#x27;s call room in Philadelphia. Day eleven. The fourth draft, unsent.</p>
+      <p class="d">The email has been unsent for eleven days. She does not know what she is waiting for.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/churchill.html">
+      <p class="t">Winston Churchill, the wilderness years</p>
+      <p class="w">A study at Chartwell, Kent. 1934. No office. No one listening.</p>
+      <p class="d">It is 1934. The wilderness will last five more years. He does not know that. He knows the House empties when he stands.</p>
+      <p class="k">Preparation the future needed.</p>
+    </a>
+    <a class="j" href="journeys/rosachen.html">
+      <p class="t">Rosa Chen at Efua&#x27;s door</p>
+      <p class="w">A hallway in an athletes&#x27; residence. Day nine. A door you could walk past.</p>
+      <p class="d">You are not her closest friend. You are the one who noticed that nine days of one-word answers is not space. You are standing outside the door with nothing to offer. No fix, no plan, no words you have rehearsed.</p>
+      <p class="k">The Helper.</p>
+    </a>
+    <a class="j" href="journeys/apollo.html">
+      <p class="t">Apollo 13, from the ground</p>
+      <p class="w">Mission Control, Houston. April 13, 1970. Nine in the evening. Two hundred thousand miles.</p>
+      <p class="d">Nothing in the flight plan covers this. The lunar module was built to keep two men alive for two days. It will need to keep three alive for four. The carbon dioxide filters in it are round.</p>
+      <p class="k">Collective.</p>
+    </a>
+    <a class="j" href="journeys/nadia.html">
+      <p class="t">Nadia Petrescu, three a.m.</p>
+      <p class="w">A bedroom in the dark. Three fifteen. Sixteen years in pediatric oncology.</p>
+      <p class="d">What she cannot do anymore is not the nursing. It is the grief. Not the sharp grief of personal loss. The sustained, low-frequency grief of witnessing suffering that can be eased and rarely resolved, carried for sixteen years.</p>
+      <p class="k">Undecided, by design.</p>
+    </a>
+    <a class="j" href="journeys/edison.html">
+      <p class="t">Thomas Edison, the notebook</p>
+      <p class="w">A laboratory at Menlo Park. October 1879. Filament test number too many.</p>
+      <p class="d">It is October 1879. The money from the investors is running down. The newspapers have moved from any day now to skepticism.</p>
+      <p class="k">Arrival by data.</p>
+    </a>
+    <a class="j" href="journeys/marisol.html">
+      <p class="t">Marisol, leaving without quitting</p>
+      <p class="w">An office above the first center. A Sunday evening. Eleven centers, three cities, a waitlist.</p>
+      <p class="d">She spends her weeks on leases, payroll, compliance and a board. She has not tutored a child in four years. The form she built has grown into something that no longer needs, and no longer has room for, the reason she built it.</p>
+      <p class="k">The Right Quit.</p>
+    </a>
+    <a class="j" href="journeys/honda.html">
+      <p class="t">Soichiro Honda, twice rebuilt</p>
+      <p class="w">A field outside Hamamatsu. January 1945. The factory is rubble twice over.</p>
+      <p class="d">It is January 1945. The war is nearly lost.</p>
+      <p class="k">Rebuild.</p>
+    </a>
+    <a class="j" href="journeys/margaret.html">
+      <p class="t">Margaret Lin, the quiet quit</p>
+      <p class="w">A Saturday morning. A friend&#x27;s invitation on the phone. An opinion you have not had in a year.</p>
+      <p class="d">This morning her friend Sophie called to invite her to a Saturday running group. She ran in her twenties, seriously, for reasons that had nothing to do with racing. She said she would think about it.</p>
+      <p class="k">Redirect.</p>
+    </a>
+    <a class="j" href="journeys/parent.html">
+      <p class="t">The parent at three a.m.</p>
+      <p class="w">A dark hallway. Three in the morning. A child who will not sleep. A presentation at nine.</p>
+      <p class="d">Nothing about this is heroic. Nothing about it will be remembered. It will not be in any book but this one.</p>
+      <p class="k">Long Middle.</p>
+    </a>
+    <a class="j" href="journeys/jobs.html">
+      <p class="t">Steve Jobs, September 1985</p>
+      <p class="w">An emptied office in Cupertino. September 17, 1985. Thirty years old. Out of the company you founded.</p>
+      <p class="d">He does not know yet that the next twelve years will be the ones that teach him how to run a company, or that the thing he builds in exile is the thing the company will buy to save itself.</p>
+      <p class="k">Redirect.</p>
+    </a>
+    <a class="j" href="journeys/marcus.html">
+      <p class="t">Marcus Webb, the single thread</p>
+      <p class="w">A restaurant kitchen on Magazine Street. After close. The next day&#x27;s mise en place.</p>
+      <p class="d">He does not tell them what he was. What he had been is not a credential. But every night, after the cleaning is done and the checklist is complete and the younger cooks have gone, he goes through the next day&#x27;s mise en place.</p>
+      <p class="k">The single thread.</p>
+    </a>
+    <a class="j" href="journeys/disney.html">
+      <p class="t">Walt Disney, 1923</p>
+      <p class="w">A train platform in Kansas City. July 1923. Forty dollars and a one-way ticket.</p>
+      <p class="d">His brother Roy is in a veterans&#x27; hospital in Los Angeles with tuberculosis. That is the whole of what is waiting on the other end of the ticket.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/solomon.html">
+      <p class="t">Solomon Adeyemi, the belief architecture</p>
+      <p class="w">An empty church in Baltimore. A Thursday afternoon in February. The lights have been cut off.</p>
+      <p class="d">The faith is the hardest. Not doctrine, which comes and goes like tide. What he has lost is the felt conviction that any of it mattered. The preaching, the visiting, the funerals, the weddings, the Sunday mornings.</p>
+      <p class="k">Rebuild.</p>
+    </a>
+    <a class="j" href="journeys/domingo.html">
+      <p class="t">Domingo, four years of a quiet concept</p>
+      <p class="w">A kitchen table. Christmas Eve. The notebook is four years old.</p>
+      <p class="d">It is Christmas Eve.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/elaine.html">
+      <p class="t">Elaine Kowalski, the deal with her feet</p>
+      <p class="w">A front step. Three weeks after the diagnosis. The left leg has its own ideas.</p>
+      <p class="d">She was told, carefully and kindly, to expect to scale back. That a marathon might be something she celebrated having done rather than planned to do again. She said thank you.</p>
+      <p class="k">Arrival, renegotiated.</p>
+    </a>
+    <a class="j" href="journeys/frankl.html">
+      <p class="t">Viktor Frankl, the manuscript in the coat</p>
+      <p class="w">A camp barracks. Winter 1945. The manuscript is gone. A scrap of paper is not.</p>
+      <p class="d">It is now winter 1945. He has survived four camps. His wife, he does not know yet, has not. His parents and brother have not.</p>
+      <p class="k">Continuation through grief.</p>
+    </a>
+    <a class="j" href="journeys/anika.html">
+      <p class="t">Anika Brennan, the permission you never needed</p>
+      <p class="w">A hotel room in Cincinnati. Tuesday night. A delayed flight and nothing to read.</p>
+      <p class="d">She is thirty-seven, in a hotel room in Cincinnati on a Tuesday night, with a delayed flight and nothing to read. She has opened her laptop.</p>
+      <p class="k">Becoming.</p>
+    </a>
+    <a class="j" href="journeys/sudha.html">
+      <p class="t">Sudha Murty, the postcard</p>
+      <p class="w">A hostel notice board in Bangalore. 1974. A job notice that says men only.</p>
+      <p class="d">She has a postcard.</p>
+      <p class="k">Arrival. Consent required.</p>
+    </a>
+    <a class="j" href="journeys/vangogh.html">
+      <p class="t">Vincent van Gogh, the letters to Theo</p>
+      <p class="w">A rented room in Arles. 1888. One painting sold, and not yet.</p>
+      <p class="d">He does not know that he has two years left, or that he will never sell another painting in his life, or what will happen after.</p>
+      <p class="k">Long Middle, unresolved.</p>
+    </a>
+    <a class="j" href="journeys/ratan.html">
+      <p class="t">Ratan Tata, Detroit</p>
+      <p class="w">A conference room in Detroit. 1999. A ninety-minute humiliation, and a flight home.</p>
+      <p class="d">On the flight home that evening he says almost nothing. His colleagues remember him staring out of the window.</p>
+      <p class="k">Arrival, nine years. Consent required.</p>
+    </a>
+    <a class="j" href="journeys/king.html">
+      <p class="t">Stephen and Tabitha King, the wastebasket</p>
+      <p class="w">A trailer in Hermon, Maine. 1973. Three pages in the kitchen wastebasket.</p>
+      <p class="d">You could empty the basket. It is what baskets are for. He threw them away for a reason, and he is tired, and it is not your story.</p>
+      <p class="k">The Helper. Consent required.</p>
+    </a>
+    <a class="j" href="journeys/einstein.html">
+      <p class="t">Albert Einstein, the decade</p>
+      <p class="w">A study in Berlin. November 1915. Eight years of equations that will not close.</p>
+      <p class="d">It is November 1915. He has been giving weekly lectures to the Prussian Academy on the theory as he builds it, and the theory has changed between lectures. The board is covered in a version that does not yet close.</p>
+      <p class="k">Arrival.</p>
+    </a>
+    <a class="j" href="journeys/karsanbhai.html">
+      <p class="t">Karsanbhai Patel, Nirma</p>
+      <p class="w">A backyard in Ahmedabad. 1969. A daughter&#x27;s name on a packet of detergent.</p>
+      <p class="d">It is 1969. He has a salary he cannot risk, a grief he has put into a name, and a bicycle.</p>
+      <p class="k">Continuation through grief. Consent required.</p>
+    </a>
+    <a class="j" href="journeys/dyson.html">
+      <p class="t">James Dyson, prototype 5,127</p>
+      <p class="w">A coach house in the Cotswolds. 1983. The five thousand one hundred and twenty-sixth failure is on the bench.</p>
+      <p class="d">The companies he has shown it to have said no. The industry makes its money on bags. He is thirty-six with three children and a mortgage that is now the prototype&#x27;s.</p>
+      <p class="k">Arrival by data. Consent required.</p>
+    </a>
+    <a class="j" href="journeys/arunima.html">
+      <p class="t">Arunima Sinha, April 2011</p>
+      <p class="w">A hospital bed in Delhi. The leg is gone below the knee. The newspapers have a version.</p>
+      <p class="d">She has begun, in the bed, to think about mountains. She does not know why. She has never climbed one.</p>
+      <p class="k">Arrival. Consent required.</p>
+    </a>
+    <a class="j" href="journeys/ford.html">
+      <p class="t">Henry Ford, 1901</p>
+      <p class="w">A rented workshop in Detroit. Late 1901. The second company is failing. Nearly forty.</p>
+      <p class="d">The backers are about to bring in another engineer over him. He is going to walk out with his name on a company he no longer controls.</p>
+      <p class="k">Rebuild.</p>
+    </a>
+    <a class="j" href="journeys/schultz.html">
+      <p class="t">Howard Schultz, meeting 218</p>
+      <p class="w">A borrowed office in Seattle. 1986. Two hundred and seventeen investors have said no.</p>
+      <p class="d">Meeting two hundred and eighteen is in an hour.</p>
+      <p class="k">Arrival. Consent required.</p>
+    </a>
+    <a class="j" href="journeys/rama.html">
+      <p class="t">Rama, the first night of exile</p>
+      <p class="w">The edge of the forest. The first night. Fourteen years handed to you on the morning you expected a crown.</p>
+      <p class="d">It is the first night. The forest is not a metaphor. It is dark and it is fourteen years long and he has done nothing to deserve it, and the story is careful to say so.</p>
+      <p class="k">Exile forms the person.</p>
+    </a>
+    <a class="j" href="journeys/sujata.html">
+      <p class="t">Siddhartha before Sujata&#x27;s bowl</p>
+      <p class="w">A riverbank near Gaya. Year six of the search. Too weak to stand.</p>
+      <p class="d">A village girl named Sujata has come down to the river with a bowl of rice cooked in milk, an offering for the spirit of the tree. She has seen him. She is holding it out.</p>
+      <p class="k">Redirect.</p>
+    </a>
+  </div>
+  <h2>The order</h2>
+  <p>Eighty-seven journeys, released one at a time, never two alike. Built ones are in black.</p>
+  <div class="order">
+<div class="row"><span class="n">0</span><span class="name"><a href="journeys/zero.html">The food truck man, Journey Zero</a></span><span class="e">Unknown</span></div>
+<div class="row"><span class="n">1</span><span class="name"><a href="journeys/arjuna.html">Arjuna, the lowered bow</a></span><span class="e">Yours vs not yours</span></div>
+<div class="row"><span class="n">2</span><span class="name"><a href="journeys/shackleton.html">Ernest Shackleton</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">3</span><span class="name"><a href="journeys/walter.html">Walter Nkemelu</a></span><span class="e">Long Middle</span></div>
+<div class="row"><span class="n">4</span><span class="name"><a href="journeys/lijjat.html">The seven women of Lijjat</a></span><span class="e">Collective</span></div>
+<div class="row"><span class="n">5</span><span class="name"><a href="journeys/march4.html">Arjun Sen, March 4th</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">6</span><span class="name"><a href="journeys/curie.html">Marie Curie, April 1906</a></span><span class="e">Continuation through grief</span></div>
+<div class="row"><span class="n">7</span><span class="name"><a href="journeys/sanders.html">Colonel Harland Sanders, 1955</a></span><span class="e">Arrival, late</span></div>
+<div class="row"><span class="n">8</span><span class="name"><a href="journeys/harriet.html">Harriet Chen, what quitters know</a></span><span class="e">The Right Quit</span></div>
+<div class="row"><span class="n">9</span><span class="name"><a href="journeys/gandhi.html">Mohandas Gandhi, Pietermaritzburg</a></span><span class="e">Redirect of a life</span></div>
+<div class="row"><span class="n">10</span><span class="name"><a href="journeys/abena.html">Abena Mensah</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">11</span><span class="name"><a href="journeys/tubman.html">Harriet Tubman, Philadelphia</a></span><span class="e">Return</span></div>
+<div class="row"><span class="n">12</span><span class="name"><a href="journeys/nakamura.html">Gordon and Ada Nakamura</a></span><span class="e">Together</span></div>
+<div class="row"><span class="n">13</span><span class="name"><a href="journeys/kurien.html">Verghese Kurien, Anand</a></span><span class="e">Redirect</span></div>
+<div class="row"><span class="n">14</span><span class="name"><a href="journeys/wright.html">The Wright brothers, December 14 to 17</a></span><span class="e">Arrival in three days</span></div>
+<div class="row"><span class="n">15</span><span class="name"><a href="journeys/confucius.html">Confucius, the fourteen years</a></span><span class="e">Continuation that outlives you</span></div>
+<div class="row"><span class="n">16</span><span class="name"><a href="journeys/hundred.html">Arjun Sen, fewer than a hundred days</a></span><span class="e">Arrival, ten thousand days</span></div>
+<div class="row"><span class="n">17</span><span class="name"><a href="journeys/priyan.html">Priya Nakamura, the shoulder</a></span><span class="e">The Right Quit</span></div>
+<div class="row"><span class="n">18</span><span class="name"><a href="journeys/mandela.html">Nelson Mandela, the conditional release</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">19</span><span class="name"><a href="journeys/osei.html">Daniel Osei, forty dollars</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">20</span><span class="name"><a href="journeys/parks.html">Rosa Parks, day 200 of the boycott</a></span><span class="e">Collective</span></div>
+<div class="row"><span class="n">21</span><span class="name"><a href="journeys/job.html">Job on the ash heap</a></span><span class="e">Continuation without explanation</span></div>
+<div class="row"><span class="n">22</span><span class="name"><a href="journeys/elena.html">Elena Rodriguez, the last Tuesday</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">23</span><span class="name"><a href="journeys/milkha.html">Milkha Singh, 1947</a></span><span class="e">Arrival with a loss inside it</span></div>
+<div class="row"><span class="n">24</span><span class="name"><a href="journeys/swimmer.html">The swimmer in Indianapolis</a></span><span class="e">Unknown</span></div>
+<div class="row"><span class="n">25</span><span class="name"><a href="journeys/ithaca.html">Odysseus and Penelope</a></span><span class="e">Together, across distance</span></div>
+<div class="row"><span class="n">26</span><span class="name"><a href="journeys/marathon.html">Arjun Sen, June 1, 2008</a></span><span class="e">Collective</span></div>
+<div class="row"><span class="n">27</span><span class="name"><a href="journeys/kalam.html">A. P. J. Abdul Kalam and Satish Dhawan</a></span><span class="e">Collective</span></div>
+<div class="row"><span class="n">28</span><span class="name"><a href="journeys/carlos.html">Carlos Mendes, the good day redesigned</a></span><span class="e">Redesign</span></div>
+<div class="row"><span class="n">29</span><span class="name"><a href="journeys/tyre.html">Alexander at Tyre, told by Maiji</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">30</span><span class="name"><a href="journeys/onoda.html">Hiroo Onoda, Lubang Island</a></span><span class="e">The Anti-Unquit</span></div>
+<div class="row"><span class="n">31</span><span class="name"><a href="journeys/ngozi.html">Robert Ngozi, the empty room</a></span><span class="e">Redirect</span></div>
+<div class="row"><span class="n">32</span><span class="name"><a href="journeys/nightingale.html">Florence Nightingale, Scutari</a></span><span class="e">Arrival by systems</span></div>
+<div class="row"><span class="n">33</span><span class="name"><a href="journeys/epictetus.html">Epictetus, the slave</a></span><span class="e">Long Middle</span></div>
+<div class="row"><span class="n">34</span><span class="name"><a href="journeys/tyler.html">Tyler Ross, five hundred free throws</a></span><span class="e">Arrival by process</span></div>
+<div class="row"><span class="n">35</span><span class="name"><a href="journeys/sujata.html">Siddhartha before Sujata&#x27;s bowl</a></span><span class="e">Redirect</span></div>
+<div class="row"><span class="n">36</span><span class="name"><a href="journeys/rosa.html">Rosa Espinoza, the rest of your life</a></span><span class="e">Arrival, then ordinary life</span></div>
+<div class="row"><span class="n">37</span><span class="name"><a href="journeys/dominic.html">Dominic Ferrara, the physics of falling</a></span><span class="e">Redirect</span></div>
+<div class="row"><span class="n">38</span><span class="name"><a href="journeys/darwin.html">Charles Darwin, June 18, 1858</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">39</span><span class="name"><a href="journeys/camille.html">Camille Broussard, love as infrastructure</a></span><span class="e">Redirect</span></div>
+<div class="row"><span class="n">40</span><span class="name"><a href="journeys/ramanujan.html">Srinivasa Ramanujan, January 1913</a></span><span class="e">Arrival, and a short life</span></div>
+<div class="row"><span class="n">41</span><span class="name"><a href="journeys/moses.html">Moses at the edge of Nebo</a></span><span class="e">Long Middle, for others</span></div>
+<div class="row"><span class="n">42</span><span class="name"><a href="journeys/sylvia.html">Sylvia Oduya, the first inch</a></span><span class="e">Arrival, small</span></div>
+<div class="row"><span class="n">43</span><span class="name"><a href="journeys/miriam.html">Miriam Okafor, work that matters</a></span><span class="e">Long Middle</span></div>
+<div class="row"><span class="n">44</span><span class="name"><a href="journeys/lincoln.html">Abraham Lincoln, November 1858</a></span><span class="e">Arrival, delayed</span></div>
+<div class="row"><span class="n">45</span><span class="name"><a href="journeys/gilgamesh.html">Gilgamesh after Enkidu</a></span><span class="e">Return after failure</span></div>
+<div class="row"><span class="n">46</span><span class="name"><a href="journeys/jordan.html">Jordan Pierce, the thirty-first minute</a></span><span class="e">Arrival after re-entry</span></div>
+<div class="row"><span class="n">47</span><span class="name"><a href="journeys/nina.html">Nina Volkov, the ambition that cannot be taken</a></span><span class="e">Redirect</span></div>
+<div class="row"><span class="n">48</span><span class="name"><a href="journeys/vivekananda.html">Swami Vivekananda, Chicago, September 1893</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">49</span><span class="name"><a href="journeys/isaiah.html">Isaiah Monroe, the public park</a></span><span class="e">Redirect</span></div>
+<div class="row"><span class="n">50</span><span class="name"><a href="journeys/bannister.html">Roger Bannister, May 6, 1954</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">51</span><span class="name"><a href="journeys/josephine.html">Josephine Marceau, the ceramics class</a></span><span class="e">Arrival, becoming</span></div>
+<div class="row"><span class="n">52</span><span class="name"><a href="journeys/ambedkar.html">B. R. Ambedkar, Mahad, March 20, 1927</a></span><span class="e">Collective</span></div>
+<div class="row"><span class="n">53</span><span class="name"><a href="journeys/torres.html">Camille Torres, the curb at mile 22</a></span><span class="e">Arrival, then the real goal</span></div>
+<div class="row"><span class="n">54</span><span class="name"><a href="journeys/morrison.html">Toni Morrison at four in the morning</a></span><span class="e">Long Middle</span></div>
+<div class="row"><span class="n">55</span><span class="name"><a href="journeys/bruce.html">Robert the Bruce and the spider, told by Maiji</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">56</span><span class="name"><a href="journeys/julian.html">Julian of Norwich, the twenty years</a></span><span class="e">Faith without certainty</span></div>
+<div class="row"><span class="n">57</span><span class="name"><a href="journeys/priyanair.html">Priya Nair, the unsent email</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">58</span><span class="name"><a href="journeys/churchill.html">Winston Churchill, the wilderness years</a></span><span class="e">Preparation the future needed</span></div>
+<div class="row"><span class="n">59</span><span class="name"><a href="journeys/rosachen.html">Rosa Chen at Efua&#x27;s door</a></span><span class="e">The Helper</span></div>
+<div class="row"><span class="n">60</span><span class="name"><a href="journeys/apollo.html">Apollo 13, from the ground</a></span><span class="e">Collective</span></div>
+<div class="row"><span class="n">61</span><span class="name"><a href="journeys/nadia.html">Nadia Petrescu, three a.m.</a></span><span class="e">Undecided, by design</span></div>
+<div class="row"><span class="n">62</span><span class="name"><a href="journeys/edison.html">Thomas Edison, the notebook</a></span><span class="e">Arrival by data</span></div>
+<div class="row"><span class="n">63</span><span class="name"><a href="journeys/marisol.html">Marisol, leaving without quitting</a></span><span class="e">The Right Quit</span></div>
+<div class="row"><span class="n">64</span><span class="name"><a href="journeys/honda.html">Soichiro Honda, twice rebuilt</a></span><span class="e">Rebuild</span></div>
+<div class="row"><span class="n">65</span><span class="name"><a href="journeys/margaret.html">Margaret Lin, the quiet quit</a></span><span class="e">Redirect</span></div>
+<div class="row"><span class="n">66</span><span class="name"><a href="journeys/parent.html">The parent at three a.m.</a></span><span class="e">Long Middle</span></div>
+<div class="row"><span class="n">67</span><span class="name"><a href="journeys/jobs.html">Steve Jobs, September 1985</a></span><span class="e">Redirect</span></div>
+<div class="row"><span class="n">68</span><span class="name"><a href="journeys/marcus.html">Marcus Webb, the single thread</a></span><span class="e">The single thread</span></div>
+<div class="row"><span class="n">69</span><span class="name"><a href="journeys/disney.html">Walt Disney, 1923</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">70</span><span class="name"><a href="journeys/solomon.html">Solomon Adeyemi, the belief architecture</a></span><span class="e">Rebuild</span></div>
+<div class="row"><span class="n">71</span><span class="name"><a href="journeys/domingo.html">Domingo, four years of a quiet concept</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">72</span><span class="name"><a href="journeys/elaine.html">Elaine Kowalski, the deal with her feet</a></span><span class="e">Arrival, renegotiated</span></div>
+<div class="row"><span class="n">73</span><span class="name"><a href="journeys/frankl.html">Viktor Frankl, the manuscript in the coat</a></span><span class="e">Continuation through grief</span></div>
+<div class="row"><span class="n">74</span><span class="name"><a href="journeys/anika.html">Anika Brennan, the permission you never needed</a></span><span class="e">Becoming</span></div>
+<div class="row"><span class="n">75</span><span class="name"><a href="journeys/sudha.html">Sudha Murty, the postcard</a></span><span class="e">Arrival. Consent required</span></div>
+<div class="row"><span class="n">76</span><span class="name"><a href="journeys/vangogh.html">Vincent van Gogh, the letters to Theo</a></span><span class="e">Long Middle, unresolved</span></div>
+<div class="row"><span class="n">77</span><span class="name"><a href="journeys/ratan.html">Ratan Tata, Detroit</a></span><span class="e">Arrival, nine years. Consent required</span></div>
+<div class="row"><span class="n">78</span><span class="name"><a href="journeys/king.html">Stephen and Tabitha King, the wastebasket</a></span><span class="e">The Helper. Consent required</span></div>
+<div class="row coming"><span class="n">79</span><span class="name">Arjun Sen, Sky Red</span><span class="e">Awaiting Arjun</span></div>
+<div class="row"><span class="n">80</span><span class="name"><a href="journeys/einstein.html">Albert Einstein, the decade</a></span><span class="e">Arrival</span></div>
+<div class="row"><span class="n">81</span><span class="name"><a href="journeys/karsanbhai.html">Karsanbhai Patel, Nirma</a></span><span class="e">Continuation through grief. Consent required</span></div>
+<div class="row"><span class="n">82</span><span class="name"><a href="journeys/dyson.html">James Dyson, prototype 5,127</a></span><span class="e">Arrival by data. Consent required</span></div>
+<div class="row"><span class="n">83</span><span class="name"><a href="journeys/arunima.html">Arunima Sinha, April 2011</a></span><span class="e">Arrival. Consent required</span></div>
+<div class="row"><span class="n">84</span><span class="name"><a href="journeys/ford.html">Henry Ford, 1901</a></span><span class="e">Rebuild</span></div>
+<div class="row"><span class="n">85</span><span class="name"><a href="journeys/schultz.html">Howard Schultz, meeting 218</a></span><span class="e">Arrival. Consent required</span></div>
+<div class="row"><span class="n">86</span><span class="name"><a href="journeys/rama.html">Rama, the first night of exile</a></span><span class="e">Exile forms the person</span></div>
+  </div>
+</main>
+<footer>Unquit Journeys. Arjun Sen Inc. Historic journeys are drawn from the record and paraphrased. Composite characters are named as such on their own page.</footer>
+</body>
+</html>

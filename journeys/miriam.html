@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Miriam Okafor, work that matters</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Miriam Okafor is a composite from Chapter Twenty-One of The Unquit Stories. The colleague at the next desk was added for this journey.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "miriam", "title": "Miriam Okafor, work that matters", "subtitle": "A cubicle in a Chicago child welfare office. A Friday. Year twenty-three.", "object": "The case file", "sticker": "The file.", "footer": "Miriam Okafor is a composite from Chapter Twenty-One of The Unquit Stories. The colleague at the next desk was added for this journey.", "arrive": {"heading": "You are standing where Miriam Okafor sat.", "paragraphs": ["She did not start this work because she felt called. She started because she needed a job and a friend said they were hiring. She thought she would stay a year, two at most, until she figured out what she actually wanted to do.", "She has stayed twenty-three years in Chicago's child welfare system. The chapter she comes from is careful about this: most people do not have a calling. They have work. Real work, the kind that asks something and gives something back, and is not a lesser thing than a calling, only a more honest word for how most lives are organized.", "It is a Friday. Her caseload is what it always is, which is too much. A case she has carried for three years closed this week the way cases in this system close, which is to say not cleanly. A younger colleague at the next desk gave notice this morning after eighteen months and said, on the way out, that she did not know how Miriam had done it this long.", "Now Miriam steps aside and you step in. The cubicle, the caseload, the twenty-three years and the question the colleague left behind are hers. What the work is, if it is not a calling, is yours."], "button": "Sit down at the desk"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The office is emptying for the weekend. The file from the case that closed is on your desk, not yet archived. The desk next to yours has a box on it.", "question": "What are you feeling right now?", "placeholder": "Say it as someone who has done this twenty-three years, not as the person in the training video.", "helper": {"who": "Dolores, at the next desk, boxing up her things after eighteen months", "says": "I do not know how you have done this for twenty-three years. I am not being rude. I want to know. Tell me what it feels like on a Friday.", "options": ["I feel that a case I carried for three years closed the way they close here, and no one will ever know what it took, and I am not sure I do either.", "I feel twenty-three years of a job I took for one, and I have never once felt called, and I have never once felt able to leave.", "I feel that she is asking how I did it as if there were a trick, and the truth is that I showed up, and that sounds like nothing when you say it out loud."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before anything is decided about the work, take an inventory. Not of the caseload, and not of Miriam. Of yourself.", "question": "What have you already done, in your own life, that proves you can do work that matters without anyone measuring it?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Dolores", "says": "I can tell you what the woman at that desk carries, because I have watched her for eighteen months. Twenty-three years in a system that burns people out in three. Files that never got the ending they deserved and were carried anyway. A phone she picks up on the first ring for children who have been taught that no one will. Now you tell me what you carry. Finish one of these.", "options": ["A time I did work that mattered and no one measured it: ", "A time I showed up for years to something I never felt called to and it became mine: ", "A time I carried a thing to an ending that was not clean, and carried the next one: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence at the desk is: if I was never called to this, then twenty-three years were a job, and a job can be left. It sounds like clarity. It is a Friday, and a colleague's box, and a case that closed badly, drawing a conclusion. You do not have to decide what the work was tonight. You only have to refuse to let the worst week of the year decide twenty-three of them.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a career plan. One reason the box on the next desk does not get the vote.", "helper": {"who": "Dolores", "says": "I am leaving after eighteen months. That is a fact about me. Tell me why it is not a fact about you.", "options": ["Because I have never felt called and I have never left, and after twenty-three years those two facts are not a contradiction. They are a description of something the word calling does not cover.", "Because the case closed badly this week and there is a child on Monday who does not know that, and she will call, and I will pick up on the first ring.", "Because a job you cannot leave for twenty-three years is not a job. I do not know what it is yet. I know it is not that."]}}, {"n": 4, "name": "One step", "prompt": "Not a decision about the career. Not a definition of calling. One step, small enough to finish before the office locks.", "question": "What is it?", "placeholder": "Something you can do at this desk on a Friday.", "helper": {"who": "Dolores", "says": "Before I take the box to the car, what is the smallest thing you can do at that desk tonight?", "options": ["I will archive the file properly. Every note. The case closed badly and the record of how hard it was carried is still worth keeping.", "I will write down, for the first time in twenty-three years, what I am actually good at in this work. Not the job description. The thing.", "I will tell Dolores the truth about how I did it: that I showed up, and that is not nothing, and that she is allowed to leave anyway."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The file is archived with every note, or a list exists that is not a job description, or a younger colleague has heard the truth and carried her box to the car anyway. The caseload is unchanged. Monday is Monday.", "question": "What has changed in you?", "placeholder": "Compare it to the emptying office.", "helper": {"who": "Dolores, at the door with her box", "says": "The work did not change tonight. What did?", "options": ["The file is archived. Someone in this system will read how hard that case was carried, even if no one reads it for years.", "I wrote down what I am good at and none of it was in the job description. It has been mine for twenty-three years and I had never named it.", "I told her the truth and she left anyway, and that is right. Showing up is not a trick. It is the thing itself."]}}, {"n": 6, "name": "Time passes", "montage": ["She stays. Not because she decided to on a Friday. Because Monday came, and a child called, and she picked up on the first ring, and then it was Tuesday.", "The chapter's argument is that the calling narrative is beautiful and dangerous in equal measure: beautiful because it offers purpose, dangerous because it implies that the uncalled are incomplete. Most people are not called. They show up. They develop skill. They become useful. And sometimes, in the becoming useful, the work becomes theirs, not because they were always meant to do it but because they did it long enough and carefully enough that it became inseparable from who they are.", "Twenty-three years became twenty-six, then thirty. She trained the people who replaced the people who left. Some of them stayed."], "question": "Twenty-three years without a calling. Here is the question the caseload cannot answer for you: what made the work hers?", "choices": [{"label": "A calling she discovered late.", "short": "a calling she discovered late", "reply": "She never discovered one, and the chapter is insistent about it. If the answer were a late calling, the chapter would not need to exist."}, {"label": "Skill.", "short": "skill", "reply": "She developed it, and it is real, and it is part of the answer. But skilled people leave this system every year. Dolores had skill."}, {"label": "Doing it long enough and carefully enough that it became inseparable from who she is.", "short": "doing it long enough and carefully enough that it became inseparable from who she is", "reply": "Yes. Not a calling. A becoming. The work became hers the way a coat becomes yours: not because it was made for you but because you wore it every day for twenty-three years and it took your shape. This is the Long Middle in its most common form, the one most people are actually living, in cubicles, on Fridays, with a box on the next desk. It does not need a calling to be worth a life."}, {"label": "Nothing. She was stuck.", "short": "nothing, she was stuck", "reply": "Stuck people do not pick up on the first ring for twenty-three years. Stuck is what it looks like from the next desk. From inside, it is a different word, and the chapter spends a chapter looking for it."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another Friday, another box on the next desk, another week when the uncalled feel incomplete. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Dolores", "says": "One line for the next Friday. Start with I did.", "options": ["I did show up, and I stopped calling that nothing.", "I did the work long enough and carefully enough that it became mine.", "I did archive the hard case with every note."]}, "ice": {"question": "One more line, and this one is yours. What work have you done long enough that it has taken your shape, whether or not you were called to it?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, at the desk", "sub": "Your Friday, beside hers", "paragraphs": ["A Chicago child welfare office, a Friday, year twenty-three. You sat where Miriam Okafor sat, with a hard case not yet archived and a colleague's box on the next desk, and the office asked you what it asked her. You wrote: {1}", "Before anything was decided, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was twenty-three years in a system that burns people out in three, and a phone answered on the first ring.", "You refused to let the worst week of the year decide twenty-three of them. Your reason: {3} That refusal is the deferral. Not tonight. Not from a box.", "Your first step: {4} {overlap}", "After the step, the caseload was unchanged. Inside, you noticed this: {5}", "Then Monday did what Mondays do. A child called. She picked up. Then it was Tuesday, and then it was year thirty.", "Asked what made the work hers, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["She did this, twenty-three years of it. The record of how hard a case was carried is its own kind of continuation.", "The chapter is this list, written by someone else about her. A different first step in the same place is still a first step.", "She trained the people who replaced the people who left. Telling one of them the truth on the way out is in character. A different first step in the same place is still a first step."], "stepOverlapFree": "Her first step was Monday, and a phone picked up on the first ring. A different first step in the same place is still a first step.", "help": {"zero": "You did not answer Dolores. Miriam would have; she is the one people at the next desk asked, for twenty-three years. Next time, answer the one with the box. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You answered Dolores {n} on this journey. People with boxes on their desks asked Miriam how she did it for twenty-three years, and answering them was part of how. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the work that has taken your shape, as you named it: {ice}", "closing": "The cubicle has a different name on it now. What you carry out of the office is not a calling, and it is not Miriam. It is the evidence that showing up long enough and carefully enough is a thing that has a shape, and that the shape is yours.", "stickerLines": ["Walked with Miriam Okafor.", "Chicago, a Friday, year twenty-three."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The file\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M90,100 L190,100 L210,120 L310,120 L310,320 L90,320 Z\" stroke-width=\"4\"/><path d=\"M90,140 L310,140\" stroke-width=\"2\"/><path d=\"M116,176 L246,176 M116,204 L282,204 M116,232 L212,232 M116,260 L282,260\" stroke-width=\"1.8\"/><path d=\"M96,90 L184,90 L196,100\" stroke-width=\"2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

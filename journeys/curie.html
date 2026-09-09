@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Marie Curie, April 1906</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the documented record of Marie Curie's life and from Unquit: The Oldest Choice. Her mourning journal is paraphrased, never quoted.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "curie", "title": "Marie Curie, April 1906", "subtitle": "Paris. The week after the rue Dauphine.", "object": "The chair", "sticker": "The chair.", "footer": "Drawn from the documented record of Marie Curie's life and from Unquit: The Oldest Choice. Her mourning journal is paraphrased, never quoted.", "arrive": {"heading": "You are standing where Marie Curie stood.", "paragraphs": ["On the afternoon of April 19, 1906, in rain, Pierre Curie stepped into the rue Dauphine behind a horse-drawn wagon and did not step out of it. He was forty-six. She was thirty-eight. Their daughters were eight and one.", "For four years the two of them had stirred pitchblende in a leaking shed at the School of Physics and Chemistry, in a space the school lent them because no one else wanted it, until they had a decigram of a substance that glowed in the dark and burned their hands. Three years earlier the Nobel committee had nearly left her name off the prize. Pierre had insisted.", "Now the shed is quiet, and a letter has come from the Faculty of Sciences. The Sorbonne would like to offer her his chair. The professorship, the laboratory, the lecture he was due to give in the autumn. No woman has ever held a chair at the Sorbonne. No one has ever been asked to take one under these circumstances. The Faculty needs an answer.", "Now Marie steps aside and you step in. The shed, the two girls, the chair and the letter are hers. Whether the work continues is yours."], "button": "Step into the shed"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The shed smells the way it always did. His apron is on the hook. There is a page of his handwriting on the bench that stops in the middle of a line. The Faculty's letter is in your pocket.", "question": "What are you feeling right now?", "placeholder": "Say it to the page, not to the Faculty.", "helper": {"who": "Bronia, your sister, who has come from Poland", "says": "You have not said one true thing to anyone since the funeral. Say it to me. I am not the Faculty.", "options": ["I feel that the work died in the street with him, and I am being asked to pretend it did not.", "I feel that I can measure radium to the decigram and cannot measure how to get up tomorrow.", "I feel that if I sit in his chair I will be sitting in his absence every day for the rest of my life."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the letter is answered, take an inventory. Not of the shed, and not of Marie. Of yourself.", "question": "What have you already done, in your own life, that proves you can keep working in conditions built to stop you?", "placeholder": "One thing you did. Not one thing you believe.", "fillIn": true, "helper": {"who": "Bronia", "says": "I can tell you what my sister carries. At seventeen she worked as a governess for years to pay for my medical degree, on a promise that I would then pay for hers. I kept it. She came to Paris at twenty-four and lived on tea and bread in an attic and finished first in her year. She spent four years in a shed no one wanted, and when the Nobel committee forgot her name, she was already back at the bench. Now you tell me what you carry. Finish one of these.", "options": ["A time I kept working in a place that was built to stop me: ", "A time I paid for someone else's dream before my own, and it came back: ", "A time I finished something that someone else had started and could not: "]}}, {"n": 3, "name": "The deferral", "prompt": "The sentence this week is: the work died with him. It sounds like grief, and it is. It is also a conclusion, and grief is not entitled to conclusions in its first week. You do not have to answer the Faculty today. You only have to refuse to let the first week decide.", "question": "What is the one reason you will not decide this week?", "placeholder": "Not an argument for the chair. One reason to wait.", "helper": {"who": "Eugene Curie, Pierre's father, a doctor, who has moved in to help with the girls", "says": "My son would not want a decision made this week by either of us. Tell me why you will wait.", "options": ["Because the radium in the shed does not know he is gone. It is still glowing. The work does not stop because we do.", "Because Irene is eight and watching what her mother does with grief, and I will not teach her that grief decides.", "Because the Faculty asked a question, not for an answer by Friday. A week is not a verdict."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The girls are with their grandfather. Not the chair. Not the autumn lecture. One step, small enough to finish before noon.", "question": "What is it?", "placeholder": "Something that can be done in the shed with what is already there.", "helper": {"who": "Bronia", "says": "Not the Sorbonne. The bench. What is the smallest thing you can do at the bench this morning?", "options": ["I will go to the shed and stand at the bench for one hour. I will not decide anything. I will only stand there.", "I will read the last page of his lecture notes, to see exactly where he stopped.", "I will write one line to the Faculty: I will try. Nothing more than that."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. You stood at the bench, or you found the line where his notes stop, or three words are on their way to the Faculty. The shed is the same. The hook still has his apron on it.", "question": "What has changed in you?", "placeholder": "Compare it to this morning.", "helper": {"who": "Bronia", "says": "The shed is the same. You are not. Tell me what moved.", "options": ["The grief is the same size. It has stopped being the only thing in the room.", "I found where he stopped. It is a sentence. A sentence can be continued.", "I am still not sure I can sit in the chair. I am sure I can stand at the bench. That is enough for today."]}}, {"n": 6, "name": "Time passes", "montage": ["She accepts the chair in May. She refuses the state pension offered to Pierre's widow; she can work, she says, and she will.", "On November 5, 1906, the amphitheater at the Sorbonne is full an hour early. Students, reporters, women who have never set foot in a lecture hall. She walks in, does not look up, and begins her first sentence exactly where Pierre's last lecture had ended, mid-thought, as if the room had simply waited six months for the next line.", "In 1911 she receives a second Nobel Prize, in chemistry, the first person to win in two sciences. In 1914 she opens the Radium Institute. When the war comes she fits vans with X-ray equipment, learns to drive, and takes Irene, seventeen, to the front with her. Irene wins her own Nobel in 1935, one year after her mother dies of the work that made her."], "question": "She took his chair. Here is the question the record cannot answer for you: what did she take when she took it?", "choices": [{"label": "His place.", "short": "his place", "reply": "No one could take his place, and she did not try. She did not sit down. She stood, and she began speaking, and the place stayed his."}, {"label": "His salary and his laboratory.", "short": "his salary and his laboratory", "reply": "She refused the pension and accepted the laboratory, which tells you what she was taking and what she was not. The money was never the point. The bench was."}, {"label": "The sentence he had left unfinished.", "short": "the sentence he had left unfinished", "reply": "Yes. She began where he stopped, mid-thought, in front of a full amphitheater. That is what continuation through grief actually looks like. Not replacing the person. Finishing the sentence, and then writing the next one, for twenty-eight more years."}, {"label": "Nothing. The work was always also hers.", "short": "nothing, the work was always also hers", "reply": "Also true, and the committee that nearly left her off the Nobel learned it slowly. The chair did not give her the work. It gave the work a room with a door that opened."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another loss, and another unfinished page. Write one sentence for that morning. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Bronia", "says": "One sentence for the next shed. Start with I did.", "options": ["I did stand at the bench before I could sit in the chair.", "I did not let the first week of grief write the ending.", "I did begin where the sentence stopped."]}, "ice": {"question": "One more line, and this one is yours. Where is the unfinished page in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the shed", "sub": "Your first week, beside hers", "paragraphs": ["Paris, the week after the rue Dauphine. You stood where Marie Curie stood, in a shed that smelled the way it always had, with a letter from the Faculty in your pocket, and the week asked you what it asked her. You wrote: {1}", "Before the letter was answered, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was years as a governess to pay for a sister's degree, an attic in Paris on tea and bread, and four years in a shed no one wanted.", "You refused to let the first week of grief decide. Your reason: {3} That refusal is the deferral. Not this week. Not from this.", "Your first step: {4} {overlap}", "After the step, the shed was the same and the apron was still on the hook. Inside, you noticed this: {5}", "Then time did what time does when someone keeps working. A full amphitheater in November, a sentence continued mid-thought, a second Nobel, an institute, vans at the front, and a daughter with a prize of her own.", "Asked what she took when she took his chair, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["She did this, or something close. The record has her back in the laboratory within weeks, before any decision was made, because the bench was the one place that still made sense.", "She did this. When she walked into the amphitheater in November, she began with the sentence Pierre had ended on. She had read where he stopped.", "She did this too. Her reply to the Faculty was brief and without ceremony. She would try. A different first step in the same shed is still a first step."], "stepOverlapFree": "Her first step was the bench, then the last page of his notes, then a brief reply to the Faculty. A different first step in the same shed is still a first step.", "help": {"zero": "You did not turn to Bronia or to Pierre's father on this journey. Marie did. Her sister came from Poland and her father-in-law moved in to raise the girls, and neither is in the Nobel citation. Next time, try the door. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Bronia and to Pierre's father {n} on this journey. Marie leaned on both for years. Neither is named in either Nobel citation. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the unfinished page in your own life, as you named it: {ice}", "closing": "The shed is gone now. The chair is still there. What you carry out is not a prize, and it is not Marie. It is the evidence that in the first week of the worst loss you stood at the bench.", "stickerLines": ["Walked with Marie Curie.", "Paris, April 1906."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The chair\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <path d=\"M130,60 L130,230 M250,60 L250,230\" stroke-width=\"4\"/>\n  <path d=\"M130,70 C170,58 210,58 250,70 M130,112 C170,102 210,102 250,112 M130,154 C170,146 210,146 250,154\" stroke-width=\"3\"/>\n  <path d=\"M120,230 L260,230 L290,250 L150,250 Z\" stroke-width=\"4\"/>\n  <path d=\"M126,232 L124,350 M256,232 L258,340 M150,252 L150,364 M290,252 L292,362\" stroke-width=\"4\"/>\n  <path d=\"M124,300 L150,306 M258,296 L292,302 M150,330 L292,326\" stroke-width=\"2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

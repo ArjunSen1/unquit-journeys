@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Soichiro Honda, twice rebuilt</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the documented record of Honda's early years, paraphrased, and from the corporate lists. No brand marks are used.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "honda", "title": "Soichiro Honda, twice rebuilt", "subtitle": "A field outside Hamamatsu. January 1945. The factory is rubble twice over.", "object": "The piston ring", "sticker": "The piston ring.", "footer": "Drawn from the documented record of Honda's early years, paraphrased, and from the corporate lists. No brand marks are used.", "arrive": {"heading": "You are standing where a mechanic stood in front of his own rubble.", "paragraphs": ["He is thirty-eight. He left school at fifteen to sweep floors in a Tokyo garage and came home to open his own. He taught himself to make piston rings, failed the quality tests of the company he wanted to sell them to, and went back to school at thirty to learn the metallurgy he did not have. He fixed the rings. He built a factory to make them.", "Last year American bombers destroyed the factory. He rebuilt what he could and gathered fuel cans the bombers dropped, which he called gifts from President Truman, for their metal. This month an earthquake flattened what he had rebuilt.", "It is January 1945. The war is nearly lost. He is standing in a field of what was twice a factory, with a handful of piston rings in his pocket and a decision to make about whether a man rebuilds a third time in a country that is about to be occupied.", "Now Soichiro steps aside and you step in. The rubble, the rings, the war and the field are his. Whether there is a third factory is yours."], "button": "Stand in the field"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The ground is still uneven from the earthquake. Somewhere under it is a lathe you bought with money you did not have. The rings in your pocket are the only finished thing for a mile.", "question": "What are you feeling right now?", "placeholder": "Say it as a mechanic in a field, not as a man with his name on a car.", "helper": {"who": "Takeo Fujisawa, who will become your partner in four years and is, tonight, a stranger you have not met, standing in for everyone who has not yet arrived", "says": "You do not know me. I am the man who will handle the money so you can handle the machines. Before any of that, tell me what you feel in this field.", "options": ["I feel that I built it twice and the sky took it once and the ground took it once, and I do not know what is left to take it the third time.", "I feel thirty-eight and a country losing a war and a pocket full of rings that are the best I have ever made, and nowhere to put them.", "I feel that a sensible man sells the rubble to whoever wants it and goes home, and I have never been a sensible man about machines."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the third factory, take an inventory. Not of the rubble, and not of Honda. Of yourself.", "question": "What have you already done, in your own life, that proves you can rebuild a thing that has been destroyed by something you could not control?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Fujisawa", "says": "I can tell you what the man in this field carries. Piston rings that failed a company's tests, and a man who went back to school at thirty rather than argue with the tests. A factory rebuilt after the bombers with the bombers' own fuel cans. A talent for machines that a bombing raid and an earthquake have not touched. Now you tell me what you carry. Finish one of these.", "options": ["A time I rebuilt after something I could not control destroyed the work: ", "A time I went back to learn what I did not know instead of arguing with the test: ", "A time I made something from what the destruction left behind: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the field is: twice destroyed is a message. It sounds like reading the signs. It is rubble doing theology. You do not have to decide about a third factory this month. You only have to refuse to let the sky and the ground vote on what your hands can do.", "question": "What is the one reason you will not decide this month?", "placeholder": "Not a business plan. One reason the earthquake does not get the vote.", "helper": {"who": "Fujisawa", "says": "Bombers and an earthquake are facts about the sky and the ground. Tell me why they are not facts about you.", "options": ["Because the rings in my pocket did not fail. The building did. I make rings, not buildings.", "Because the war is about to end, and a country that has lost a war is a country that will need to move, and moving needs engines.", "Because twice destroyed means I know how to rebuild twice. That is not a message. It is a résumé."]}}, {"n": 4, "name": "One step", "prompt": "Not a factory. Not a company with your name on it. One step, small enough to finish before the ground stops shifting.", "question": "What is it?", "placeholder": "Something a mechanic can do in a field with what is left.", "helper": {"who": "Fujisawa", "says": "You have rings, hands and rubble. What is the smallest thing you can do this week?", "options": ["I will sell what is left of the factory to the company whose tests I once failed, and keep the rings and the knowledge.", "I will pull the lathe out of the ground and find out whether it turns.", "I will find one engine, any engine, and see what it could be attached to in a country where no one will have petrol or cars for years."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The rubble is sold to the company that once rejected your rings, or the lathe is out of the ground, or there is a surplus engine on a bench with a bicycle next to it. The factory is still gone. The war is still nearly lost.", "question": "What has changed in you?", "placeholder": "Compare it to the field.", "helper": {"who": "Fujisawa", "says": "The rubble is still rubble. What changed?", "options": ["I sold the building and kept the knowledge. It turns out the knowledge was the factory.", "The lathe turns. Everything I need is a thing that turns.", "There is an engine on a bench and a bicycle beside it and I can see the country on that bicycle. No one else can yet. That is fine."]}}, {"n": 6, "name": "Time passes", "montage": ["He sells the remains to the company whose tests he once failed and lives for a year on the proceeds, playing the flute and, by his own account, doing very little. Then he buys five hundred surplus two-stroke generator engines from the military and bolts them to bicycles, because a country with no fuel and no cars still has to move. They sell as fast as he can make them.", "In 1948 he founds a company. In 1949 a man named Takeo Fujisawa joins him to handle the money, and they run it together for twenty-five years, one on the machines and one on the ledger, and by their own arrangement neither man's son inherits it. By the 1960s the company is the largest motorcycle maker in the world. Then it makes cars. Then it makes the engines of the cars that win.", "He said later that success is ninety-nine percent failure, and that he had simply been destroyed more often than most people and got used to rebuilding."], "question": "Twice destroyed, a year of flute, five hundred surplus engines. Here is the question the company cannot answer for you: what did Honda rebuild?", "choices": [{"label": "The factory.", "short": "the factory", "reply": "He never rebuilt the factory. He sold its rubble to the company that had once rejected his rings, and started something else. The third rebuild was not a third building."}, {"label": "The piston ring business.", "short": "the piston ring business", "reply": "He kept the rings and the knowledge behind them and never made rings again for a living. The rings were what he learned metallurgy for. The metallurgy was what stayed."}, {"label": "Himself, from what the destruction left: hands, knowledge and a country that needed to move.", "short": "himself, from what the destruction left", "reply": "Yes. Rebuild is not restoration. It is asking what the destruction left behind and building the next thing from that. The bombers left fuel cans and he made them into metal. The earthquake left a field and he left it. The war left five hundred surplus engines and a country on bicycles, and he saw the country on the bicycles before anyone else. Twice destroyed is not a message. It is practice."}, {"label": "A company.", "short": "a company", "reply": "Eventually, and it is the largest of its kind, and he arranged that no son of his would inherit it. The company was what the rebuilding produced. It was not what he rebuilt."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another field of rubble and another voice reading it as a message. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Fujisawa", "says": "One line for the next earthquake. Start with I did.", "options": ["I did build the next thing from what the destruction left.", "I did not let the sky and the ground vote on what my hands could do.", "I did see the country on the bicycles before anyone else."]}, "ice": {"question": "One more line, and this one is yours. What has been destroyed twice in your own life, and what did it leave behind?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the field", "sub": "Your rubble, beside his", "paragraphs": ["A field outside Hamamatsu, January 1945, a factory in rubble twice over. You stood where a mechanic stood, with piston rings in your pocket and a lathe somewhere under the ground, and the field asked you what it asked him. You wrote: {1}", "Before the third factory, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was rings that failed a test and a man who went back to school rather than argue, and a factory rebuilt with the bombers' own fuel cans.", "You refused to let the sky and the ground vote. Your reason: {3} That refusal is the deferral. Not this month. Not from rubble doing theology.", "Your first step: {4} {overlap}", "After the step, the factory was still gone. Inside, you noticed this: {5}", "Then the years did what years do when a man builds from what was left. A year of flute, five hundred surplus engines on bicycles, a company, a partner on the ledger, and engines that win.", "Asked what Honda rebuilt, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. He sold the remains to Toyota and lived on the proceeds for a year.", "The record does not say what came out of the ground. It says he started again with almost nothing. A different first step in the same place is still a first step.", "He did this, in 1946. Surplus generator engines on bicycles were the first product of the next thing. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was to sell the rubble and keep the knowledge. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to Fujisawa. Honda did, in 1949, and they ran the company for twenty-five years with one on the machines and one on the money. Next time, turn to the one who will handle the part you cannot. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Fujisawa {n} on this journey. He had not arrived yet in 1945, and he is why the third rebuild lasted. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thing destroyed twice in your own life, as you named it: {ice}", "closing": "The field outside Hamamatsu has a factory on it again, someone else's. What you carry out of it is not a company, and it is not him. It is the evidence that you can build the next thing from what the destruction left behind.", "stickerLines": ["Walked with Soichiro Honda.", "Hamamatsu, January 1945."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The piston ring\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<circle cx=\"200\" cy=\"200\" r=\"110\" stroke-width=\"5\"/><circle cx=\"200\" cy=\"200\" r=\"92\" stroke-width=\"5\"/><path d=\"M200,90 L200,108\" stroke=\"#fff\" stroke-width=\"8\"/><path d=\"M196,90 L196,108 M204,90 L204,108\" stroke-width=\"2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. James Dyson, prototype 5,127</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from James Dyson's own account, paraphrased, and from the corporate lists. Consent track: written consent and a reading of this script before launch. No brand marks.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "dyson", "title": "James Dyson, prototype 5,127", "subtitle": "A coach house in the Cotswolds. 1983. The five thousand one hundred and twenty-sixth failure is on the bench.", "object": "The prototype", "sticker": "The prototype.", "footer": "Drawn from James Dyson's own account, paraphrased, and from the corporate lists. Consent track: written consent and a reading of this script before launch. No brand marks.", "arrive": {"heading": "You are standing where an engineer stood in front of his five thousandth failure.", "paragraphs": ["He is thirty-six. Five years ago he noticed that his vacuum cleaner lost suction as the bag filled, and that a sawmill nearby used a cyclone to separate dust from air without a bag, and wondered why a vacuum could not. He built one from cardboard and tape. It worked, roughly. He has been making it work exactly ever since.", "Five years. A coach house behind the family home. His wife's salary as an art teacher, a bank loan against the house, and a bench on which he has built, tested and rejected five thousand one hundred and twenty-six prototypes, each one a small change to the last, each one written down.", "The companies he has shown it to have said no. The industry makes its money on bags. He is thirty-six with three children and a mortgage that is now the prototype's.", "Now James steps aside and you step in. The coach house, the five thousand one hundred and twenty-six, the bank and the bench are his. Whether there is a five thousand one hundred and twenty-seventh is yours."], "button": "Stand at the bench"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The bench is covered in versions. The one in the clamp is number 5,126 and it does not quite separate the fine dust. The children are asleep in the house the bank now has an interest in.", "question": "What are you feeling right now?", "placeholder": "Say it as a man five years into a cyclone, not as a name on an appliance.", "helper": {"who": "Deirdre, your wife, whose salary has paid for the coach house for five years", "says": "I teach art all day so that you can do this. I have never asked you to stop. I am asking tonight what it feels like, five years in.", "options": ["I feel five thousand one hundred and twenty-six small changes and one large problem that has not moved in a month.", "I feel your salary and the bank and three children, and I feel that I am right about the cyclone, and I do not know how many more years being right is worth.", "I feel that every company that said no makes its money on bags, and that I am fighting a business model with a piece of cardboard."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before number 5,127, take an inventory. Not of the cyclone, and not of Dyson. Of yourself.", "question": "What have you already done, in your own life, that proves you can treat a failure as one line in a series rather than a verdict?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Deirdre", "says": "I can tell you what the man at that bench carries. A wheelbarrow he redesigned in his twenties that people said did not need redesigning, and it sold. Five thousand small changes, each written down, none of them repeated. A bench he has come back to every day for five years, in a coach house that is not heated. Now you tell me what you carry. Finish one of these.", "options": ["A time I treated a failure as one line in a series and not a verdict: ", "A time I changed one thing and tested again, and did it for years: ", "A time I kept a promise to a problem that everyone else had walked away from: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence at the bench is: five thousand failures is enough, and the industry has said no. It sounds like a count. It is a count of what has been learned, misread as a count of what has been lost. You do not have to solve the fine dust tonight. You only have to refuse to let the number decide whether there is a next number.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a business plan. One reason 5,126 does not get the vote.", "helper": {"who": "Deirdre", "says": "Five thousand one hundred and twenty-six. Tell me why that is not enough.", "options": ["Because each one worked slightly better than the one before, and a series that is improving is not a series that has failed. It is a series that has not finished.", "Because the industry said no for a reason that has nothing to do with whether it works. They make money on bags. That is a fact about them.", "Because I have not built 5,127, and a thing that has not been built has not failed."]}}, {"n": 4, "name": "One step", "prompt": "Not a company. Not the appliance that will be in every house. One step, small enough to finish before the coach house gets too cold.", "question": "What is it?", "placeholder": "Something an engineer can do at a bench tonight.", "helper": {"who": "Deirdre", "says": "You will build another. What is the smallest change you can make tonight?", "options": ["I will change one thing on 5,126, the angle at the top of the cone, and build 5,127, and test it, and write it down.", "I will write down what 5,126 does better than 5,000 did, so that I can see the five years as a curve and not a pile.", "I will stop showing it to the companies that make bags and think about who does not."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. Number 5,127 is in the clamp with one thing changed, or the five years are a curve on paper, or there is a short list of companies that do not sell bags. The bank still has the house. The fine dust is still fine.", "question": "What has changed in you?", "placeholder": "Compare it to 5,126.", "helper": {"who": "Deirdre", "says": "The bank did not change its mind. What changed at the bench?", "options": ["One thing is different on 5,127. It might be the thing. It probably is not. Either way it is the next line.", "I drew the curve. It goes up. Five years of it going up. I had been looking at the pile.", "I have stopped asking people who sell bags whether they want a machine without one."]}}, {"n": 6, "name": "Time passes", "montage": ["Number 5,127 works. He has said so in every telling, and the number is the number he counted. It takes years more to get it made, because the companies that make vacuums make their money on bags, and he ends up licensing it in Japan and then, in 1993, making it himself, at forty-six, fifteen years after the sawmill.", "It becomes the best-selling vacuum in Britain within two years. The company that grew out of a coach house employs thousands and has failed, by his own count, at many thousands more prototypes since. He says failure is the starting point, and means it as method, not comfort.", "Five thousand one hundred and twenty-six is not a story about persistence. It is a story about a man who changed one thing at a time and wrote every one down, and could therefore tell a pile from a curve."], "question": "Five thousand one hundred and twenty-six, then one more. Here is the question the appliance cannot answer for you: what were the failures?", "choices": [{"label": "Failures.", "short": "failures", "reply": "That is what he calls them, and he does it on purpose, to take the sting out of the word. Each one was also something else."}, {"label": "Persistence.", "short": "persistence", "reply": "That is what it looks like from outside. From inside it was one changed angle at a time, written down, so that no change was ever made twice. Persistence is an emotion. That is a method."}, {"label": "Data. Each one a line, each one one change from the last, and the whole a curve going up.", "short": "data, each one a line, each one one change from the last", "reply": "Yes. Arrival by data, and the second one in this series after Edison. He did not endure five thousand failures. He ran five thousand experiments and kept the notebook, and the notebook is why he could see, in a cold coach house, that the pile was a curve. Systems outlast willpower. A man who changes one thing at a time does not need to be brave. He needs to be next."}, {"label": "A mistake he got away with.", "short": "a mistake he got away with", "reply": "A bank loan against a family home for five years is a risk, and he says so, and it is not the whole account. The risk was survivable because the method was sound. Most people who bet the house have no notebook."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another bench and another number that sounds like enough. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Deirdre", "says": "One line for the next 5,126. Start with I did.", "options": ["I did change one thing and build the next one.", "I did draw the curve instead of counting the pile.", "I did stop asking people who sell bags whether they wanted a machine without one."]}, "ice": {"question": "One more line, and this one is yours. What pile in your own life is a curve you have not drawn?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the coach house", "sub": "Your 5,127, beside his", "paragraphs": ["A coach house in the Cotswolds, 1983, number 5,126 in the clamp. You stood where an engineer stood, with five years of small changes on a bench and a bank with an interest in the house, and the cold room asked you what it asked him. You wrote: {1}", "Before 5,127, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a wheelbarrow no one thought needed redesigning and five thousand changes never made twice.", "You refused to let the number decide the next number. Your reason: {3} That refusal is the deferral. Not tonight. Not from a count misread.", "Your first step: {4} {overlap}", "After the step, the fine dust was still fine. Inside, you noticed this: {5}", "Then 5,127 did what it did, and ten more years did the rest. A license in Japan, a company at forty-six, the best-selling machine in the country, and thousands more failures counted since, on purpose.", "Asked what the failures were, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. One change, one test, one line, and 5,127 was the one.", "He kept the record that let him see the curve, which is the whole method. A different first step in the same place is still a first step.", "He licensed it in Japan first, to a company that did not sell bags. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was one change and the next prototype. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to Deirdre. Dyson has said her salary paid for the five years and that she never asked him to stop. Next time, turn to the one whose salary is paying for the bench. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Deirdre {n} on this journey. She taught art for five years so that a coach house could hold a cyclone. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the pile in your own life that is a curve, as you named it: {ice}", "closing": "The coach house is still behind the house. What you carry out of it is not a machine, and it is not him. It is the evidence that you can change one thing at a time, write it down, and tell a pile from a curve.", "stickerLines": ["Walked with James Dyson.", "A coach house, 1983, number 5,127."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The prototype\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M140,100 L260,100 L230,260 L170,260 Z\" stroke-width=\"4\"/><path d=\"M170,260 L170,320 L230,320 L230,260\" stroke-width=\"3\"/><path d=\"M150,140 L250,140 M158,180 L242,180 M166,220 L234,220\" stroke-width=\"1.4\"/><path d=\"M200,100 L200,60 C200,50 240,50 240,60 L240,90\" stroke-width=\"3\"/><path d=\"M118,100 L282,100\" stroke-width=\"3\"/><text x=\"200\" y=\"300\" text-anchor=\"middle\" font-family=\"Calibri, Carlito, Arial, sans-serif\" font-size=\"22\" fill=\"#8e1b1b\" stroke=\"none\">5127</text>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

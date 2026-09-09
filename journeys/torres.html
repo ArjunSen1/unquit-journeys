@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Camille Torres, the curb at mile 22</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Camille Torres and Patricia Owusu are composites from The Unquit Athlete, Chapter 3.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "torres", "title": "Camille Torres, the curb at mile 22", "subtitle": "A curb on the north side of Chicago. Mile 22 of the marathon. The ankle is gone.", "object": "The curb", "sticker": "The curb.", "footer": "Camille Torres and Patricia Owusu are composites from The Unquit Athlete, Chapter 3.", "arrive": {"heading": "You are standing where Camille Torres sat.", "paragraphs": ["Eighteen months ago she started running, and everything about the running has been building to this: a qualifying time at the Chicago Marathon, and with it the Boston Marathon, which she has wanted with a wanting that surprised her.", "At mile 22 she rolled her ankle on a section of uneven road. Not badly. She could walk. She could not run, and the qualifying time she had built her whole eighteen months toward was gone.", "She is sitting on a curb. Runners she has been pacing with for two hours are passing. Some look at her. Most do not, because they have their own race. She has just made, in her own words, a very small and very significant decision. Not a triumphant one. She stood up, and she is walking the last four miles, not because it will get her the time but because the alternative is to stop being the person who finishes what she starts.", "Now Camille steps aside and you step in. The curb, the ankle, the gone time and the four miles are hers. Whether you stand up is yours."], "button": "Sit down on the curb"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The road is a river of people going the other way from your plan. The ankle is already swelling. Your watch is still running.", "question": "What are you feeling right now?", "placeholder": "Say it as a runner on a curb, not as someone who is fine.", "helper": {"who": "Patricia Owusu, your coach, by phone, because you called her from the curb", "says": "You called me from the ground. Good. Before you decide anything, tell me what it feels like there.", "options": ["I feel eighteen months going past me in running shoes.", "I feel that the time is gone and the time was the whole point, and I do not know what is left of the point without it.", "I feel that I could stand up and walk and it would mean nothing on any clock, and something in me wants to anyway."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you stand, take an inventory. Not of the ankle, and not of Camille. Of yourself.", "question": "What have you already done, in your own life, that proves you can finish a thing after the reason for finishing is gone?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Patricia", "says": "I can tell you what the woman on that curb carries. Eighteen months of mornings. A wanting that surprised her and did not go away. Twenty-two miles today at qualifying pace, which most people never run in their lives. Now you tell me what you carry. Finish one of these.", "options": ["A time I finished a thing after the reason for finishing was gone: ", "A time I kept a promise to myself that no clock was measuring: ", "A time I built something for eighteen months and lost the goal in a minute, and did not lose the eighteen months: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence on the curb is: the time is gone, so the race is over. It sounds like arithmetic. It is the goal pretending to be the reason. You do not have to decide what the eighteen months were for while your ankle swells. You only have to refuse to let the watch decide the last four miles.", "question": "What is the one reason you will not decide on the curb?", "placeholder": "Not a race strategy. One reason the clock does not get the vote.", "helper": {"who": "Patricia", "says": "The qualifying time is gone. That is true. Tell me why the race is not.", "options": ["Because I ran twenty-two miles today and the twenty-two miles did not roll their ankle.", "Because if the time was the only reason, I have been lying to myself for eighteen months about why I get up in the dark.", "Because I can walk. The race has a finish line and I have legs. The clock is a separate matter."]}}, {"n": 4, "name": "One step", "prompt": "Not Boston. Not the qualifying time. One step, small enough to take on a rolled ankle.", "question": "What is it?", "placeholder": "Something you can do from a curb.", "helper": {"who": "Patricia", "says": "You can walk. What is the smallest thing you can do right now?", "options": ["I will stand up.", "I will stop my watch. The time is not the race anymore, and I do not want to watch it disagree with me for four miles.", "I will walk to the next aid station. Not the finish. The next table."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. You are standing, or the watch is stopped, or the next aid station is the whole of the plan. The ankle is the same. The time is gone.", "question": "What has changed in you?", "placeholder": "Compare it to the curb.", "helper": {"who": "Patricia", "says": "The clock did not change its mind. What did?", "options": ["I am standing. Twenty seconds ago that was a decision. Now it is just true.", "I stopped the watch and the race got quieter. I can hear my feet.", "I am walking to a table with water on it. I have never in my life been more than one table from the next one."]}}, {"n": 6, "name": "Time passes", "montage": ["She walks four miles on a swelling ankle and crosses the line in a time that qualifies her for nothing. Weeks later, in a Tuesday session, she tells her coach about the curb and cries, not from disappointment but from something she calls a kind of relief. She had found out what she would do when the goal disappeared, and the answer was: keep going.", "Fourteen months later she runs Boston. The book does not make much of it. It is not the point.", "The point is the curb. The person who stands up when the reason is gone is the person who will still be running in ten years, and the coach knew it before Camille did."], "question": "Eighteen months, a curb, four miles that counted for nothing. Here is the question the Boston medal cannot answer for you: what did standing up on the curb decide?", "choices": [{"label": "Nothing. She did not qualify.", "short": "nothing, she did not qualify", "reply": "She did not qualify that day, and the four miles moved no clock. The book is clear that this is precisely why they mattered."}, {"label": "Boston, fourteen months later.", "short": "Boston, fourteen months later", "reply": "She got there, and the book gives it half a sentence. If standing up had been about Boston, it would have been a strategy. It was not."}, {"label": "Who she would be when the goal disappeared.", "short": "who she would be when the goal disappeared", "reply": "Yes. Continuation is not a decision you make once. It is a decision you make every time the goal you were running toward evaporates and you have to decide whether the running was about the goal or about who you are. She found out on a curb, on a Sunday, with her ankle swelling, and cried about it on a Tuesday, from relief. She knew now."}, {"label": "That she should have stopped and protected the ankle.", "short": "that she should have stopped", "reply": "A physiotherapist might say so, and the book does not argue. It only says that some decisions about who you are do not wait for the results to be favorable, and this was one, and she made it."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another curb at another mile 22 when the goal rolls an ankle. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Patricia", "says": "One line for the next curb. Start with I did.", "options": ["I did stand up when the time was gone.", "I did stop the watch and keep the race.", "I did walk to the next table."]}, "ice": {"question": "One more line, and this one is yours. What goal of yours has rolled an ankle, and are you still sitting on the curb?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, on the curb", "sub": "Your mile 22, beside hers", "paragraphs": ["Chicago, mile 22, an ankle gone and a qualifying time gone with it. You sat where Camille Torres sat, with the race flowing past you and a coach on the phone, and the curb asked you what it asked her. You wrote: {1}", "Before you stood, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was eighteen months of mornings and twenty-two miles at a pace most people never run.", "You refused to let the watch decide the last four miles. Your reason: {3} That refusal is the deferral. Not on the curb. Not from a clock.", "Your first step: {4} {overlap}", "After the step, the time was still gone. Inside, you noticed this: {5}", "Then four miles did what four miles do on a swelling ankle. A finish that qualified for nothing, a Tuesday session with tears of relief, and fourteen months later a race the book barely mentions.", "Asked what standing up decided, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["She did this. She stood up and walked four miles.", "The book does not mention the watch. It mentions that the time was gone and she went anyway. A different first step in the same place is still a first step.", "One aid station at a time is how anyone walks four miles on a bad ankle. A different first step in the same place is still a first step."], "stepOverlapFree": "Her first step was standing up. A different first step in the same place is still a first step.", "help": {"zero": "You did not call Patricia from the curb. Camille told her coach later, on a Tuesday, and cried. Next time, call from the ground. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You called Patricia from the curb {n} on this journey. Camille told her on a Tuesday, weeks later, and the coach said she had known before Camille did. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the goal that rolled an ankle in your own life, as you named it: {ice}", "closing": "The curb is on the north side of Chicago and thousands run past it every October. What you carry off it is not a qualifying time, and it is not Camille. It is the evidence that when the reason was gone, you stood up.", "stickerLines": ["Walked with Camille Torres.", "Chicago, mile 22."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The curb\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M40,300 L200,300 L200,270 L360,270\" stroke-width=\"4\"/><path d=\"M40,330 L360,330\" stroke-width=\"2\"/><path d=\"M200,270 L200,300\" stroke-width=\"4\"/><path d=\"M60,286 L120,286 M140,286 L180,286\" stroke-width=\"1.4\" stroke-dasharray=\"8 8\"/><path d=\"M230,256 L340,256\" stroke-width=\"1.4\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

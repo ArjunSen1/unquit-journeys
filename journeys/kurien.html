@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Verghese Kurien, Anand</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from Verghese Kurien's own account of his arrival in Anand, paraphrased, and from the documented history of the Kaira cooperative and Amul.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "kurien", "title": "Verghese Kurien, Anand", "subtitle": "A government creamery in Gujarat. 1950. The release order in hand.", "object": "The milk can", "sticker": "The milk can.", "footer": "Drawn from Verghese Kurien's own account of his arrival in Anand, paraphrased, and from the documented history of the Kaira cooperative and Amul.", "arrive": {"heading": "You are standing where Verghese Kurien stood.", "paragraphs": ["He did not want to be here. He was a mechanical engineer from Kerala who wanted to study metallurgy or nuclear physics, and the government scholarship that sent him to Michigan State came with a condition: dairy engineering, because that is what India said it needed, and a bond to serve afterwards wherever he was posted. He was posted to Anand, a dusty town in Gujarat he had never heard of, to run a government creamery that barely ran. He arrived in May 1949, found the place small and the work pointless, and began counting the days of his bond.", "Across town, a farmers' cooperative was fighting to stay alive. Three years earlier the milk producers of Kaira district had gone on strike for fifteen days, pouring their milk on the roads rather than sell it to the middleman who set the price. Out of the strike had come a union, run by a quiet Gandhian named Tribhuvandas Patel. The union had milk, and farmers, and almost no equipment that worked. Tribhuvandas kept asking the young government engineer next door to come and fix things. The young engineer kept helping, and kept counting the days.", "The days are up. The release from the bond has come through. The suitcase is packed. Tribhuvandas has come to the creamery one more time, not to ask for a repair.", "Now Kurien steps aside and you step in. The suitcase, the release order, the broken pasteurizer next door and the man in the doorway are his. Whether the train leaves with you on it is yours."], "button": "Stand in the doorway"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The release order is on the desk. The train is at four. Tribhuvandas is in the doorway with his hands folded, saying nothing yet, which is how he asks for things.", "question": "What are you feeling right now?", "placeholder": "Say it as a twenty-eight-year-old who has been counting days.", "helper": {"who": "Tribhuvandas Patel, in the doorway", "says": "You have the paper. I know. I am not here to argue with the paper. Tell me first what you are feeling, and then I will ask what I came to ask.", "options": ["I feel that I have served a sentence for a crime I did not commit, and the gate is finally open.", "I feel that I have been useful here, by accident, for the first time in my life, and I do not know what to do with that.", "I feel that if I stay one more month it will become a year, and a year will become my life, and I did not choose this life."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the train, take an inventory. Not of the creamery, and not of Kurien. Of yourself.", "question": "What have you already done, in your own life, that proves you can do good work in a place you did not choose?", "placeholder": "One thing you did. Not one thing you believe.", "fillIn": true, "helper": {"who": "Tribhuvandas", "says": "I can tell you what I have watched you do for a year. You fixed our pasteurizer when it was not your job. You came at night when the cooling failed. You told the truth about our equipment when it would have been easier to nod. You did all of it while counting the days to leave. Now you tell me what you carry. Finish one of these.", "options": ["A time I did good work in a place I did not choose: ", "A time I was useful by accident, and it turned out not to be an accident: ", "A time I fixed something that was not my job because it was in front of me: "]}}, {"n": 3, "name": "The deferral", "prompt": "The sentence today is: the paper says I can go, so I go. It sounds like freedom. It is a schedule in the shape of freedom. You do not have to give Tribhuvandas an answer before the four o'clock train. You only have to refuse to let the train decide.", "question": "What is the one reason you will not decide before four o'clock?", "placeholder": "Not a reason to stay. One reason the train does not get the vote.", "helper": {"who": "Tribhuvandas", "says": "There is a train at four tomorrow too. Tell me why today's does not get to decide.", "options": ["Because I have spent a year deciding to leave and I have not spent one hour deciding whether to stay. That is not a decision. It is momentum.", "Because the farmers poured their milk on the road for fifteen days rather than take a bad price, and I have not yet asked what they were fighting for.", "Because the man in the doorway has never once asked me for anything for himself. When he does ask, it deserves a day."]}}, {"n": 4, "name": "One step", "prompt": "Not a career. Not fifty years. Not the largest dairy cooperative in the world, which you cannot see from here. One step, small enough to finish before the train you may or may not take.", "question": "What is it?", "placeholder": "Something you can do between now and four o'clock.", "helper": {"who": "Tribhuvandas", "says": "I am asking for a few months. Not your life. Help us set up the dairy properly, and then go wherever you like. What is the smallest yes you can give me today?", "options": ["I will unpack one shirt. Not the suitcase. One shirt. And I will walk over and look at the pasteurizer again.", "I will go to one village with you tomorrow morning and watch the milk come in, before I decide what I have been fixing.", "I will say yes to the few months, and put a date on the calendar for when I leave, so that the yes is not a trap."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. One shirt is on a hanger, or a village is on tomorrow's calendar, or a date is written down for leaving. The four o'clock train has gone without you. The release order is still valid.", "question": "What has changed in you?", "placeholder": "Compare it to the doorway.", "helper": {"who": "Tribhuvandas", "says": "The train has gone. You are still free to go. What is different?", "options": ["I am staying by choice for the first time. The same town feels like a different place.", "I came here as a punishment. I think I have been standing next to a purpose the whole time.", "The release order is in the drawer. I did not tear it up. I stopped needing it."]}}, {"n": 6, "name": "Time passes", "montage": ["He stays for the few months. The few months become fifty years. He builds the cooperative's dairy, then a plant that makes milk powder from buffalo milk when every expert says it cannot be done, then a brand the whole country knows by a name that means priceless. Every farmer who brings a can of milk owns a share of it. No one owns more.", "In 1965 the prime minister asks him to do for the country what he did for Kaira. Operation Flood makes India the largest milk producer in the world. He is called the Milkman of India, and he refuses to own a single share of anything he built.", "He said later that he never planned any of it. He had a release order in his pocket, and a man in a doorway asked him to stay a few months."], "question": "He did not choose Anand. Here is the question the fifty years cannot answer for you: what did he choose?", "choices": [{"label": "To stay.", "short": "to stay", "reply": "He chose to stay, and he would tell you that is not the interesting part. People stay in places they did not choose every day, and most of them stay bitter. What he chose was not the place."}, {"label": "The farmers over the government.", "short": "the farmers over the government", "reply": "Closer. He walked out of a government post into a cooperative that could barely pay him, and stayed loyal to the farmers for fifty years. But loyalty is the shape of the choice, not the choice."}, {"label": "To let a purpose find him in a place he had refused.", "short": "to let a purpose find him in a place he had refused", "reply": "Yes. He did not choose the place. He chose to stop counting the days long enough to see what was in front of him. The purpose was already there, in the cans of milk coming in every morning. He had been fixing its machines for a year. All that changed in the doorway was that he stopped calling it a sentence and started calling it work."}, {"label": "Nothing. Tribhuvandas chose for him.", "short": "nothing, Tribhuvandas chose for him", "reply": "Tribhuvandas asked. Asking is not choosing. Kurien could have taken the four o'clock train with a clear conscience and a valid paper. He did not, and he could never fully explain why, which is what a real choice looks like from the inside."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another place you did not choose, and another paper that says you can leave. Write one sentence for that doorway. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Tribhuvandas", "says": "One line for the next doorway. Start with I did.", "options": ["I did stop counting the days long enough to see what was in front of me.", "I did give a few months to a place I had refused, and did not let the train decide.", "I did unpack one shirt."]}, "ice": {"question": "One more line, and this one is yours. Where in your own life are you counting the days, and what is in front of you while you count?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the doorway", "sub": "Your release order, beside his", "paragraphs": ["Anand, 1950, a government creamery with a suitcase packed. You stood where Verghese Kurien stood, with a release order on the desk and a quiet man in the doorway, and the afternoon asked you what it asked him. You wrote: {1}", "Before the train, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a year of fixing a cooperative's machines at night while counting the days to leave, which is to say a year of being useful before he had decided to be.", "You refused to let the four o'clock train decide. Your reason: {3} That refusal is the deferral. Not today. Not from a timetable.", "Your first step: {4} {overlap}", "After the step, the train had gone and the release order was still valid. Inside, you noticed this: {5}", "Then time did what it does when a man stops counting days. A few months, then fifty years. A dairy, a plant that could not be built, a name that means priceless, a country that became the largest milk producer in the world, and a man who owned none of it.", "Asked what he chose, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["This is close to what he did. He did not unpack the whole suitcase for years, by his own telling. He stayed one stretch at a time until the stretches were his life.", "He did this. The villages are where he learned what the machines were for, and he said the farmers taught him more than Michigan had.", "He agreed to a few months. He never left. A different first step in the same doorway is still a first step, and his came with no date on it either."], "stepOverlapFree": "His first step was a yes to a few months, given to a man who had never asked him for anything before. A different first step in the same doorway is still a first step.", "help": {"zero": "You did not turn to Tribhuvandas on this journey. Kurien did, for the rest of his life, and called him the reason any of it happened. Next time, hear the man in the doorway. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Tribhuvandas {n} on this journey. Kurien said for fifty years that the cooperative was Tribhuvandas's and he only built the machines. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the days you are counting in your own life, as you named them: {ice}", "closing": "The creamery is a museum now. The milk still comes in every morning. What you carry out of Anand is not a dairy, and it is not Kurien. It is the evidence that in a place you refused, you stopped counting long enough to see what was in front of you.", "stickerLines": ["Walked with Verghese Kurien.", "Anand, 1950."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The milk can\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n\n  <path d=\"M130,130 L120,330 C120,342 132,348 150,348 L250,348 C268,348 280,342 280,330 L270,130\" stroke-width=\"4\"/>\n  <path d=\"M130,130 C130,104 152,92 200,92 C248,92 270,104 270,130\" stroke-width=\"4\"/>\n  <path d=\"M172,92 C172,72 228,72 228,92\" stroke-width=\"3\"/>\n  <path d=\"M182,72 L218,72\" stroke-width=\"4\"/>\n  <path d=\"M130,130 L270,130\" stroke-width=\"3\"/>\n  <path d=\"M130,178 L270,178 M126,266 L274,266\" stroke-width=\"2\"/>\n  <path d=\"M120,214 L96,214 C88,214 88,228 96,228 L118,228 M280,214 L304,214 C312,214 312,228 304,228 L282,228\" stroke-width=\"3.5\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

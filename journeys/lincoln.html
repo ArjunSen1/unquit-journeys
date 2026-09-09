@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Abraham Lincoln, November 1858</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from Lincoln's letters of November 1858, paraphrased, with one sentence of his own, and from Unquit: The Oldest Choice.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "lincoln", "title": "Abraham Lincoln, November 1858", "subtitle": "A law office in Springfield, Illinois. The week after the Senate election. Lost.", "object": "The hat", "sticker": "The hat.", "footer": "Drawn from Lincoln's letters of November 1858, paraphrased, with one sentence of his own, and from Unquit: The Oldest Choice.", "arrive": {"heading": "You are standing where a defeated candidate stood.", "paragraphs": ["He is forty-nine. He has lost before. A business that failed and left him in debt for years. A first run for the legislature, lost. A congressional seat held for one term and given up. A Senate seat in 1855, lost in the legislature after leading on the first ballot. Two children buried. A darkness that his friends watched him carry for decades and that he named, in private, as the worst thing he knew.", "This summer he stood against Stephen Douglas in seven debates that the whole country read. He was the better arguer and everyone knew it. Last week the legislature, which chooses senators, chose Douglas. Lincoln's party won more votes. The districts were drawn so that it did not matter.", "He is in his law office. The debates are in the newspapers. The seat is Douglas's. A friend has written to ask how he is, and he is answering.", "Now Abraham steps aside and you step in. The office, the seven debates, the defeat and the half-written letter are his. What a lost election is for is yours."], "button": "Sit down at the law desk"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The office smells of paper and lamp oil. The debates are stacked on the desk in newsprint, every word of them, and none of it changed the count. The letter to your friend is half a page.", "question": "What are you feeling right now?", "placeholder": "Say it as a man who has lost more elections than most people enter.", "helper": {"who": "William Herndon, your law partner, at the other desk", "says": "You have been writing that letter for an hour. Before you finish it for him, say it to me. What do you feel?", "options": ["I feel that I made the best argument of my life to the whole country and the country agreed and it did not matter.", "I feel the old thing coming, the one I do not have a good name for, and I have learned to see it arrive.", "I feel that I am forty-nine and I have lost the Senate twice and I do not know how many more of these a man is allowed."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the letter is finished, take an inventory. Not of the debates, and not of Lincoln. Of yourself.", "question": "What have you already done, in your own life, that proves you can lose and keep the cause?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Herndon", "says": "I can tell you what the man at that desk carries. A store that failed and a debt he paid every dollar of over fifteen years when he could have walked away. A first election lost, and a second run the next year, won. A son buried, and a law practice kept open the week after. Seven debates that made him the most quoted man in the country while losing. Now you tell me what you carry. Finish one of these.", "options": ["A time I lost and kept the cause: ", "A time I paid a debt I could have walked away from: ", "A time I made the best argument I had, lost anyway, and was glad I made it: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the office is: the country agreed with me and I lost, so the arguing was for nothing. It sounds like a verdict on the summer. It is one week drawing a conclusion for a cause that has already outlasted a hundred defeats. You do not have to decide about public life tonight. You only have to refuse to let the count decide the cause.", "question": "What is the one reason you will not decide this week?", "placeholder": "Not a campaign plan. One reason the legislature does not get the vote on this.", "helper": {"who": "Herndon", "says": "You lost a seat. The cause did not lose anything. Tell me why you will not confuse them this week.", "options": ["Because the debates are printed, and printed things travel, and the seat was never the thing that travels.", "Because I have felt this darkness before and I know it lies about the size of things. I will decide when it has passed, not while it is here.", "Because the party won more votes than Douglas. The map lost. Maps get redrawn."]}}, {"n": 4, "name": "One step", "prompt": "Not the next campaign. Not the presidency, which is two years off and no one is saying. One step, small enough to finish before the lamp burns down.", "question": "What is it?", "placeholder": "Something you can do with a pen and a half-written letter.", "helper": {"who": "Herndon", "says": "Finish the letter. But tell me first: what is the one sentence that will be in it?", "options": ["I will write: the fight must go on. The cause of civil liberty must not be surrendered at the end of one, or even one hundred defeats.", "I will write that I am glad I made the race, because it gave me a hearing on the great question of the age that I could have had in no other way.", "I will gather the debates, all seven, and arrange to have them printed as a book, so that the argument outlasts the count."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The sentence is on the page, or the debates are on their way to a printer, or a friend has been told the truth about being glad. The seat is still Douglas's. The darkness is still in the room.", "question": "What has changed in you?", "placeholder": "Compare it to the half page.", "helper": {"who": "Herndon", "says": "The legislature did not change its mind. What did?", "options": ["The seat is his. The sentence is mine, and a sentence travels further than a seat.", "I wrote that I was glad I made the race and found, writing it, that it was true.", "The darkness is still here. It has stopped being the one holding the pen."]}}, {"n": 6, "name": "Time passes", "montage": ["He finishes the letter. The debates are collected and published as a book in 1860, and the book is read everywhere. The man who lost the Senate in Illinois is nominated for the presidency by a party that knows him from the debates he lost, and elected in November 1860.", "What follows is the hardest chapter in the country's history, and the thirty years of failure, loss and darkness that came before it were not the delay. They were the curriculum. The capacity to hold a nation's purpose steady while everything argued for surrender was not innate. It was built, involuntarily, through long middles that did not resolve as hoped.", "He kept the letter's sentence. He kept it through Bull Run and Fredericksburg and Chancellorsville, through a son's death in the White House, through an election he expected to lose in 1864 and did not. The fight must go on."], "question": "Thirty years of losing, and then the chapter that mattered. Here is the question the presidency cannot answer for you: what was the 1858 defeat?", "choices": [{"label": "A setback on the way to the presidency.", "short": "a setback on the way to the presidency", "reply": "That is how the biographies draw it, with the presidency two years off and inevitable. Nothing was inevitable in that law office. It was a loss, and it felt like one."}, {"label": "A campaign that lost the count and won the argument.", "short": "a campaign that lost the count and won the argument", "reply": "True, and he knew it that week, and it is not yet the answer. Winning arguments while losing counts is a thing a man can do forever without it amounting to anything."}, {"label": "The last course of a thirty-year curriculum.", "short": "the last course of a thirty-year curriculum", "reply": "Yes. The failed store, the paid debt, the lost elections, the buried children, the darkness he learned to see arriving: none of it was a detour to the destination. It was the formation of the man the destination required. No one who had not lost that many times could have held a country together while it came apart. The Long Middle of preparation is not a wait. It is the making."}, {"label": "Nothing. He would have been president anyway.", "short": "nothing, he would have been president anyway", "reply": "Ask the man in the law office. He did not think so, and he was there."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another count you lose while winning the argument. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Herndon", "says": "One line for the next lost count. Start with I did.", "options": ["I did not surrender the cause at the end of one defeat, or one hundred.", "I did make the best argument I had and was glad I made it.", "I did print the argument so it would outlast the count."]}, "ice": {"question": "One more line, and this one is yours. What count have you lost while winning the argument, and is the argument printed anywhere?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the law office", "sub": "Your defeat, beside his", "paragraphs": ["Springfield, November 1858, the week after. You sat where a defeated candidate sat, with seven debates in newsprint on the desk and a letter half written, and the office asked you what it asked him. You wrote: {1}", "Before the letter was finished, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a fifteen-year debt paid in full, a son buried and a practice kept open, and a lost election followed by a won one.", "You refused to let the count decide the cause. Your reason: {3} That refusal is the deferral. Not this week. Not while the darkness holds the pen.", "Your first step: {4} {overlap}", "After the step, the seat was still Douglas's. Inside, you noticed this: {5}", "Then two years did what two years do when the argument is in print. A book of debates, a nomination, an election, and the hardest chapter in the country's history held together by a man who had been made for it by losing.", "Asked what the 1858 defeat was, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He wrote almost exactly that sentence, to Henry Asbury, on November 19, 1858. It is the one line of his the journey quotes.", "He wrote this too, to Anson Henry, the same week: that he was glad he made the race and had made marks that would tell for civil liberty after he was gone.", "He did this. The debates were published as a book in 1860 and helped make him a national candidate. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was a letter that said the fight must go on. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to Herndon. Lincoln did, for sixteen years across two desks, and Herndon watched the darkness come and go more than anyone. Next time, turn to the man at the other desk. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Herndon {n} on this journey. He shared the office through every defeat and wrote the first honest account of what they cost. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the count you lost while winning the argument, as you named it: {ice}", "closing": "The law office in Springfield is preserved. What you carry out of it is not an election, and it is not him. It is the evidence that at the end of one defeat, or a hundred, you did not surrender the cause.", "stickerLines": ["Walked with Abraham Lincoln.", "Springfield, November 1858."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The hat\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M120,300 L280,300\" stroke-width=\"4\"/><path d=\"M80,300 C120,290 280,290 320,300\" stroke-width=\"3\"/><path d=\"M130,300 L136,110 L264,110 L270,300\" stroke-width=\"4\"/><path d=\"M136,110 C176,102 224,102 264,110\" stroke-width=\"3\"/><path d=\"M138,270 L262,270\" stroke-width=\"2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

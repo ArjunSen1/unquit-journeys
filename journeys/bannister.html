@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Roger Bannister, May 6, 1954</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from Bannister's own account and the record of the race, paraphrased, and from The Unquit Athlete.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "bannister", "title": "Roger Bannister, May 6, 1954", "subtitle": "Iffley Road track, Oxford. Five in the afternoon. The wind is wrong.", "object": "The stopwatch", "sticker": "The stopwatch.", "footer": "Drawn from Bannister's own account and the record of the race, paraphrased, and from The Unquit Athlete.", "arrive": {"heading": "You are standing where a medical student stood.", "paragraphs": ["He is twenty-five and a medical student, training in his lunch hours. The medical consensus, which he knows because he is about to become a doctor, holds that the human body cannot sustain the pace required to run a mile in under four minutes. Not that it is hard. That it is not designed for it. Many have tried. The evidence for impossibility is quite good.", "His reasoning is different. Someone, somewhere, someday is going to do it. The only question is who, and when, and whether the answer to both is him, here, today.", "It is May 6, 1954, at Iffley Road in Oxford. Two friends, Chris Brasher and Chris Chataway, will pace him. The wind has been gusting at fifteen miles an hour all afternoon, enough to add seconds to a mile. He has nearly called it off twice. The race is in thirty minutes.", "Now Roger steps aside and you step in. The wind, the consensus, the two pacers and the stopwatch are his. Whether you run today is yours."], "button": "Walk to the track"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The flag on the church tower is standing straight out. Brasher and Chataway are stretching and not asking. Your spikes are on.", "question": "What are you feeling right now?", "placeholder": "Say it as a runner in a wind, not as a man in a history book.", "helper": {"who": "Chris Brasher, who will lead the first two laps", "says": "I will set the pace you want. I will not tell you whether to run. Tell me what you feel with that wind.", "options": ["I feel that the one variable I cannot train is the one that showed up.", "I feel that everyone in medicine says this body cannot do it, and I am about to become one of them, and I still think they are wrong.", "I feel that if I call it off today there is another day, and that I have said that about two other days."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the gun, take an inventory. Not of the wind, and not of Bannister. Of yourself.", "question": "What have you already done, in your own life, that proves you can test a thing everyone agrees is impossible?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Brasher", "says": "I can tell you what the man in those spikes carries. Fourth at the Olympics two years ago, and the newspapers calling it a failure, and he kept training in his lunch hours. A training method he designed himself because the accepted one did not fit a medical student's day. The nerve to plan a race with two pacers when purists call that cheating. Now you tell me what you carry. Finish one of these.", "options": ["A time I tested a thing everyone agreed was impossible: ", "A time a failure in public was not the end of the training: ", "A time I designed my own method because the accepted one did not fit my life: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence at the track is: the wind has decided, run another day. It sounds like sense. It is the consensus, arriving as weather. You do not have to decide about the four-minute mile forever. You only have to refuse to let the flag on the church decide this afternoon.", "question": "What is the one reason you will not call it off yet?", "placeholder": "Not a pacing plan. One reason the wind does not get the vote.", "helper": {"who": "Brasher", "says": "The flag is out straight. There are thirty minutes. Tell me why you will not decide yet.", "options": ["Because the wind has dropped twice in the last hour, and a man who has trained for a year can wait thirty minutes for a third time.", "Because the consensus says the body cannot, and the body does not know about the consensus, and neither does the wind.", "Because someone, somewhere, someday. If not today, then I am choosing not to be the someone, and that is a different decision from waiting for weather."]}}, {"n": 4, "name": "One step", "prompt": "Not the mile. Not the record. One step, small enough to finish before the gun.", "question": "What is it?", "placeholder": "Something you can do with two friends and a stopwatch.", "helper": {"who": "Brasher", "says": "We are ready when you are. What is the smallest thing you can do in the next thirty minutes?", "options": ["I will watch the flag. If it drops before the start, I run. That is the whole decision, and I have made it.", "I will tell Brasher and Chataway the splits I need, exactly, so that the decision is already made when the gun goes.", "I will warm up as if I am running, and let my legs decide what my head cannot."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The decision is tied to the flag, or the splits are in two other men's heads, or the warm-up is finished and the legs have a view. The wind is still up. The gun is in minutes.", "question": "What has changed in you?", "placeholder": "Compare it to the flag standing straight.", "helper": {"who": "Brasher", "says": "The wind has not decided anything. What have you?", "options": ["I have stopped watching the consensus and started watching the flag. The flag is a thing that can change.", "The splits are in their heads. The race is no longer mine alone, which is the only way it was ever going to be run.", "I am warm and my legs say go. My head is still a medical student. I am going to let the legs vote."]}}, {"n": 6, "name": "Time passes", "montage": ["Minutes before the start, the wind drops. He runs. Brasher leads the first two laps, Chataway the third. On the final lap he goes alone, and the announcer, Norris McWhirter, draws out the time so slowly that the crowd hears the word three and drowns the rest. Three minutes, fifty-nine and four tenths.", "Forty-six days later John Landy runs faster. Within a year, several men have done it. The impossibility had been a story, held collectively, that collapsed the moment one person decided to examine it rather than accept it.", "He finished his medical training, became a neurologist, and said for the rest of his life that the medicine mattered more."], "question": "Three fifty-nine point four, and then forty-six days later someone faster. Here is the question the stopwatch cannot answer for you: what did Bannister break?", "choices": [{"label": "The four-minute barrier.", "short": "the four-minute barrier", "reply": "He ran under four minutes, and that is the record. But he would tell you the barrier was not on the track."}, {"label": "The wind.", "short": "the wind", "reply": "The wind dropped. He did not break it. He waited for it, which is a different skill and the one this journey is about."}, {"label": "A story everyone had agreed to.", "short": "a story everyone had agreed to", "reply": "Yes. The medical consensus was strong, and he was about to join the profession that held it, and he decided to find out what the impossibility was made of. It was made of no one having done it. Forty-six days later it was ordinary. Someone, somewhere, someday. He decided the someone was him, and the day was this one, wind or not."}, {"label": "Nothing. Landy would have done it anyway.", "short": "nothing, Landy would have done it anyway", "reply": "Landy did it forty-six days later, and had been trying for two years and not doing it. Bannister said afterward that he thought his run gave Landy permission. Barriers fall for the second man because the first one went."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another afternoon when the wind is wrong and the consensus is strong. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Brasher", "says": "One line for the next wrong wind. Start with I did.", "options": ["I did decide the someone was me and the day was today.", "I did wait thirty minutes for the flag instead of a year for the consensus.", "I did give the pace to two friends so the race was not mine alone."]}, "ice": {"question": "One more line, and this one is yours. What impossibility in your own life is made of no one having done it yet?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, at Iffley Road", "sub": "Your wind, beside his", "paragraphs": ["Iffley Road, May 6, 1954, five in the afternoon, the flag straight out. You stood where a medical student stood, with two friends stretching and a consensus in your own textbooks, and the afternoon asked you what it asked him. You wrote: {1}", "Before the gun, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was an Olympic fourth called a failure and a training method built in lunch hours because the accepted one did not fit.", "You refused to let the flag on the church decide the afternoon. Your reason: {3} That refusal is the deferral. Not yet. Not from weather.", "Your first step: {4} {overlap}", "After the step, the wind was still up. Inside, you noticed this: {5}", "Then the wind did what wind sometimes does, minutes before a gun. Two laps behind Brasher, one behind Chataway, one alone, and an announcer who never got past the word three.", "Asked what Bannister broke, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did exactly this. He watched the flag on St John's church, and it dropped minutes before the start, and he ran.", "He did this. Brasher and Chataway ran to splits agreed in advance, and the purists called it pacing and he called it a plan. A different first step in the same place is still a first step.", "He warmed up ready to run and ready not to. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was to watch the flag and let it decide the timing while he decided the rest. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to Brasher. Bannister did; two friends ran three of his four laps, and the record has all three names. Next time, give the pace to someone. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Brasher {n} on this journey. The four-minute mile was run by three men, and the record says so. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the impossibility made of no one having done it, as you named it: {ice}", "closing": "Iffley Road is still a track. What you carry off it is not a record, which lasted forty-six days, and it is not him. It is the evidence that you decided the someone was you.", "stickerLines": ["Walked with Roger Bannister.", "Iffley Road, May 6, 1954."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The stopwatch\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<circle cx=\"200\" cy=\"220\" r=\"100\" stroke-width=\"4\"/><circle cx=\"200\" cy=\"220\" r=\"88\" stroke-width=\"1.4\"/><path d=\"M200,110 L200,90 M184,90 L216,90 M200,90 L200,74\" stroke-width=\"4\"/><path d=\"M200,220 L200,150 M200,220 L246,246\" stroke-width=\"3\"/><path d=\"M200,140 L200,150 M280,220 L270,220 M200,300 L200,290 M120,220 L130,220\" stroke-width=\"2.4\"/><circle cx=\"200\" cy=\"220\" r=\"4\" fill=\"#8e1b1b\" stroke=\"none\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Tyler Ross, five hundred free throws</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Tyler Ross and Coach Simmons are composites from Chapter Nine of The Unquit Stories.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "tyler", "title": "Tyler Ross, five hundred free throws", "subtitle": "A high school gym in the Mississippi Delta. After practice. Miss number four hundred and ninety-nine.", "object": "The ball", "sticker": "The ball.", "footer": "Tyler Ross and Coach Simmons are composites from Chapter Nine of The Unquit Stories.", "arrive": {"heading": "You are standing where a sixteen-year-old stood.", "paragraphs": ["His free throw percentage in the first month of the season is eleven percent. That is not a slump. It is a number that defies statistical expectation, and it produces in a sixteen-year-old the specific shame reserved for failures that seem to expose something essential. He asked his coach for help.", "Coach Simmons has coached in the Delta for twenty-two years and has a theory about free throws that is not the standard theory. The free throw, he says, is the one skill in the game that cannot be improved by trying harder to make it. It can only be improved by attending to the process. Grip, stance, knee bend, release point, follow-through, rotation. The ball going in is downstream of all of that. You do not address the outcome. You address the upstream.", "So Tyler has been shooting after practice, alone, with the coach counting, and attending to the process, and the ball has not gone in. Coach Simmons counted. Four hundred and ninety-nine misses.", "Now Tyler steps aside and you step in. The gym, the line, the ball and the count are his. Whether you shoot the five hundredth is yours."], "button": "Step to the line"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The gym is empty except for the coach in the bleachers with a clipboard. The ball is in your hands. The net has not moved in four hundred and ninety-nine attempts.", "question": "What are you feeling right now?", "placeholder": "Say it as a sixteen-year-old who asked for help and got a count.", "helper": {"who": "Coach Simmons, from the bleachers, not standing up", "says": "I am not going to tell you to relax. Tell me what you feel at the line, and then we will talk about your elbow.", "options": ["I feel that four hundred and ninety-nine is not a number, it is a verdict, and it says something about me that has nothing to do with basketball.", "I feel that I asked for help and got a man with a clipboard counting how many times I fail.", "I feel my hands doing something before my mind gets there, and I do not know what."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the five hundredth, take an inventory. Not of the misses, and not of Tyler. Of yourself.", "question": "What have you already done, in your own life, that proves you can keep attending to a process when the outcome will not come?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Coach Simmons", "says": "I can tell you what the kid at the line carries, because I have been counting more than misses. He asked for help, which most sixteen-year-olds cannot do. He came back after practice every day for a month with the whole team gone home. And his release point has moved two inches in the right direction since Tuesday, which he does not know because he has been watching the net. Now you tell me what you carry. Finish one of these.", "options": ["A time I kept attending to the process when the outcome would not come: ", "A time I asked for help when it would have been easier to hide the number: ", "A time I improved at something before anyone, including me, could see it: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence at the line is: I am someone who cannot do this. It sounds like an identity. It is a percentage wearing an identity's clothes. You do not have to decide what kind of shooter you are tonight. You only have to refuse to let the outcome column decide before the process column has been read.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a shooting tip. One reason the net does not get the vote.", "helper": {"who": "Coach Simmons", "says": "The ball has not gone in. That is a fact about the ball. Tell me why it is not yet a fact about you.", "options": ["Because I have been measuring the wrong thing. I have been measuring the net. Coach has been measuring my elbow, and his number is going up.", "Because eleven percent is a description of a month, not of a person.", "Because I asked for help, and a person who asks for help is not someone who cannot. He is someone who has not yet."]}}, {"n": 4, "name": "One step", "prompt": "The five hundredth shot. Not the season. Not the percentage. One step, small enough to finish before the ball leaves your hand.", "question": "What is it?", "placeholder": "Something upstream of the net.", "helper": {"who": "Coach Simmons", "says": "Do not make the shot. I am not asking you to make the shot. Attend to one thing. Which one?", "options": ["I will attend to the elbow. Under the ball, not beside it. That is the whole of this shot.", "I will attend to the follow-through, hand in the net, and hold it there after the ball is gone, whatever the ball does.", "I will attend to my feet. Set, still, the same width as every shot for the rest of my life."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The elbow was under the ball, or the hand finished high, or the feet were set. The ball did what it did. Coach wrote something on the clipboard that was not a miss or a make.", "question": "What has changed in you?", "placeholder": "Compare it to the verdict.", "helper": {"who": "Coach Simmons, standing up now", "says": "I did not watch the net. I watched the elbow. It was right. Tell me what you felt when you stopped watching the net.", "options": ["I did not see where the ball went. For the first time in a month I was not watching the net. I was watching me.", "The shot felt the same as four hundred and ninety-nine others, and Coach says it was different, and I believe the clipboard over the net.", "I attended to one thing and it was fully attended to. That is a success. It has nothing to do with the ball."]}}, {"n": 6, "name": "Time passes", "montage": ["The five hundredth misses. So do several after it. Coach Simmons keeps counting, and what he counts changes: attended releases, not makes. Every repetition that is fully attended is a success, whether or not the ball follows.", "Then the ball starts to follow. Not all at once. By the end of the season Tyler is shooting sixty percent, and the following year seventy-five, and the season after that he is the player the coach sends to the line with the game on it. He never gets faster at it. He gets more attentive.", "Coach Simmons says he did not teach him to shoot. He taught him what continuing actually is: not enduring the absence of the result, but building the conditions for it, one attended repetition at a time."], "question": "Five hundred misses and then a season at seventy-five percent. Here is the question the percentage cannot answer for you: what changed?", "choices": [{"label": "His shot.", "short": "his shot", "reply": "His shot changed, elbow by elbow, and that is real. But the shot had been changing for a month while the ball kept missing. The change in the shot came before the change in the ball, and something came before both."}, {"label": "His confidence.", "short": "his confidence", "reply": "Confidence came last, after the ball went in. If he had waited for confidence to shoot, he would still be at four hundred and ninety-nine."}, {"label": "What he was measuring.", "short": "what he was measuring", "reply": "Yes. He measured the net for a month and got a verdict. Coach measured the elbow and got a trend. When Tyler stopped watching the outcome and attended to the process, every repetition became a success by a measure he could control, and the ball, which cannot be addressed directly, followed. This is the I CAN practice in one gym: stop measuring the outcome for two weeks, pick one upstream thing, and measure only whether you attended to it fully."}, {"label": "Nothing. He just needed more repetitions.", "short": "nothing, he just needed more repetitions", "reply": "Five hundred unattended repetitions would have produced a sixteen-year-old with a very consistent eleven percent. Repetition without attention teaches the body to repeat the miss."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another line and another count and another month when the outcome will not come. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Coach Simmons", "says": "One line for the next four hundred and ninety-nine. Start with I did.", "options": ["I did stop watching the net and start watching the elbow.", "I did make every attended repetition count as a success.", "I did ask for help instead of hiding the number."]}, "ice": {"question": "One more line, and this one is yours. What outcome are you measuring in your own life right now, and what is upstream of it?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, at the line", "sub": "Your five hundredth, beside his", "paragraphs": ["A gym in the Mississippi Delta, after practice, miss number four hundred and ninety-nine. You stood where Tyler Ross stood, with a ball in your hands and a coach counting in the bleachers, and the line asked you what it asked him. You wrote: {1}", "Before the five hundredth, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a month of coming back after the team went home, and a release point that had moved two inches while he was watching the net.", "You refused to let the outcome column decide before the process column was read. Your reason: {3} That refusal is the deferral. Not tonight. Not from a percentage.", "Your first step: {4} {overlap}", "After the step, the ball did what it did. Inside, you noticed this: {5}", "Then the season did what seasons do when a kid attends to the elbow. Sixty percent, then seventy-five, then the player who gets the ball with the game on the line.", "Asked what changed, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["This is what he did, with Coach Simmons. One upstream element per session, fully attended, the net ignored.", "He did this too. The follow-through was the element they worked on longest. A different first step in the same place is still a first step.", "The feet came first in Coach Simmons's sequence. Everything else was built on them. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was one upstream element, fully attended, with the net ignored. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to Coach Simmons. Tyler did, which is the hardest thing a sixteen-year-old shooting eleven percent can do. Next time, ask the man with the clipboard. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Coach Simmons {n} on this journey. Tyler asked once, and the coach counted for a month, and the count was the help. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the outcome you are measuring in your own life, as you named it: {ice}", "closing": "The gym is dark now. The line is still fifteen feet from the basket. What you carry out is not a percentage, and it is not Tyler. It is the evidence that you can stop watching the net and attend to one thing that is yours.", "stickerLines": ["Walked with Tyler Ross.", "The Delta, miss number four hundred and ninety-nine."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The ball\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<circle cx=\"200\" cy=\"200\" r=\"100\" stroke-width=\"4\"/>\n  <path d=\"M100,200 L300,200\" stroke-width=\"2.4\"/><path d=\"M200,100 L200,300\" stroke-width=\"2.4\"/>\n  <path d=\"M130,130 C160,170 160,230 130,270\" stroke-width=\"2.4\"/><path d=\"M270,130 C240,170 240,230 270,270\" stroke-width=\"2.4\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

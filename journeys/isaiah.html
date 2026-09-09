@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Isaiah Monroe, the public park</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Isaiah Monroe is a composite from The Unquit Athlete, Chapter 5.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "isaiah", "title": "Isaiah Monroe, the public park", "subtitle": "An unlocked high school track. Six in the morning. No team, no coach, no program.", "object": "The gate", "sticker": "The gate.", "footer": "Isaiah Monroe is a composite from The Unquit Athlete, Chapter 5.", "arrive": {"heading": "You are standing where Isaiah Monroe stood.", "paragraphs": ["He was a track athlete on a full scholarship at a Division I program. In his junior year a budget cut eliminated the program entirely. Twenty-one years old, no team, no coach, no facility access, no competitive structure to train within, and an athletics identity so total that losing the program felt, in his own words, like losing the ground.", "He has found a high school track that is unlocked in the mornings. He has made a list, not a program designed by anyone, just what he will do today, drawn from everything he absorbed in three years of coached training. It is six in the morning. No one is here.", "He is not training for anything. There is nothing to train for. He is training because the alternative is finding out who he is without training, and at twenty-one that feels more dangerous than the practical impossibility of competing without infrastructure.", "Now Isaiah steps aside and you step in. The unlocked gate, the list, the empty track and the missing ground are his. Whether you run today, for nothing, is yours."], "button": "Walk through the gate"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The track is wet. The high school is dark. The list is in your hand in your own writing, and no one will check it.", "question": "What are you feeling right now?", "placeholder": "Say it as an athlete with no team, not as a story about one.", "helper": {"who": "The groundskeeper, who leaves the gate unlocked and pretends not to notice", "says": "I unlock that gate at five thirty. I am not supposed to. Tell me what you are doing here at six, and tell me first how it feels.", "options": ["I feel that the ground was taken and I am standing on a high school track pretending it is still there.", "I feel that no one is watching, and I have never once trained without someone watching, and I do not know if I exist out here.", "I feel a list in my hand that no coach wrote, and it is the first thing in three years that is entirely mine."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the first lap, take an inventory. Not of the program, and not of Isaiah. Of yourself.", "question": "What have you already done, in your own life, that proves you can keep a practice when the container is gone?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "The groundskeeper", "says": "I can tell you what the kid with the list carries. Three years of coached training absorbed so completely he can write his own. A scholarship earned. A gate walked through at six in the morning for nothing, seven mornings running. Now you tell me what you carry. Finish one of these.", "options": ["A time I kept a practice when the container was gone: ", "A time I wrote my own list from what I had been taught: ", "A time I did the work with no one watching and no one to report to: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence at the gate is: without the program I am not an athlete. It sounds like the org chart. It is the org chart, and the org chart has been cut. You do not have to decide what you are without the program this morning. You only have to refuse to let a budget line decide it.", "question": "What is the one reason you will not decide this morning?", "placeholder": "Not a transfer plan. One reason the cut does not get the vote.", "helper": {"who": "The groundskeeper", "says": "A budget cut a program. Tell me why it did not cut you.", "options": ["Because the list is in my hand and it is right, and the person who wrote it was trained by people who are gone, and the training is not gone.", "Because the ground was never the program. The ground is the thing I do on it, and the track is right here.", "Because if I can train for nothing, for seven months, I will know something about myself that no scholarship could have told me."]}}, {"n": 4, "name": "One step", "prompt": "Not a comeback. Not a new program. One step, small enough to finish before the school buses arrive.", "question": "What is it?", "placeholder": "Something you can do with a list and a wet track.", "helper": {"who": "The groundskeeper", "says": "You have until seven fifteen before the buses. What is the smallest thing on that list?", "options": ["I will do the first item on the list, fully, the way I would if a coach were timing it.", "I will run one lap slowly and pay attention to what three years of coaching put in my legs.", "I will add one line at the bottom of the list: tomorrow, same gate, six. Then I will do the list."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The first item is done fully, or one lap has been run with attention, or tomorrow is written at the bottom. The program is still cut. The track is still borrowed.", "question": "What has changed in you?", "placeholder": "Compare it to the gate at six.", "helper": {"who": "The groundskeeper, locking a different gate", "says": "The program is still gone. What changed on the track?", "options": ["The ground is gone. The list is done. It turns out the list was the ground.", "I ran one lap with no one watching and it was mine in a way no coached lap has ever been.", "I wrote tomorrow at the bottom. That is the first program I have ever belonged to that cannot be cut."]}}, {"n": 6, "name": "Time passes", "montage": ["He trains for seven months. The list every morning, worked through, alone. He is not training for international competition. He is training because the practice belongs to him in a way the scholarship and the team and the facility never quite did.", "The career that follows is not the one he planned. He goes into coaching, first informally, then formally, with the specific knowledge of someone who competed with none of the usual supports and learned exactly which parts of the practice were essential and which were only convenient.", "The chapter is honest that not every athlete has an unlocked track nearby. What is available to everyone is the decision to use what you actually have rather than wait for what you do not."], "question": "Seven months on a borrowed track for nothing. Here is the question the budget line cannot answer for you: what did the cut reveal?", "choices": [{"label": "That he was finished.", "short": "that he was finished", "reply": "That is what the ground said the day the program went. Seven months of mornings said otherwise."}, {"label": "That he could train alone.", "short": "that he could train alone", "reply": "He could, and did, and it is the visible half of the answer. The other half is what training alone showed him about the three years before."}, {"label": "Which parts of the practice were his, and which were only the container.", "short": "which parts of the practice were his, and which were only the container", "reply": "Yes. The scholarship, the team, the facility, the schedule were the vessel. The capacity to write a list and work through it in an empty park at six was the content, and it had been his all along. Losing the container is how most people find out where the thread was. He found out at twenty-one, which is early, and it made him the coach he became."}, {"label": "Nothing. Access matters and he was lucky.", "short": "nothing, access matters and he was lucky", "reply": "Access matters, and the chapter says so plainly: he had a park, mornings free and a body that could train. It also says that what is available to everyone is the decision to use what you actually have. He made it seven months in a row."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another cut, another empty track, another list no one will check. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "The groundskeeper", "says": "One line for the next unlocked gate. Start with I did.", "options": ["I did the work with no one watching.", "I did write my own list from what I had been taught.", "I did use what I actually had."]}, "ice": {"question": "One more line, and this one is yours. Where is your driveway, the place you would practice your capacity if no one were paying or watching?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, on the borrowed track", "sub": "Your six a.m., beside his", "paragraphs": ["A high school track, six in the morning, the gate unlocked by someone who pretends not to notice. You stood where Isaiah Monroe stood, with a list in your own writing and no one to check it, and the morning asked you what it asked him. You wrote: {1}", "Before the first lap, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was three years absorbed so completely he could write the fourth himself.", "You refused to let a budget line decide what you are. Your reason: {3} That refusal is the deferral. Not this morning. Not from an org chart.", "Your first step: {4} {overlap}", "After the step, the program was still cut. Inside, you noticed this: {5}", "Then seven months did what seven months do on a borrowed track. A list every morning, a practice that turned out to be his, and a coach who knew which parts were essential because he had done without the rest.", "Asked what the cut revealed, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this every morning for seven months. The list was the whole method.", "This is what the chapter says he found: that three years of coaching lived in his legs and did not need the coach present. A different first step in the same place is still a first step.", "He came back the next morning, and the one after. Whether he wrote it down first, the chapter does not say. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was the first item on the list, done as if timed. A different first step in the same place is still a first step.", "help": {"zero": "You did not speak to the groundskeeper. Isaiah probably did not either; the chapter has him alone. But someone left the gate unlocked, and that is a helper who never says a word. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You spoke to the groundskeeper {n} on this journey. Someone unlocked that gate every morning for seven months. The chapter never names him. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And your own driveway, as you named it: {ice}", "closing": "The gate is still unlocked at five thirty. What you carry off the track is not a program, and it is not Isaiah. It is the evidence that you know where your driveway is.", "stickerLines": ["Walked with Isaiah Monroe.", "An unlocked track, six in the morning."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The gate\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M80,80 L80,340 M320,80 L320,340\" stroke-width=\"5\"/><path d=\"M80,120 L320,120 M80,300 L320,300\" stroke-width=\"3\"/><path d=\"M120,120 L120,300 M160,120 L160,300 M200,120 L200,300 M240,120 L240,300 M280,120 L280,300\" stroke-width=\"2.4\"/><path d=\"M288,196 L340,196 M340,196 C352,196 352,214 340,214\" stroke-width=\"3\"/><path d=\"M60,340 L340,340\" stroke-width=\"2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

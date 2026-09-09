@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Steve Jobs, September 1985</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the public record of Jobs's departure from Apple in 1985, paraphrased, and from the corporate lists. No brand marks are used.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "jobs", "title": "Steve Jobs, September 1985", "subtitle": "An emptied office in Cupertino. September 17, 1985. Thirty years old. Out of the company you founded.", "object": "The empty desk", "sticker": "The desk.", "footer": "Drawn from the public record of Jobs's departure from Apple in 1985, paraphrased, and from the corporate lists. No brand marks are used.", "arrive": {"heading": "You are standing where a founder stood in an office that was no longer his.", "paragraphs": ["He started the company in his parents' garage at twenty-one. By thirty it was worth two billion dollars and employed four thousand people, and he had just launched the machine that would define it. Then sales fell, the board sided with the executive he had hired to run the company, and in May he was stripped of every operational responsibility. He kept a title and an office in a building no one else used. He called it Siberia.", "This week he resigned. The letter said he intended to start a new venture and that the board's response had made his position untenable. Five senior people are leaving with him, and the company has sued. He is thirty years old and has been, in his own later words, publicly fired from the thing he built. What he called the focus of his entire adult life is gone.", "He does not know yet that the next twelve years will be the ones that teach him how to run a company, or that the thing he builds in exile is the thing the company will buy to save itself.", "Now the founder steps aside and you step in. The empty office, the lawsuit, the five people who left with you and the thirty years are his. What you do when the thing you built removes you is yours."], "button": "Sit down in the empty office"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The office is nearly bare. The building is quiet. Somewhere across the campus, four thousand people are doing what you used to do, without you.", "question": "What are you feeling right now?", "placeholder": "Say it as a thirty-year-old who has been removed, not as the man who came back.", "helper": {"who": "One of the five who resigned with you, standing in the doorway with a box", "says": "I walked out with you and I do not have a plan either. Before we make one, tell me what you feel in here.", "options": ["I feel that I built this and it has decided it works better without me, and I do not know how to argue with a company.", "I feel thirty and finished, which is a sentence I would have laughed at last year.", "I feel that the focus of my whole adult life just left the room, and I am still sitting here."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the next venture, take an inventory. Not of the company, and not of the founder. Of yourself.", "question": "What have you already done, in your own life, that proves you can begin again from a garage?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "The one in the doorway", "says": "I can tell you what the man in that chair carries. A company started in a garage at twenty-one. A machine that people are still going to be using in forty years. Five people who walked out of secure jobs this week to follow him with no plan. Now you tell me what you carry. Finish one of these.", "options": ["A time I began again from a garage: ", "A time people followed me out of something safe with no plan: ", "A time I was removed from a thing I built and the thing I could build was still in me: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the office is: they were right, and I am done. It sounds like accountability. It is a board vote wearing a verdict's clothes. You do not have to decide what you are without the company today. You only have to refuse to let the vote decide it.", "question": "What is the one reason you will not decide today?", "placeholder": "Not a venture plan. One reason the board does not get the vote on this.", "helper": {"who": "The one in the doorway", "says": "The board decided the company. Tell me why it did not decide you.", "options": ["Because the board is right about the company and the company is not the same as me. I confused them for nine years. They just un-confused them.", "Because five people walked out with me and none of them walked out for a title.", "Because I was fired, and being fired is a fact about this week, and the thing I know how to do did not resign."]}}, {"n": 4, "name": "One step", "prompt": "Not the next company. Not the return, which is twelve years off and no one is saying. One step, small enough to finish before the box is carried out.", "question": "What is it?", "placeholder": "Something a founder can do with five people and an empty room.", "helper": {"who": "The one in the doorway", "says": "We have no plan. What is the smallest thing you can do this week with the five of us?", "options": ["I will sit with the five of them tonight and ask what we would build if no one had ever heard of us.", "I will write down the three things I did wrong here, honestly, before I do anything I might do right.", "I will sell one share. Just one. To find out what it feels like to be someone who used to own this."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. Five people are around a table asking what they would build, or three honest mistakes are on a page, or you have found out what one share feels like. The lawsuit is filed. The office is still empty.", "question": "What has changed in you?", "placeholder": "Compare it to the bare office.", "helper": {"who": "The one in the doorway", "says": "The company did not change its mind. What changed?", "options": ["We talked for four hours about what we would build and no one said the old company's name. That is what starting over sounds like.", "I wrote down three things I did wrong and they were all the same thing. I know what the next twelve years are for now.", "The office is still empty. I am not in it anymore."]}}, {"n": 6, "name": "Time passes", "montage": ["He starts a computer company that does not succeed as a computer company. He buys a small graphics division from a film director and it takes a decade to become the studio that changes animation. He learns, in exile and mostly by failing expensively, how to run a company, which he had never learned inside the one he founded.", "In 1997 the company that removed him buys his failed computer company for its software and brings him back. Within a year it is profitable. Within a decade it is the most valuable company in the world.", "He said later that getting fired was the best thing that could have happened to him. The heaviness of being successful was replaced by the lightness of being a beginner again. He would not have said that in September 1985. No one does."], "question": "Removed at thirty, returned at forty-two. Here is the question the return cannot answer for you: what did the twelve years in exile give him?", "choices": [{"label": "A second company.", "short": "a second company", "reply": "Two, and one of them failed and one took a decade. But the companies were what he did in exile. They were not what exile gave him."}, {"label": "Revenge.", "short": "revenge", "reply": "He came back and rebuilt the company that fired him, and people call it revenge. He did not. The board members were long gone. He was rebuilding the thing he built, which is a different motive."}, {"label": "The education the founding had skipped.", "short": "the education the founding had skipped", "reply": "Yes. He had built a company at twenty-one without ever learning to run one, and success had made the learning impossible. Being removed made it mandatory. Twelve years of failing expensively in exile were the curriculum, and he said so: the lightness of being a beginner again. Redirect is not a detour. Sometimes it is the only road to the thing you were already on."}, {"label": "Nothing. He would have succeeded anyway.", "short": "nothing, he would have succeeded anyway", "reply": "The man of 1985 was, by every account including his own, not yet capable of what the man of 1997 did. Something happened in between. It was not luck, and it was not comfortable."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another board, another vote, another empty office. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "The one in the doorway", "says": "One line for the next removal. Start with I did.", "options": ["I did not confuse the company with myself.", "I did ask what we would build if no one had heard of us.", "I did write down what I did wrong before I did anything else."]}, "ice": {"question": "One more line, and this one is yours. What have you been removed from, and what education did the founding skip?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the empty office", "sub": "Your removal, beside his", "paragraphs": ["Cupertino, September 17, 1985, an office nearly bare. You sat where a thirty-year-old founder sat, with a lawsuit filed and five people in the doorway with boxes, and the room asked you what it asked him. You wrote: {1}", "Before the next venture, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a garage at twenty-one and five people who walked out of secure jobs to follow him with no plan.", "You refused to let the board's vote decide who you are. Your reason: {3} That refusal is the deferral. Not today. Not from a verdict in a board's clothes.", "Your first step: {4} {overlap}", "After the step, the office was still empty. Inside, you noticed this: {5}", "Then twelve years did what twelve years do when a founder becomes a beginner. A computer company that failed, a studio that took a decade, and a return to rebuild the thing that fired him.", "Asked what the exile gave him, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. The five who left with him were the founding team of the next company, and they started with a whiteboard and no product.", "He did not write it down, as far as anyone knows. He said later, often, what the mistakes had been. A different first step in the same place is still a first step.", "He sold nearly all his shares that autumn, keeping one so he could still read the annual report. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was a table with five people and a question about what to build. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to the one in the doorway. He did; five people followed him out, and they were the next company. Next time, turn to the ones with boxes. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to the one in the doorway {n} on this journey. Five people walked out with him, and he built the next twelve years with them. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thing you have been removed from, as you named it: {ice}", "closing": "The office building is gone and the company is the largest in the world. What you carry out of the empty room is not a return, and it is not him. It is the evidence that you can be removed from a thing you built without confusing the thing with yourself.", "stickerLines": ["Walked with Steve Jobs.", "Cupertino, September 1985."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The desk\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M60,180 L340,180 L340,200 L60,200 Z\" stroke-width=\"4\"/><path d=\"M80,200 L80,330 M320,200 L320,330 M100,200 L100,320 M300,200 L300,320\" stroke-width=\"3\"/><path d=\"M220,200 L300,200 L300,280 L220,280 Z\" stroke-width=\"2.4\"/><path d=\"M240,240 L280,240\" stroke-width=\"1.6\"/><path d=\"M120,160 L140,160\" stroke-width=\"1.2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

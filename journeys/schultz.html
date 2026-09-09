@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Howard Schultz, meeting 218</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from Howard Schultz's own account, paraphrased, and from the corporate lists. Consent track: written consent and a reading of this script before launch. No brand marks.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "schultz", "title": "Howard Schultz, meeting 218", "subtitle": "A borrowed office in Seattle. 1986. Two hundred and seventeen investors have said no.", "object": "The pitch", "sticker": "The pitch.", "footer": "Drawn from Howard Schultz's own account, paraphrased, and from the corporate lists. Consent track: written consent and a reading of this script before launch. No brand marks.", "arrive": {"heading": "You are standing where a man stood before his two hundred and eighteenth meeting.", "paragraphs": ["He is thirty-three. He grew up in public housing in Brooklyn, the son of a delivery driver who broke his ankle on the job and was let go without insurance. He worked in sales, joined a small coffee roaster in Seattle, went to Milan, saw the espresso bars there, and came back with an idea the roaster's owners did not want: a place built around the drink and the people, not the beans.", "He has left the roaster to start his own. He needs money. In the past year he has pitched two hundred and seventeen investors, and two hundred and seventeen have said no. Some kindly. Some with reasons. Some because coffee is a commodity and a chain of cafes is not a business. His wife is pregnant. Her father has taken him for a walk and suggested he get a job.", "Meeting two hundred and eighteen is in an hour.", "Now Howard steps aside and you step in. The borrowed office, the two hundred and seventeen, the pregnant wife and the pitch are his. Whether you walk into the two hundred and eighteenth room is yours."], "button": "Sit down in the borrowed office"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The pitch is on the desk. It has been revised after every no and is, by now, very good. The count is in your head and you wish it were not.", "question": "What are you feeling right now?", "placeholder": "Say it as a man with two hundred and seventeen noes, not as a name on a cup.", "helper": {"who": "Sheri, your wife, seven months pregnant, on the phone", "says": "My father took you for a walk. I know what he said. Before you go to the next one, tell me what you feel.", "options": ["I feel two hundred and seventeen people who are not stupid telling me the same thing, and I feel that the thing they are telling me is wrong, and I do not know how many more it takes to be sure.", "I feel your father's walk and your seventh month and a borrowed office, and I feel that a responsible man would take the job.", "I feel that I have watched my own father be discarded, and that I am not building a coffee company. I am building the company he should have worked for."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before meeting 218, take an inventory. Not of the pitch, and not of Schultz. Of yourself.", "question": "What have you already done, in your own life, that proves you can hear no two hundred times and go to the next room?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Sheri", "says": "I can tell you what the man in that office carries. Public housing in Brooklyn and the first in his family to go to college. A sales career built on being told no for a living. A trip to Milan that everyone thought was a vacation. And two hundred and seventeen meetings that each made the pitch better. Now you tell me what you carry. Finish one of these.", "options": ["A time I heard no two hundred times and went to the next room: ", "A time I saw something on a trip that no one at home could see, and did not let go of it: ", "A time I built the thing that should have existed for someone I loved: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the office is: two hundred and seventeen sophisticated people have said no, so the market has spoken. It sounds like humility. It is a count doing the market's job. You do not have to decide about the company tonight. You only have to refuse to let 217 decide 218.", "question": "What is the one reason you will not decide today?", "placeholder": "Not a fundraising plan. One reason the count does not get the vote.", "helper": {"who": "Sheri", "says": "Two hundred and seventeen. Tell me why 218 is different.", "options": ["Because they all said no for the same three reasons, and I have answers to all three now, and the two hundred and seventeen are why I have them.", "Because a market speaks by buying or not buying, and no one has been offered the thing yet. Investors are not the market. They are a guess about it.", "Because I have seen the espresso bars in Milan and none of the two hundred and seventeen has, and I am not going to let people who have not seen the thing decide whether it exists."]}}, {"n": 4, "name": "One step", "prompt": "Not the company. Not the thousands of stores no one is imagining. One step, small enough to finish before the meeting.", "question": "What is it?", "placeholder": "Something a man can do with a pitch and an hour.", "helper": {"who": "Sheri", "says": "You have an hour. What is the smallest thing you can do before you walk in?", "options": ["I will go to meeting 218 and give the pitch as if it were the first, not the two hundred and eighteenth.", "I will write down the three reasons they all said no, and put the answers on the first page, so that the meeting starts where the last two hundred ended.", "I will call your father and tell him I heard him, and that I am going to the meeting anyway, and why."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. You are walking to 218 as if it were the first, or the three noes are answered on page one, or a father-in-law has heard why. The count is still two hundred and seventeen. The baby is still due.", "question": "What has changed in you?", "placeholder": "Compare it to the count in your head.", "helper": {"who": "Sheri", "says": "The two hundred and seventeen did not change. What did?", "options": ["I stopped carrying the count into the room. The count is mine. The room only gets the pitch.", "The three reasons are answered on the first page. Two hundred and seventeen people wrote that page for me.", "I told your father why. He did not agree. He understood. That is enough for today."]}}, {"n": 6, "name": "Time passes", "montage": ["Two hundred and forty-two investors, in the end. Two hundred and seventeen said no. Twenty-five said yes, and their money was enough. Within two years he buys the small roaster he had left, and takes its name.", "The company grows to tens of thousands of stores. He gives its part-time workers health insurance, which he says is for his father. He has said, of the two hundred and seventeen, that each one made the next pitch better, and that he was not brave, only unwilling to let people who had not seen the thing decide whether it existed.", "The record after 1986 is long and contested and not part of this journey. The point of 1986 is a man who walked into the two hundred and eighteenth room."], "question": "Two hundred and seventeen noes, twenty-five yeses. Here is the question the stores cannot answer for you: what did the two hundred and seventeen give him?", "choices": [{"label": "Nothing. They said no.", "short": "nothing, they said no", "reply": "They said no, and each one for reasons, and the reasons were the education. A no with a reason is a page of the pitch you did not have."}, {"label": "Thick skin.", "short": "thick skin", "reply": "He has never claimed it. He has said he went home after many of them and did not know how to go to the next one. Thick skin is what people call it who were not in the room."}, {"label": "The pitch that the twenty-five said yes to.", "short": "the pitch that the twenty-five said yes to", "reply": "Yes. The first pitch would not have raised the money. The two hundred and eighteenth had two hundred and seventeen rooms' worth of objections answered on the first page. Arrival here is not a man who ignored the noes. It is a man who let every one of them rewrite the next meeting, and would not let the count stand in for the market."}, {"label": "Luck, eventually.", "short": "luck, eventually", "reply": "Twenty-five people said yes. If they were luck, it was luck that arrived after two hundred and seventeen revisions and did not arrive before."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another two hundred and seventeenth no. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Sheri", "says": "One line for the next meeting 218. Start with I did.", "options": ["I did not let two hundred and seventeen decide two hundred and eighteen.", "I did let every no rewrite the next pitch.", "I did walk in as if it were the first."]}, "ice": {"question": "One more line, and this one is yours. What have you been told no about two hundred times, and what have the noes taught the pitch?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the borrowed office", "sub": "Your meeting 218, beside his", "paragraphs": ["A borrowed office in Seattle, 1986, an hour before the two hundred and eighteenth meeting. You sat where Howard Schultz sat, with a pitch revised two hundred and seventeen times and a pregnant wife whose father had suggested a job, and the office asked you what it asked him. You wrote: {1}", "Before the meeting, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was public housing in Brooklyn, a sales career built on hearing no, and a trip to Milan no one else took seriously.", "You refused to let 217 decide 218. Your reason: {3} That refusal is the deferral. Not today. Not on a count doing the market's job.", "Your first step: {4} {overlap}", "After the step, the count was still two hundred and seventeen. Inside, you noticed this: {5}", "Then the meetings did what meetings do when the pitch has been rewritten two hundred times. Twenty-five yeses. A roaster bought back. A company that gave part-time workers insurance, for a delivery driver with a broken ankle.", "Asked what the two hundred and seventeen gave him, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this two hundred and forty-two times. The two hundred and eighteenth was one of them.", "The pitch was rewritten after every no; that is his own account of how the twenty-five were found. A different first step in the same place is still a first step.", "He has written about the walk with his father-in-law. Whether he called him after, he has not said. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was the next meeting, as if it were the first. A different first step in the same place is still a first step.", "help": {"zero": "You did not call Sheri. Schultz has said she was the reason he could keep going through 1986, and that her belief carried the year. Next time, call. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You called Sheri {n} on this journey. Her seventh month and her belief are both in his account of the two hundred and seventeen. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thing you have been told no about two hundred times, as you named it: {ice}", "closing": "The borrowed office is a tower now. What you carry out of it is not a company, and it is not him. It is the evidence that you can let every no rewrite the pitch and walk into the next room as if it were the first.", "stickerLines": ["Walked with Howard Schultz.", "Seattle, 1986, meeting 218."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The pitch\">\n<g transform=\"rotate(-3 200 200)\" fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M100,90 L300,90 L300,310 L100,310 Z\" stroke-width=\"4\"/><path d=\"M120,120 L240,120\" stroke-width=\"2.6\"/><path d=\"M120,156 L280,156 M120,180 L280,180 M120,204 L260,204\" stroke-width=\"1.4\"/><path d=\"M120,260 L160,236 L200,250 L240,220 L280,232\" stroke-width=\"2.4\"/><path d=\"M120,290 L280,290\" stroke-width=\"1\"/><text x=\"248\" y=\"122\" font-family=\"Calibri, Carlito, Arial, sans-serif\" font-size=\"18\" fill=\"#8e1b1b\" stroke=\"none\">218</text>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

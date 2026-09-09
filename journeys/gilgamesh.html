@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Gilgamesh after Enkidu</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the Epic of Gilgamesh, paraphrased, and from Unquit: The Oldest Choice. The oldest written story on earth.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "gilgamesh", "title": "Gilgamesh after Enkidu", "subtitle": "A riverbank at the edge of the world. The plant is gone. The boatman is waiting.", "object": "The brick", "sticker": "The brick.", "footer": "Drawn from the Epic of Gilgamesh, paraphrased, and from Unquit: The Oldest Choice. The oldest written story on earth.", "arrive": {"heading": "You are standing where a king stood at the edge of the world.", "paragraphs": ["He was king of Uruk and half a god and no one could stand against him, until a friend arrived who could. Enkidu, the wild man, became the other half of his life. They fought monsters together. Then the gods took Enkidu with a slow fever, and Gilgamesh sat with the body for seven days, until a worm fell from its nose, and he understood for the first time that the same thing would happen to him.", "He left Uruk to find the one man who had escaped death, Utnapishtim, at the edge of the world. He crossed mountains and a sea of poison water with a boatman named Urshanabi. He failed the test he was set, to stay awake six days and seven nights. He was given a consolation: a plant that restores youth, growing at the bottom of the sea. He dived for it and brought it up.", "This morning, bathing in a pool on the way home, he left the plant on the bank. A snake ate it and shed its skin and was gone. Everything he crossed the world for is in the belly of a snake. He is a long way from home with nothing.", "Now Gilgamesh steps aside and you step in. The empty bank, the dead friend, the failed quest and the boatman are his. What you carry home is yours."], "button": "Sit down on the bank"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The pool is still. The snake's shed skin is on the bank where the plant was. Urshanabi is in the boat, not looking at you, which is a boatman's kindness.", "question": "What are you feeling right now?", "placeholder": "Say it as a man who crossed the world for one thing and lost it while washing.", "helper": {"who": "Urshanabi, the boatman, from the boat", "says": "I have ferried men to the edge of the world and back. Most of them come back with nothing. Tell me what you feel, and then we will row.", "options": ["I feel that I crossed mountains and a sea of death for a plant and lost it to a snake while I bathed, and that this is the whole size of a man.", "I feel Enkidu dying all over again, because the plant was the last thing I had of not accepting it.", "I feel that I failed the test, and lost the consolation, and am going home with the one thing I left with, which is my own death."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the boat leaves, take an inventory. Not of the plant, and not of the king. Of yourself.", "question": "What have you already done, in your own life, that proves you can come home from a failed search with something?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Urshanabi", "says": "I can tell you what the man on this bank carries. He crossed the mountains of Mashu that no one crosses. He rowed the waters of death with punting poles because his hands could not touch the water. He sat seven days with his friend's body when everyone told him to bury it. He dived to the bottom of the sea. Now you tell me what you carry. Finish one of these.", "options": ["A time I came home from a failed search with something I had not gone for: ", "A time I stayed with a loss longer than anyone thought sensible, and it taught me: ", "A time I crossed a thing no one crosses, for a reason no one shared: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence on the bank is: the quest failed, so the journey was for nothing. It sounds like accounting. It is grief keeping the books. You do not have to decide what the journey was for on the morning you lost the plant. You only have to refuse to let the snake write the ending.", "question": "What is the one reason you will not decide today?", "placeholder": "Not a new quest. One reason the snake does not get the vote.", "helper": {"who": "Urshanabi", "says": "The plant is gone. That is a fact about the plant. Tell me why it is not the last fact about the journey.", "options": ["Because I went looking for a way not to die, and I found instead the only man who did not, and he told me a story about a flood. I have not yet asked what the story was for.", "Because Uruk is still there. I built its walls before any of this. They did not need the plant.", "Because the snake shed its skin and went on. Even the thing that beat me continued."]}}, {"n": 4, "name": "One step", "prompt": "Not immortality. Not a second dive. One step, small enough to finish before the boat pushes off.", "question": "What is it?", "placeholder": "Something a man can do on a riverbank with a boatman waiting.", "helper": {"who": "Urshanabi", "says": "You are going home either way. What is the smallest thing you can do before we row?", "options": ["I will get in the boat. Not because I have decided anything. Because Uruk is that way.", "I will tell Urshanabi the flood story Utnapishtim told me, all of it, so that it exists in two heads.", "I will look at my hands, which brought up the plant from the bottom of the sea, and are still the same hands."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. You are in the boat, or the flood story has been told once, or your hands have been looked at. The plant is still in the snake. Enkidu is still dead.", "question": "What has changed in you?", "placeholder": "Compare it to the shed skin on the bank.", "helper": {"who": "Urshanabi, rowing", "says": "The world is the same world. What changed on the bank?", "options": ["The plant is gone. I have stopped looking at the bank and started looking downriver.", "I told the story once and heard something in it I did not hear when it was told to me. Perhaps that is what I was given.", "I am going home to die, like everyone. I am going home. That is the half of the sentence I had not said."]}}, {"n": 6, "name": "Time passes", "montage": ["They come at last to Uruk. He does not go to the palace. He takes the boatman to the wall and says: climb up, Urshanabi, and walk on the wall of Uruk. Look at the foundation, the brickwork, the kiln-fired brick. Is it not the work of the seven sages? Look at it.", "That is where the oldest story on earth ends. Not with immortality. With a man who went to the edge of the world for a way out of death and came home to point at what he had built. The tablets that carry the story were themselves fired brick, and were found in the ruins of a wall, four thousand years later.", "He did not find what he went for. He found the thing that was already there when he left, and saw it for the first time."], "question": "He crossed the world and came home with nothing. Here is the question the tablets cannot answer for you: what did Gilgamesh find?", "choices": [{"label": "Nothing. The snake ate it.", "short": "nothing, the snake ate it", "reply": "The snake ate the plant. The story goes on for another tablet after the snake, and the tablet is about a wall, and a man looking at it."}, {"label": "The flood story.", "short": "the flood story", "reply": "He was given it, and it survived him by four thousand years, and it was not what he was looking for. It was the consolation prize, and consolation prizes are often the thing."}, {"label": "The wall he had already built, seen for the first time.", "short": "the wall he had already built, seen for the first time", "reply": "Yes. The oldest written story on earth is not a story of victory. It is a story of return after failure, and of finding meaning not in the destination but in what the continuing had already built. He wanted to escape death. He came home and pointed at brick. Unquit did not invent that discovery. It named what a Sumerian king found four thousand years ago."}, {"label": "A way to grieve Enkidu.", "short": "a way to grieve Enkidu", "reply": "Also true. He sat seven days with the body and then walked to the edge of the world, and the walking was the grieving, and it ended when he could point at a wall instead of a corpse."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another plant lost to another snake on another bank. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Urshanabi", "says": "One line for the next riverbank. Start with I did.", "options": ["I did get in the boat and go home.", "I did come back from a failed search with the thing I had not gone for.", "I did look at what I had already built."]}, "ice": {"question": "One more line, and this one is yours. What have you crossed the world for, and what was already built before you left?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, on the bank", "sub": "Your lost plant, beside his", "paragraphs": ["A riverbank at the edge of the world, the plant in a snake. You sat where Gilgamesh sat, with a boatman waiting and a shed skin on the bank, and the morning asked you what it asked him. You wrote: {1}", "Before the boat left, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was mountains no one crosses, waters of death rowed with poles, seven days with a friend's body, and a dive to the bottom of the sea.", "You refused to let the snake write the ending. Your reason: {3} That refusal is the deferral. Not today. Not on grief's books.", "Your first step: {4} {overlap}", "After the step, the plant was still gone and the friend still dead. Inside, you noticed this: {5}", "Then the river did what rivers do. It went to Uruk, and a king walked a boatman to a wall and told him to look at the brick.", "Asked what Gilgamesh found, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. The last tablet is the journey home.", "He told the flood story, and it is why we have it. A different first step in the same place is still a first step.", "The story does not say. It says he came home and pointed at the wall. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was to get in the boat. A different first step in the same place is still a first step.", "help": {"zero": "You did not speak to Urshanabi. Gilgamesh did; the boatman is the one he shows the wall to at the end, the only witness to what the journey built. Next time, speak to the one rowing. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You spoke to Urshanabi {n} on this journey. He is the last person in the oldest story, standing on a wall, being told to look. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thing already built before you left, as you named it: {ice}", "closing": "The wall of Uruk is a mound in Iraq with kiln-fired brick still in it. What you carry off the bank is not immortality, and it is not him. It is the evidence that you can come home from a failed search and look at what you had already built.", "stickerLines": ["Walked with Gilgamesh.", "The edge of the world, the morning after the snake."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The brick\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M90,160 L250,140 L310,180 L150,200 Z\" stroke-width=\"4\"/><path d=\"M90,160 L90,240 L150,280 L150,200 M310,180 L310,260 L150,280\" stroke-width=\"4\"/><path d=\"M110,176 L110,246 M130,186 L130,258\" stroke-width=\"1.2\"/><path d=\"M170,210 L290,194\" stroke-width=\"1.2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

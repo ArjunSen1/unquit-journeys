@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Josephine Marceau, the ceramics class</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Josephine Marceau and Marta are composites from Chapter Twenty-Five of The Unquit Stories.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "josephine", "title": "Josephine Marceau, the ceramics class", "subtitle": "A community center in Baton Rouge. A Tuesday evening. Year three of just breathing.", "object": "The clay", "sticker": "The clay.", "footer": "Josephine Marceau and Marta are composites from Chapter Twenty-Five of The Unquit Stories.", "arrive": {"heading": "You are standing where Josephine Marceau stood.", "paragraphs": ["Her husband died three years ago. Not suddenly. Slowly, over two years, in the way that leaves you more exhausted than grief-stricken when it finally happens, and then grief-stricken afterward, when the exhaustion lifts and there is finally room.", "For three years she has been, in her own words, just breathing. Working. Eating. Sleeping. Not badly, not well. Existing in the way people do when they have been hollowed out and have not yet decided what, if anything, should fill the space.", "Her friend Marta has been asking her to come to a ceramics class at the community center for two years. She has said no for two years. This Tuesday she said yes, for reasons she cannot fully explain and does not want to examine. The class starts in twenty minutes. She is in the parking lot.", "Now Josephine steps aside and you step in. The parking lot, the three years, the friend inside and the twenty minutes are hers. Whether you go in is yours."], "button": "Sit in the car"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The community center lights are on. Through the window you can see a room of people you do not know at wheels you have never touched. Marta is already inside.", "question": "What are you feeling right now?", "placeholder": "Say it as someone who has been just breathing for three years, not as someone who is fine.", "helper": {"who": "Marta, who has come out to the parking lot because she knows you", "says": "I have asked you for two years and you said yes on a Tuesday. I am not going to ask why. Tell me what you feel in that car.", "options": ["I feel that I have been existing for three years and that walking into a room to make a bowl is somehow the most frightening thing I have done in all of them.", "I feel that if I go in, I am admitting the space is there and something could fill it, and I have not decided I want anything to.", "I feel that I said yes and I do not know why, and that some part of me knows something the rest of me has not caught up to."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the door, take an inventory. Not of the grief, and not of Josephine. Of yourself.", "question": "What have you already done, in your own life, that proves you can begin something small without knowing why?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Marta", "says": "I can tell you what my friend carries. Two years of caring for a man while he left slowly. Three years of getting up, working, eating and sleeping when none of it felt like anything, which is harder than it sounds. And a yes, on a Tuesday, after two years of no. Now you tell me what you carry. Finish one of these.", "options": ["A time I began something small without knowing why: ", "A time I kept the basic things going through a season when none of them felt like anything: ", "A time I said yes after a long time of no, and did not fully understand it: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the car is: I am not ready. It sounds like self-knowledge. It is three years of not deciding, speaking. You do not have to decide whether you are ready to become anything. You only have to refuse to let the parking lot decide the class.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a plan for the future. One reason the car does not get the vote.", "helper": {"who": "Marta", "says": "Nobody is ready for a room full of strangers and wet clay. Tell me why you will not let that decide.", "options": ["Because I have been not ready for three years and it has not gotten any readier.", "Because I said yes to a class, not to a life. It is two hours and a bowl.", "Because something in me said yes before the rest of me could stop it, and I want to find out what it knows."]}}, {"n": 4, "name": "One step", "prompt": "Not becoming. Not a new self. One step, small enough to finish before the class begins.", "question": "What is it?", "placeholder": "Something you can do with twenty minutes and a door.", "helper": {"who": "Marta", "says": "The class is two hours. What is the smallest thing you can do in the next twenty minutes?", "options": ["I will walk in and sit at a wheel. I do not have to make anything. I have to sit.", "I will put my hands in the clay once and see what they do.", "I will tell Marta one true thing on the way in: that I do not know why I came, and that I came."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. You are at a wheel, or your hands have been in the clay, or one true thing has been said crossing the parking lot. The three years are still the three years. Your husband is still gone.", "question": "What has changed in you?", "placeholder": "Compare it to the car.", "helper": {"who": "Marta, at the next wheel", "says": "The room is the same room. What changed?", "options": ["My hands are wet and doing something. For three years my hands have only been doing what was necessary.", "The clay does not know anything about me. It is the first thing in three years that has not needed me to be fine.", "I am in a room I did not want to enter, making a thing I do not need. It turns out that is what wanting feels like when it comes back. Small and unnecessary."]}}, {"n": 6, "name": "Time passes", "montage": ["She stays for the class. She goes back the next Tuesday, and the one after. The bowls are bad for a long time. It does not matter. What matters is that on Tuesdays she is not just breathing. She is at a wheel, with wet hands, making something that does not need to exist and does anyway.", "The chapter calls this becoming, and is careful about the word: not becoming someone new, not moving on, not healing in the way people mean when they want you to be done. Becoming the person who, having survived, is now living. The evidence is not dramatic. It is Tuesdays.", "Three years later she teaches the beginners' class. Marta sits in the back."], "question": "Three years of just breathing, then a Tuesday. Here is the question the wheel cannot answer for you: what did she become?", "choices": [{"label": "A potter.", "short": "a potter", "reply": "She became a person who makes bowls on Tuesdays, and later teaches it, and would laugh at the word. The bowls were never the point. They were the evidence."}, {"label": "Someone who had moved on.", "short": "someone who had moved on", "reply": "The chapter refuses this phrase and so does she. She did not move on from him. She moved, with him still gone, which is different and harder."}, {"label": "The person who, having survived, was now living.", "short": "the person who, having survived, was now living", "reply": "Yes. Survival was three years of getting up. Living began on a Tuesday, in a parking lot, with a yes she could not explain. Becoming is not a new self. It is the old one deciding that the space left by loss can hold something small and unnecessary, and letting it. The evidence is not dramatic. It is Tuesdays."}, {"label": "Nothing. She took a class.", "short": "nothing, she took a class", "reply": "She took a class after two years of refusing to, three years after her husband died, for reasons she could not explain. Just is a heavy word in that sentence too."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another parking lot, another class you have said no to for two years. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Marta", "says": "One line for the next parking lot. Start with I did.", "options": ["I did go in without knowing why.", "I did put my hands in the clay once.", "I did let something small and unnecessary into the space."]}, "ice": {"question": "One more line, and this one is yours. What have you been saying no to for two years, and what would a Tuesday look like?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the parking lot", "sub": "Your Tuesday, beside hers", "paragraphs": ["Baton Rouge, a Tuesday evening, year three. You sat where Josephine Marceau sat, with the community center lights on and twenty minutes before a class you could not explain saying yes to, and the lot asked you what it asked her. You wrote: {1}", "Before the door, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was two years of caring, three of getting up when nothing felt like anything, and one yes on a Tuesday.", "You refused to let the car decide the class. Your reason: {3} That refusal is the deferral. Not tonight. Not from three years of not deciding.", "Your first step: {4} {overlap}", "After the step, the three years were still the three years. Inside, you noticed this: {5}", "Then Tuesdays did what Tuesdays do when a woman keeps coming. Bad bowls for a long time. Wet hands. A beginners' class, three years later, taught by her.", "Asked what she became, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["She did this. She went in and sat at a wheel, and stayed for the class, and came back the next Tuesday.", "This is where the chapter turns, hands in clay for the first time. A different first step in the same place is still a first step.", "The chapter says she could not explain the yes and did not want to examine it. Saying so out loud to Marta would be in character. A different first step in the same place is still a first step."], "stepOverlapFree": "Her first step was to walk in and sit at a wheel. A different first step in the same place is still a first step.", "help": {"zero": "You did not let Marta come out to the car. Josephine's Marta asked for two years and did not stop, and that is the whole of why there was a Tuesday. Next time, let the one who kept asking come out. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You let Marta come to the car {n} on this journey. She asked for two years, and was in the back row three years later when Josephine taught the class. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thing you have been saying no to, as you named it: {ice}", "closing": "The community center has a class on Tuesdays. What you carry out of the parking lot is not a bowl, and it is not Josephine. It is the evidence that having survived, you let something small and unnecessary into the space.", "stickerLines": ["Walked with Josephine Marceau.", "Baton Rouge, a Tuesday, year three."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The clay\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M110,300 L290,300 L300,320 L100,320 Z\" stroke-width=\"4\"/><path d=\"M150,300 C130,280 130,240 160,220 C180,208 220,208 240,220 C270,240 270,280 250,300\" stroke-width=\"4\"/><path d=\"M160,220 C176,210 224,210 240,220\" stroke-width=\"2\"/><path d=\"M144,258 L256,258\" stroke-width=\"1.2\"/><path d=\"M180,150 C172,138 190,124 196,110 M220,150 C212,138 230,124 236,110\" stroke-width=\"2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Hiroo Onoda, Lubang Island</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from Hiroo Onoda's own memoir, paraphrased, and from Unquit Forever, where Nurse Nancy told the story in a hospital room. This is the series' Anti-Unquit journey. It is placed after two Right Quits for a reason.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "onoda", "title": "Hiroo Onoda, Lubang Island", "subtitle": "A jungle in the Philippines. February 20, 1974. The war ended twenty-nine years ago.", "object": "The leaflet", "sticker": "The leaflet.", "footer": "Drawn from Hiroo Onoda's own memoir, paraphrased, and from Unquit Forever, where Nurse Nancy told the story in a hospital room. This is the series' Anti-Unquit journey. It is placed after two Right Quits for a reason.", "arrive": {"heading": "You are standing where a soldier stood, twenty-nine years after the war ended.", "paragraphs": ["In 1944 an intelligence officer was sent to Lubang Island with orders to conduct guerrilla warfare and keep fighting until relieved by a superior officer. That last clause mattered to him. He locked it in. The war ended on August 15, 1945. He was in the jungle and did not know, and then he was told, and did not believe it.", "For twenty-nine years he has kept fighting a war that is over. Leaflets were dropped announcing the surrender; he studied them and decided they were forgeries. Search parties left newspapers and photographs of his family; he decided they were staged. His companions died one by one, the last in 1972. Villagers have been killed in the fighting. He is fifty-two.", "Yesterday a young Japanese traveler named Norio Suzuki, who set out to find a panda, the abominable snowman and Lieutenant Onoda, in that order, found him. Suzuki has told him the war is over. He has told Suzuki that he knows, and that he will not stop until his commanding officer orders him to.", "Now the lieutenant steps aside and you step in. The rifle, oiled every day for twenty-nine years, the leaflets, the dead, and the young man with a camera are his. What you are loyal to is yours."], "button": "Sit down in the jungle"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "Suzuki has gone back to the village to sleep. The camp is quiet. The leaflets from 1945 are folded in a tin, kept as evidence of enemy deception. You have read them a hundred times.", "question": "What are you feeling right now?", "placeholder": "Say it as a soldier who has not been relieved, not as a man who knows how this ends.", "helper": {"who": "Norio Suzuki, at the edge of the camp, before he goes", "says": "I am not an officer. I cannot order you to do anything. I am only a boy who wanted to find you. Before I go, tell me what you feel.", "options": ["I feel that I have been given one order, and I have kept it for twenty-nine years, and that keeping it is the only thing I am.", "I feel that if the war is over then every year since 1945 was for nothing, and I cannot afford for that to be true.", "I feel that this boy is telling me the truth, and that the truth is the one thing my orders did not prepare me for."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before anything is decided about the order, take an inventory. Not of the jungle, and not of the lieutenant. Of yourself.", "question": "What have you already done, in your own life, that proves you can tell the difference between loyalty to a purpose and loyalty to a form?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Suzuki", "says": "I know almost nothing about you except what the whole of Japan knows: that you kept an order for twenty-nine years. That is not nothing. It is also not the same as being right. Tell me what you carry. Finish one of these.", "options": ["A time I kept a commitment long after everyone told me to stop: ", "A time I realized I was loyal to the form of a thing and not its purpose: ", "A time I mistook stubbornness for strength, and found out: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "Two sentences are in the camp tonight. One says: they are all lying, keep fighting. The other says: it was all for nothing, and there is no coming back from that. Both want tonight to decide twenty-nine years. Neither has asked the question the order was meant to serve.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not an argument about the war. One reason to wait for the officer.", "helper": {"who": "Suzuki", "says": "I will bring your commanding officer here if I have to find him myself. Give me a reason you will wait for that instead of deciding alone tonight.", "options": ["Because I asked for an order twenty-nine years ago, and I can wait a few more weeks for it.", "Because the boy said he would come back, and no one has said that to me in a very long time.", "Because if I have been wrong, it should be a Japanese officer who tells me, and not this tin of leaflets."]}}, {"n": 4, "name": "One step", "prompt": "Suzuki leaves in the morning. Not surrender. Not another year in the jungle. One step, small enough to finish before he goes.", "question": "What is it?", "placeholder": "Something you can do with a camera-carrying stranger and a promise.", "helper": {"who": "Suzuki", "says": "Let me photograph you, so they believe me. And tell me one thing to bring back. What is the smallest thing you can do before I go?", "options": ["I will let him take the photograph, and I will tell him the name of my commanding officer, Major Taniguchi, and where he was last posted.", "I will give him a message for my family. Not that I am coming home. That I am alive.", "I will not shoot him. That is the smallest thing, and for twenty-nine years it was not small."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The photograph is taken, or a message is on its way to a family that buried you, or a stranger has walked away alive from a camp where others did not. The order is still in force. The war is still over.", "question": "What has changed in you?", "placeholder": "Compare it to the tin of leaflets.", "helper": {"who": "Suzuki, from the trail", "says": "I will come back with your major. What changed tonight?", "options": ["The order is the same. For the first time I have asked what it was for.", "I let a man leave. That is not surrender. It is the first thing I have done in twenty-nine years that was not the order.", "Nothing has changed, and I have named my commanding officer to a stranger, which means I want to be found."]}}, {"n": 6, "name": "Time passes", "montage": ["Suzuki returns to Japan with the photographs. The government finds Major Yoshimi Taniguchi, now a bookseller, and flies him to Lubang. On March 9, 1974, in the jungle, in uniform, the major reads the order relieving Lieutenant Onoda of his duties. The war, for him, ends twenty-nine years after it ended for everyone else. He weeps. He hands over his rifle, still working, and his sword.", "He is pardoned for the villagers killed. He goes home to a Japan he does not recognize, moves to Brazil to farm, and comes back to run a nature school for children. He writes a book called No Surrender. He says he does not regret the years. Others do it for him.", "In a hospital room in Denver, a nurse told this story to a man in a bed as an example of commitment. No surrender, she said. She was right about the commitment. This series has spent thirty journeys learning the difference between that and the other thing."], "question": "Twenty-nine years of keeping one order. Here is the question the series has been building toward: what was Onoda loyal to?", "choices": [{"label": "Japan.", "short": "Japan", "reply": "Japan surrendered in 1945 and rebuilt itself while he fought in a jungle. If he had been loyal to Japan, the leaflets would have brought him home. He was loyal to something else."}, {"label": "His orders.", "short": "his orders", "reply": "Yes, and here is what the series has learned across two Right Quits. Unquit is loyal to the purpose, never to the form. He reversed it. He stayed loyal to the form, one clause of one order, and the purpose it served dissolved in 1945 without him noticing. Continuation without discernment is not a virtue. It is a mechanism. It cost villagers their lives and cost him his. Stubbornness wears strength's clothes, and from outside no one can tell them apart. Only the person deciding can."}, {"label": "Nothing. He was simply lost.", "short": "nothing, he was simply lost", "reply": "He was not lost. He knew exactly where he was and exactly what he was doing every day for twenty-nine years. That is what makes the story a warning rather than a tragedy of circumstance."}, {"label": "Himself. The man he had decided to be.", "short": "himself, the man he had decided to be", "reply": "Also true, and the most human answer. If the war was over, the years were for nothing, and he could not afford that. So he kept the war alive to keep the years meaningful. Every person who stays in a wrong thing because leaving would mean the years were wasted is doing a smaller version of this. Ask the question Onoda did not: is the purpose still there, or only the form?"}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another order you have kept too long, and a boy with a camera telling you the war is over. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Suzuki", "says": "One line for the next thing you have kept past its purpose. Start with I did.", "options": ["I did ask what the order was for before I asked whether to keep it.", "I did let the messenger leave alive and listen to the message.", "I did not let the fear that the years were wasted keep me in the jungle."]}, "ice": {"question": "One more line, and this one is yours. What order are you still keeping in your own life, twenty-nine years after the war ended?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the jungle", "sub": "Your order, beside his", "paragraphs": ["Lubang Island, February 1974, twenty-nine years after the war. You sat where a lieutenant sat, with a tin of leaflets and a boy with a camera at the edge of the camp, and the night asked you what it asked him. You wrote: {1}", "Before anything was decided, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was twenty-nine years of keeping one clause of one order, which is evidence of something, though not of the thing he thought.", "You refused to let tonight decide twenty-nine years in either direction. Your reason: {3} That refusal is the deferral. Not tonight. Not alone.", "Your first step: {4} {overlap}", "After the step, the order was still in force and the war was still over. Inside, you noticed this: {5}", "Then a bookseller in uniform did what no leaflet could. He read the order. The lieutenant wept, handed over a working rifle, and went home to a country he did not recognize.", "Asked what Onoda was loyal to, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. He named Taniguchi, and Suzuki's photographs and the major's flight to Lubang followed from it.", "He did something like it. His family learned he was alive from Suzuki's photographs before the major arrived. A different first step in the same place is still a first step.", "He did this. Suzuki was the first stranger in years to walk out of that jungle alive, and it is the reason the story has an ending. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was to name his commanding officer to a stranger with a camera. A different first step in the same place is still a first step.", "help": {"zero": "You did not talk to Suzuki. Onoda did, which is the only reason he came home. A boy who set out to find a panda found him instead, and he listened. Next time, listen to the messenger. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You talked to Suzuki {n} on this journey. Onoda did too, and it was the first conversation in twenty-nine years that was not about the war. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the order you are still keeping in your own life, as you named it: {ice}", "closing": "The jungle on Lubang is quiet now. What you carry out of it is not a war, and it is not him. It is the question he did not ask for twenty-nine years: is the purpose still there, or only the form? Ask it every time you are proud of how long you have held on.", "stickerLines": ["Walked with Hiroo Onoda.", "Lubang Island, February 1974."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The leaflet\">\n<g transform=\"rotate(6 200 200)\" fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M110,90 L290,80 L296,300 L104,310 Z\" stroke-width=\"4\"/>\n  <path d=\"M134,124 L268,118 M136,150 L250,145 M138,176 L268,170 M140,202 L236,198 M142,228 L268,222 M144,254 L220,250\" stroke-width=\"1.8\"/>\n  <path d=\"M104,310 C130,296 160,300 150,280\" stroke-width=\"2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

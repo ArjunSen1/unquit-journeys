@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. A. P. J. Abdul Kalam and Satish Dhawan</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from A. P. J. Abdul Kalam's own account of the SLV-3 launches, paraphrased, and from the India story list.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "kalam", "title": "A. P. J. Abdul Kalam and Satish Dhawan", "subtitle": "Sriharikota. August 10, 1979. The rocket has fallen into the sea.", "object": "The microphone", "sticker": "The microphone.", "footer": "Drawn from A. P. J. Abdul Kalam's own account of the SLV-3 launches, paraphrased, and from the India story list.", "arrive": {"heading": "You are standing where a project director stood.", "paragraphs": ["He is forty-seven and he has spent seven years on this rocket. India has never put a satellite into orbit with its own launcher. This morning, with the country watching, the SLV-3 rose from the pad, flew for a few hundred seconds, and fell into the Bay of Bengal. A valve in the second stage. Years of work, and a failure in front of everyone.", "He is the project director. His name is on it. The mission control room has gone quiet in the way rooms do when everyone is waiting to see who will be blamed. The press is waiting outside. The chairman of the space agency, Satish Dhawan, has just come into the room and is walking toward him.", "Now the project director steps aside and you step in. The failed launch, the quiet room, the waiting press and the man walking toward you are his. What you carry out of this room is yours."], "button": "Stand in the control room"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The screens are still showing the last telemetry. No one is looking at you, which means everyone is. Dhawan has reached your console.", "question": "What are you feeling right now?", "placeholder": "Say it before the press conference, not at it.", "helper": {"who": "Satish Dhawan, the chairman, quietly, at your shoulder", "says": "Before we go out there, tell me what you are feeling. Not what went wrong. What you feel.", "options": ["I feel that seven years fell into the sea in a few hundred seconds and the whole country watched it happen.", "I feel that my name is on this and the room is waiting to see what that costs me.", "I feel that I know exactly which valve, and knowing does not help at all this morning."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the press, take an inventory. Not of the rocket, and not of Kalam. Of yourself.", "question": "What have you already done, in your own life, that proves you can stand in a room where the failure has your name on it?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Dhawan", "says": "I can tell you what the man at this console carries. He sold newspapers as a boy in Rameswaram to pay for school. He wanted to be a pilot and was rejected, and became the man who builds what pilots fly. He has run a seven-year program with a team that would follow him into the sea. Now you tell me what you carry. Finish one of these.", "options": ["A time the failure had my name on it and I stood in the room: ", "A time I was rejected for the thing I wanted and built the thing next to it: ", "A time I led people through a loss that was mine to answer for: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in this room is: the program has failed, and so has the man who ran it. It sounds like accountability. It is one morning drawing a conclusion about seven years. You do not have to decide what this failure means before you walk out to the press. You only have to refuse to let the last few hundred seconds decide the program.", "question": "What is the one reason you will not decide today?", "placeholder": "Not an engineering explanation. One reason the morning does not get the vote.", "helper": {"who": "Dhawan", "says": "A rocket that flew for several hundred seconds is not a program that failed. It is a program that has data. Tell me why you will not decide today.", "options": ["Because we know which valve. A failure you can name is a schedule, not a verdict.", "Because the team is watching to see whether a failure ends the person who owns it. What I do today teaches them what failure is.", "Because Dhawan walked toward me and not away, and I do not yet know what that means."]}}, {"n": 4, "name": "One step", "prompt": "The press is waiting. Not the next launch. Not the redesign. One step, small enough to finish before the door opens.", "question": "What is it?", "placeholder": "Something you can do in this room in the next five minutes.", "helper": {"who": "Dhawan", "says": "I am going out to the press now, alone. You are staying in this room. The failure is mine today. Before I go, what is the smallest thing you will do?", "options": ["I will go to the team, all of them, and say the valve out loud, and that we will fly again, and that no one in this room failed.", "I will start the failure analysis before the press conference is over, so that when the questions come the answers have already begun.", "I will stand at the door and listen to what the chairman says to the press, so that I know what it sounds like when a leader takes the blame."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The team has heard the valve named and heard that they did not fail, or the analysis has begun, or you have listened at the door while a man who did not design the valve took the blame for it. The rocket is still in the sea.", "question": "What has changed in you?", "placeholder": "Compare it to the quiet room.", "helper": {"who": "Dhawan, back from the press", "says": "I told them the failure was mine and that the team would succeed next year. What changed in you while I was out there?", "options": ["The rocket is still in the sea. The team is still a team. Those were the two things that could have gone into the water today, and only one did.", "I learned what a leader does with failure. He stands in front of it so that the people behind him can keep working.", "Seven years fell into the sea and I have already begun year eight."]}}, {"n": 6, "name": "Time passes", "montage": ["Dhawan tells the press that the failure is his, that the team did excellent work, and that they will succeed within a year. He does not mention the project director. Inside, the analysis begins that afternoon.", "On July 18, 1980, the SLV-3 puts the Rohini satellite into orbit. India becomes the sixth nation to launch its own satellite on its own rocket. This time Dhawan sends the project director alone to face the press.", "The project director becomes the leader of India's missile program, then the eleventh President of India. He tells the story of the two press conferences for the rest of his life: when the failure came, the chairman took it; when the success came, he gave it away."], "question": "Two press conferences, a year apart. Here is the question the orbit cannot answer for you: what did Dhawan do?", "choices": [{"label": "He protected his engineer.", "short": "he protected his engineer", "reply": "He did, and Kalam said so for forty years. But protection is what the gesture looked like from outside. From inside the team it was something else."}, {"label": "He took the blame.", "short": "he took the blame", "reply": "He did, in public, for a valve he did not design. But taking blame is not the whole of it. Plenty of leaders take blame and keep the credit. He did the second half too."}, {"label": "He made failure survivable for the people who would have to fix it.", "short": "he made failure survivable for the people who would have to fix it", "reply": "Yes. A team that has just watched seven years fall into the sea needs one thing to keep working: to know that failure will not end the people who own it. Dhawan stood in front of the failure so that the team could stand behind it and work. A year later he stood behind the success so the team could stand in front of it. That is what a collective Unquit looks like when someone is in charge."}, {"label": "Nothing unusual. That is a chairman's job.", "short": "nothing unusual, that is a chairman's job", "reply": "It should be. Ask any engineer how many chairmen have done it. Kalam told the story until he died because it was rare enough to need telling."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another room where the failure has your name on it, or someone else's. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Dhawan", "says": "One line for the next failed launch. Start with I did.", "options": ["I did name the failure and keep the team.", "I did stand in front of the failure so the people behind me could keep working.", "I did begin year eight the same afternoon."]}, "ice": {"question": "One more line, and this one is yours. Where in your own life has something fallen into the sea, and who is watching to see what it costs?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the control room", "sub": "Your failed launch, beside his", "paragraphs": ["Sriharikota, August 10, 1979, the rocket in the sea. You stood where a project director stood, at a console with the last telemetry still on the screen and the chairman walking toward you, and the room asked you what it asked him. You wrote: {1}", "Before the press, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was newspapers sold in Rameswaram, a pilot's rejection turned into a builder's life, and a team that would follow him into the sea.", "You refused to let a few hundred seconds decide seven years. Your reason: {3} That refusal is the deferral. Not today. Not from one morning.", "Your first step: {4} {overlap}", "After the step, the rocket was still in the sea. Inside, you noticed this: {5}", "Then a year did what a year does when the failure has been made survivable. A valve redesigned, a satellite in orbit, a second press conference, and a project director sent out alone to take the credit.", "Asked what Dhawan did, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this, in effect. Kalam's account has the team back at work that afternoon with the failure named and no one blamed.", "He did this. The analysis began the same day. It found the valve. A different first step in the same place is still a first step.", "He did this. He watched Dhawan take the blame and said it was the day he learned what leadership was. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was to keep the team at work while the chairman took the press. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to Dhawan on this journey. Kalam did, and said for the rest of his life that the chairman made him. Next time, turn to the one walking toward you. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Dhawan {n} on this journey. Kalam told the story of the two press conferences for forty years. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the thing that fell into the sea in your own life, as you named it: {ice}", "closing": "The pad at Sriharikota has launched hundreds since. What you carry out of the control room is not a satellite, and it is not Kalam. It is the evidence that when something fell into the sea with a name on it, the team was still a team by afternoon.", "stickerLines": ["Walked with Kalam and Dhawan.", "Sriharikota, August 10, 1979."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The microphone\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M170,80 L230,80 L230,190 C230,210 216,220 200,220 C184,220 170,210 170,190 Z\" stroke-width=\"4\"/>\n  <path d=\"M150,180 C150,232 250,232 250,180\" stroke-width=\"3\"/><path d=\"M200,232 L200,300 M160,300 L240,300\" stroke-width=\"4\"/>\n  <path d=\"M180,108 L220,108 M180,128 L220,128 M180,148 L220,148\" stroke-width=\"1.6\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

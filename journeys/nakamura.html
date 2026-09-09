@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Gordon and Ada Nakamura</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Gordon and Ada Nakamura are composites from Chapter Twenty-Two of The Unquit Stories. This journey is for two people at one screen. Pass the device between you.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "nakamura", "title": "Gordon and Ada Nakamura", "subtitle": "A kitchen table. Thirty-eight years in. Two chairs.", "object": "The kitchen table", "sticker": "The table.", "footer": "Gordon and Ada Nakamura are composites from Chapter Twenty-Two of The Unquit Stories. This journey is for two people at one screen. Pass the device between you.", "two": {"a": "Gordon's chair", "b": "Ada's chair"}, "arrive": {"heading": "You are standing where two people stood. Both of you.", "paragraphs": ["This journey is for two. Decide who sits in which chair before you begin. Gordon's chair is the one who has something to say. Ada's chair is the one who has to hear it. You will each answer every step from your own chair, and the printed story at the end will hold both of your words side by side.", "Gordon and Ada have been married thirty-eight years. Gordon retired in the spring after forty years at the same firm. He planned the retirement for a decade. Now that it has arrived, it feels, he says, like a room with nothing in it. The person he was at work has simply stopped existing and he does not know who is left.", "Tonight, at the kitchen table, he tells Ada something he has been carrying for two years. He is not sure he is still happy. Not that he is unhappy with her. Not that he wants to leave. That he is not sure what he is, and the not-knowing has been growing, and he is frightened of it.", "Ada sits across from him and feels the specific terror of someone who has built a life and is watching the ground beneath it move.", "Now Gordon and Ada step aside and the two of you step in. The table, the thirty-eight years, the sentence just said and the silence after it are theirs. What each of you does with the next ten minutes is yours."], "button": "Sit down, both of you"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The sentence is on the table. Neither of you has picked it up yet. The clock on the stove is the loudest thing in the room.", "question": "What are you feeling right now? Each of you, from your own chair.", "placeholder": "Say it as yourself, not as the marriage.", "helper": {"who": "The other chair", "says": "You are not alone at this table. Before either of you answers, hear what the other chair might be feeling.", "optionsA": ["I feel relief that it is finally said, and fear that saying it has broken something that cannot be put back.", "I feel like a man who lost his job, except I gave it away on purpose and it took me with it.", "I feel that I have been lonely in this house for two years and that admitting it is a betrayal."], "optionsB": ["I feel the ground moving, and I am trying not to grab the table.", "I feel every instinct in me reaching for reassurance, an argument, a reason to be grateful, anything that stops this.", "I feel that I was not looking. I thought I knew how he was, and I was relating to the archive."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before anything is decided about the marriage, take an inventory. Not of thirty-eight years. Not of Gordon and Ada. Of yourselves, one chair at a time.", "question": "What have you already done, in your own life, that proves you can stay curious about a person you thought you knew?", "placeholder": "One thing you did. Not one thing you believe.", "fillIn": true, "helper": {"who": "The other chair", "says": "Thirty-eight years is not one marriage. It is four or five, and you have already survived the changeovers between them. Each of you, finish one of these.", "optionsA": ["A time I told the truth at this table when silence would have been easier: ", "A time I let myself be surprised by her, after I thought I knew: ", "A time I started over inside something I did not leave: "], "optionsB": ["A time I listened without fixing: ", "A time I noticed who he was now instead of who he had always been: ", "A time I stayed interested when it would have been easier to assume: "]}}, {"n": 3, "name": "The deferral", "prompt": "The sentence tonight, in one chair, is: something is broken. In the other chair it is: I have to fix this before we go to bed. Both of them want the next hour to decide thirty-eight years. Neither of you has to let it.", "question": "What is the one reason you will not decide anything tonight? Each of you.", "placeholder": "Not a plan for the marriage. One reason to wait.", "helper": {"who": "The other chair", "says": "This took two years to say. It does not have to be answered in one night. Why will each of you wait?", "optionsA": ["Because I said it to be heard, not to be answered, and I have not yet found out if I was heard.", "Because I do not know what I am. A man who does not know what he is should not decide what we are.", "Because it took two years to find the words, and the words deserve more than one evening."], "optionsB": ["Because if I fix it tonight I will have fixed the wrong thing. I do not know what it is yet.", "Because the reassurance in my mouth is for me, not for him.", "Because he is telling me something real, and real things are not solved at the stove clock's pace."]}}, {"n": 4, "name": "One step", "prompt": "Not a resolution. Not a plan for the next marriage. One step each, small enough to finish before one of you stands up.", "question": "What is it? Each of you.", "placeholder": "Something that can be done from a kitchen chair.", "helper": {"who": "The other chair", "says": "One of you has to speak next and one of you has to not. What is the smallest thing each chair can do?", "optionsA": ["I will say the next true sentence, the one after the one I rehearsed. I do not know what it is yet.", "I will tell her one specific thing the empty room feels like, instead of the word empty.", "I will ask her what she is feeling, which I have not done, because I was afraid of the answer."], "optionsB": ["I will say two words: Okay. Tell me. And then I will not say anything else for as long as it takes.", "I will not reach for gratitude, optimism or a reason. I will put my hands flat on the table and listen.", "I will say: I do not think I can take this away from you, but I would like to go through it with you, if that is okay."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. Something was said, and something was not said. The stove clock is exactly as loud. The sentence is still on the table, and so are you both.", "question": "What has changed in you? Each of you.", "placeholder": "Compare it to the silence after the sentence.", "helper": {"who": "The other chair", "says": "Nothing about the marriage changed in ten minutes. What changed in each chair?", "optionsA": ["I was heard. I did not know how much of the last two years was about that.", "The room is still empty. It has one more person standing in it with me.", "I am still frightened. I am frightened at a table with someone, instead of in a bed next to someone."], "optionsB": ["The ground is still moving. I have stopped grabbing the table.", "I did not fix it, and the marriage is still here. I did not know those two things could be true at once.", "I am looking at him. Not at the archive. At him."]}}, {"n": 6, "name": "Time passes", "montage": ["It takes three conversations over two weeks to get all of it out, partly because Gordon is still finding out what it is. Ada listens. She does not fix it. When he is done she says she does not think she can take it away from him, but she would like to go through it with him, if that is okay. It is okay.", "They spend the next year in what Ada calls the renegotiation. Not of whether to stay. Of who they are to each other now, in a configuration neither of them planned for, with the roles of four decades gone.", "They are still married. By their own description they are on their fourth or fifth marriage, the changeovers visible if you know where to look. Their children call them happy. They call themselves, more carefully, attentive."], "question": "Thirty-eight years, and a sentence at a kitchen table. Here is the question the years cannot answer for you: what stayed?", "choices": [{"label": "The marriage.", "short": "the marriage", "reply": "The marriage stayed, and Ada would correct the word. Not one marriage. Four or five, each one requiring a new choice. What stays is not a thing. It is a series of decisions to stay curious."}, {"label": "The love.", "short": "the love", "reply": "Ada used to think love was a feeling you had or did not. She says now it is a practice, and you practice it by showing up. The feeling did not stay on its own. Two people kept returning to it."}, {"label": "Attention. The refusal to relate to the archive.", "short": "attention, the refusal to relate to the archive", "reply": "Yes. The love that stays is not the love that never falters. It is the love that returns to attention when it has drifted. You stop asking how someone is because you think you know. Okay, tell me, is the sentence that reverses that. Every time you could stop paying attention, you pay attention instead. That is what staying is."}, {"label": "Nothing stayed. Everything changed, and they changed with it.", "short": "nothing stayed, everything changed and they changed with it", "reply": "Also true. The man at the table was not the man she married, and she chose him anyway, which is the only kind of choosing that lasts. Staying is not preservation. It is re-election, at a kitchen table, without ceremony."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another sentence at another table, and a silence after it. Write one sentence for that night. Not advice. Evidence. Each of you.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "The other chair", "says": "One line each, for the next silence. Start with I did.", "optionsA": ["I did say the thing I had carried for two years.", "I did ask her what she felt before I asked what we should do.", "I did stay at the table after the sentence."], "optionsB": ["I did say okay, tell me, and then I said nothing.", "I did not fix it, and I did not leave.", "I did look at him and not at the archive."]}, "ice": {"question": "One more line, and this one belongs to both of you. What sentence has been waiting at your own table?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You two, at the table", "sub": "Your two chairs, beside theirs", "paragraphs": ["A kitchen table, thirty-eight years in. Two of you sat where Gordon and Ada sat, with a sentence between you and a stove clock too loud, and the night asked you what it asked them. From Gordon's chair: {1} From Ada's chair: {1b}", "Before anything was decided, you each did what every unquitter does first. You looked for evidence, and it was your own. Gordon's chair: {2} Ada's chair: {2b} Theirs was thirty-eight years that had already been four marriages, with a changeover survived between each.", "You both refused to let one night decide. From Gordon's chair: {3} From Ada's chair: {3b} That refusal is the deferral. Not tonight. Not at the clock's pace.", "Your first steps. Gordon's chair: {4} Ada's chair: {4b} {overlap}", "After the steps, the marriage had not changed in ten minutes. Gordon's chair noticed: {5} Ada's chair noticed: {5b}", "Then time did what it does when two people keep paying attention. Three conversations, a year of renegotiation, a fourth or fifth marriage, and two people who call themselves attentive.", "Asked together what stayed, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["This is close to what happened. Gordon kept talking, across three conversations, until the thing had a shape. Ada's two words were: Okay. Tell me.", "Ada did this. She did not offer reassurance, an argument for optimism or a redirection toward gratitude. She listened, and when he was done she said she would like to go through it with him.", "Those are Ada's own words in the chapter. A different first step at the same table is still a first step, and this table had two."], "stepOverlapFree": "Their first steps were a sentence that kept unfolding and two words that made room for it: okay, tell me. A different first step at the same table is still a first step.", "help": {"zero": "Neither of you turned to the other chair on this journey. Gordon and Ada had no one else at the table either. That is what made it hard, and what made it theirs. Next time, look across. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to the other chair {n} on this journey. Gordon and Ada had no one else at the table, which is exactly why they had to turn to each other. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are both taking with you", "iceLine": "And the sentence waiting at your own table, as you named it together: {ice}", "closing": "The table is still there, and so are two chairs. What you carry away from it is not a resolution, because there was none, and it is not Gordon or Ada. It is the evidence that when the ground moved, one of you said the thing and the other said, okay, tell me.", "stickerLines": ["Walked with Gordon and Ada Nakamura.", "Thirty-eight years in, two chairs."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The table\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n\n  <path d=\"M60,170 L340,170 L360,196 L40,196 Z\" stroke-width=\"4\"/>\n  <path d=\"M60,198 L60,330 M340,198 L340,326 M96,198 L96,296 M304,198 L304,292\" stroke-width=\"4\"/>\n  <path d=\"M112,132 L112,166 M142,132 L142,166 M106,132 L148,124\" stroke-width=\"3\"/>\n  <path d=\"M258,132 L258,166 M288,132 L288,166 M252,124 L294,132\" stroke-width=\"3\"/>\n  <path d=\"M170,158 C176,150 224,150 230,158\" stroke-width=\"2.2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

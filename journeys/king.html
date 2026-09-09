@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Stephen and Tabitha King, the wastebasket</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from Stephen King's own account in On Writing, paraphrased, and from the world lists. Consent track: launch requires the Kings' written consent and their reading of this script. Played from the helper's side.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "king", "title": "Stephen and Tabitha King, the wastebasket", "subtitle": "A trailer in Hermon, Maine. 1973. Three pages in the kitchen wastebasket.", "object": "The wastebasket", "sticker": "The wastebasket.", "footer": "Drawn from Stephen King's own account in On Writing, paraphrased, and from the world lists. Consent track: launch requires the Kings' written consent and their reading of this script. Played from the helper's side.", "arrive": {"heading": "You are standing where a wife stood over a kitchen wastebasket.", "paragraphs": ["He teaches high school English by day and writes at night at a child's desk wedged between the washer and dryer in a rented trailer. They have two small children and a phone the company has disconnected because they cannot pay the bill. He has been trying to write a story about a bullied girl with a strange power, and it is not working. He does not know girls' locker rooms. He does not like the girl. He has written three single-spaced pages and thrown them in the kitchen wastebasket.", "You are Tabitha. You are also a writer, the better-read of the two, and you are emptying the wastebasket, and you have seen the three crumpled pages with his typing on them.", "You could empty the basket. It is what baskets are for. He threw them away for a reason, and he is tired, and it is not your story.", "Now Tabitha steps aside and you step in. The trailer, the disconnected phone, the three crumpled pages and the basket are hers. Whether you take them out is yours."], "button": "Stand over the wastebasket"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The pages are on top, balled up, with cigarette ash on one. The children are asleep. He is at the school until four. The phone on the wall is silent because it has been cut off.", "question": "What are you feeling right now?", "placeholder": "Say it as a tired woman with a trash bag, not as the wife in the acknowledgments.", "helper": {"who": "Stephen, at the school, not here, whom you could simply not tell", "says": "You could empty it and I would never know. Before you decide, say what you feel standing there.", "options": ["I feel that he threw these away for a reason and I am about to overrule the reason without having read them.", "I feel the phone bill and the trailer and two children and three pages of typing in the trash, and I am angry at all of them at once.", "I feel that I know his handwriting on a crumpled page the way I know his face, and that I have not read the page and already believe in it."]}, "helpLabel": "Take them out."}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the pages are smoothed, take an inventory. Not of the story, and not of Tabitha. Of yourself.", "question": "What have you already done, in your own life, that proves you can see what someone else has thrown away?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Stephen, not here", "says": "You have read everything I have ever written, including the things I did not show you. Before you read these, tell yourself what you carry. Finish one of these.", "options": ["A time I saw what someone else had thrown away: ", "A time I believed in a thing before I had read it, because I knew the hand: ", "A time I overruled someone's giving up, gently, and was right: "]}, "fillIn": true, "helpLabel": "Smooth the pages."}, {"n": 3, "name": "The deferral", "prompt": "The sentence over the basket is: it is his, he threw it out, leave it. It sounds like respect. It is the basket, asking to be emptied. You do not have to save the story tonight. You only have to refuse to let the trash decide what is in it.", "question": "What is the one reason you will not empty it?", "placeholder": "Not an editorial judgment. One reason the basket does not get the vote.", "helper": {"who": "Stephen, not here", "says": "I threw it away. Tell me why that is not the end of it.", "options": ["Because he threw it away tired, at midnight, between a washer and a dryer, and tired at midnight is not a reader.", "Because he does not know girls' locker rooms and I do, and the thing he thinks he cannot write is the thing I can tell him.", "Because I have not read it, and nothing that has not been read has been judged."]}}, {"n": 4, "name": "One step", "prompt": "Not a novel. Not the money that is a year away and unimaginable. One step, small enough to finish before he comes home.", "question": "What is it?", "placeholder": "Something you can do with three crumpled pages and a kitchen table.", "helper": {"who": "Stephen, not here", "says": "You have them in your hand. What is the smallest thing you can do with them?", "options": ["I will smooth them out, read them at the table, and leave them there with a note: you have something here. I really think you do.", "I will read them and write, in the margin, the three things about girls that he does not know and I do.", "I will put them on his desk between the washer and the dryer, flat, so that they are the first thing he sees tonight."]}, "helpLabel": "Read them."}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The pages are on the table with a note, or the margins have three true things about girls in them, or they are flat on a child's desk waiting. He is still at the school. The phone is still cut off.", "question": "What has changed in you?", "placeholder": "Compare it to the trash bag.", "helper": {"who": "Stephen, not here", "says": "Nothing about the trailer changed. What changed at the table?", "options": ["I read them. They are good, and he is wrong about them, and he will know that when I tell him.", "I wrote in the margins what I know that he does not. That is what two writers in one trailer are for.", "They are flat on his desk. Whatever he does tonight, they were not thrown away."]}, "helpLabel": "Leave them for him."}, {"n": 6, "name": "Time passes", "montage": ["He comes home and finds the pages, and the note, and Tabitha, who tells him she wants to know the rest of the story, and that he does not know girls' locker rooms and she does, and will help. He finishes the book. It is short. It is called Carrie.", "The hardcover advance is twenty-five hundred dollars. Months later the paperback rights sell for four hundred thousand, and he learns of it by phone, the phone having been reconnected, and Tabitha is out, and he buys her a hair dryer because it is the only thing he can think of.", "He has said, in his own book about writing, that he would not have finished it without her. Every helper in this series arrives with nothing to offer. This one arrived with a trash bag."], "question": "Three pages in a wastebasket. Here is the question the four hundred thousand dollars cannot answer for you: what did Tabitha do?", "choices": [{"label": "Saved a bestseller.", "short": "saved a bestseller", "reply": "She did, and she could not have known it, and she would tell you that is the least interesting thing about the night. She did not read a bestseller. She read three crumpled pages."}, {"label": "Believed in him.", "short": "believed in him", "reply": "She did, and belief alone would have left the pages in the basket. She did something with the belief."}, {"label": "Took the pages out, read them, and told him what he did not know.", "short": "took the pages out, read them, and told him what he did not know", "reply": "Yes. The helper in this series never arrives with a fix. She arrives with attention, and does the one thing the person at the edge cannot: sees the thing from outside. He did not know girls. She did. He thought the pages were finished with. She read them. The Helper is not a cheerleader. The Helper is the one who empties the basket and stops."}, {"label": "Nothing much. He would have written something else.", "short": "nothing much, he would have written something else", "reply": "He has said otherwise, in print, more than once. He is the authority on what he would have done."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another basket with someone's crumpled pages in it. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Stephen, home now, holding the pages", "says": "One line for the next wastebasket. Start with I did.", "options": ["I did take the pages out and read them.", "I did not let tired at midnight be the reader.", "I did tell him what he did not know."]}, "ice": {"question": "One more line, and this one is yours. Whose crumpled pages have you seen in a basket, and did you take them out?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, over the wastebasket", "sub": "Your three pages, beside hers", "paragraphs": ["A trailer in Hermon, Maine, 1973, a kitchen wastebasket. You stood where Tabitha King stood, with a trash bag and three crumpled pages with his typing on them, and the basket asked you what it asked her. You wrote: {1}", "Before the pages were smoothed, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was every page he had ever written, read, including the ones he did not show her.", "You refused to let the trash decide what was in it. Your reason: {3} That refusal is the deferral. Not tonight. Not on the basket's word.", "Your first step: {4} {overlap}", "After the step, the phone was still cut off. Inside, you noticed this: {5}", "Then the book did what books do when someone takes them out of the trash. Finished. Sold for twenty-five hundred. Sold again for four hundred thousand. A hair dryer, because it was the only thing he could think of.", "Asked what Tabitha did, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["She did this. The note, in his telling, was almost exactly that.", "She told him what he did not know about girls, and offered to help. Whether she wrote it in the margins, he does not say. A different first step in the same place is still a first step.", "She left them where he would find them. A different first step in the same place is still a first step."], "stepOverlapFree": "Her first step was to take the pages out and read them. A different first step in the same place is still a first step.", "help": {"zero": "You did not take the pages out. Tabitha did, and a career began in a wastebasket. Next time, empty the basket slowly.", "some": "You took the pages out {n} on this journey. Every helper in the series arrives with nothing. This one arrived with a trash bag."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the crumpled pages you have seen, as you named them: {ice}", "closing": "The trailer is gone. What you carry out of it is not a novel, and it is not Tabitha. It is the evidence that you can see what someone has thrown away, and take it out, and read it.", "stickerLines": ["Walked with Tabitha King.", "Hermon, Maine, 1973."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The wastebasket\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"M120,140 L280,140 L262,330 L138,330 Z\" stroke-width=\"4\"/><path d=\"M110,140 L290,140\" stroke-width=\"4\"/><path d=\"M150,170 L142,300 M200,170 L200,300 M250,170 L258,300\" stroke-width=\"1.4\"/><path d=\"M160,130 C170,110 196,104 210,116 C226,104 246,116 240,134\" stroke-width=\"2.4\"/><path d=\"M176,124 C182,112 196,110 204,120\" stroke-width=\"1.6\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

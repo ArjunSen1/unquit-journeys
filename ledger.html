@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your evidence. Unquit Journeys</title>
+<style>
+  :root{--ink:#000;--muted:#6b6b6b;--red:#8e1b1b;--rule:#e6e6e6;--font:Calibri,Carlito,"Segoe UI","Helvetica Neue",Arial,sans-serif}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55}
+  header{padding:28px 40px 0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline}
+  header b{font-weight:600}header b span{color:var(--red)} header a{color:inherit;text-decoration:none} header nav a{color:var(--muted);margin-left:22px;text-decoration:underline;text-underline-offset:4px}
+  main{max-width:760px;margin:0 auto;padding:88px 40px 120px}
+  h1{font-size:52px;line-height:1.05;font-weight:600;margin:0 0 16px;letter-spacing:-.01em}
+  h2{font-size:28px;font-weight:600;margin:72px 0 20px}
+  .lead{font-size:24px;color:var(--red);margin:0 0 48px}
+  p{max-width:34em;margin:0 0 20px}
+  .list{border-top:1px solid var(--ink)}
+  a.j,div.j{display:block;text-decoration:none;color:inherit;padding:28px 0;border-bottom:1px solid var(--rule)}
+  a.j:hover .t,a.j:focus-visible .t{color:var(--red)} a.j:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+  .t{font-size:28px;font-weight:600;line-height:1.15;margin:0 0 6px}
+  .w{color:var(--red);font-size:17px;margin:0 0 12px}
+  .d{margin:0;max-width:34em}
+  .k{font-size:15px;color:var(--muted);margin:12px 0 0}
+  .order{border-top:1px solid var(--ink)}
+  .row{display:grid;grid-template-columns:44px 1fr auto;gap:16px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+  .row .n{color:var(--red);font-weight:600;font-size:17px}
+  .row .name{font-size:19px}
+  .row .name a{color:inherit;text-decoration:none}
+  .row .name a:hover{color:var(--red)}
+  .row .e{font-size:14px;color:var(--muted);text-align:right;white-space:nowrap}
+  .row.coming .name{color:var(--muted)}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:700px){main{padding:56px 24px 80px}h1{font-size:40px}header,footer{padding-left:24px;padding-right:24px}.row .e{display:none}}
+
+  .entry{padding:28px 0;border-bottom:1px solid var(--rule)}
+  .entry .meta{font-size:15px;color:var(--muted);margin:0 0 10px}
+  .entry .lock{font-size:24px;line-height:1.35;font-weight:600;color:var(--red);margin:0 0 10px;max-width:30em}
+  .entry .ice{margin:0;color:var(--ink)}
+  .actions{margin-top:40px;display:flex;gap:16px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer}
+  .btn{background:#000;color:#fff;border:1px solid #000;padding:12px 28px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  @media print{header,footer,.actions{display:none}}
+</style>
+</head>
+<body>
+<header><b><a href="index.html">UNQUIT<span>®</span> JOURNEYS</a></b><nav><a href="index.html">All journeys</a></nav></header>
+<main>
+  <h1>Your evidence</h1>
+  <p class="lead">One sentence from every journey you have walked. In your own words.</p>
+  <div id="list"></div>
+  <div class="actions"><button class="btn" onclick="window.print()">Print or save</button><button class="link" id="clear">Clear this device</button></div>
+</main>
+<footer>Kept only on this device. Nothing here is sent anywhere.</footer>
+<script>
+const list=document.getElementById('list');
+function load(){ try{ return JSON.parse(localStorage.getItem('unquit-ledger')||'[]'); }catch(e){ return null; } }
+function render(){
+  const items=load(); list.replaceChildren();
+  if(items===null){ list.append(Object.assign(document.createElement('p'),{textContent:'This device does not allow the ledger to be kept. Your printed story from each journey holds the same sentence.'})); return; }
+  if(!items.length){ list.append(Object.assign(document.createElement('p'),{textContent:'No evidence yet. Walk a journey and the sentence you lock in at the end will appear here.'})); return; }
+  items.slice().reverse().forEach(it=>{
+    const d=document.createElement('div'); d.className='entry';
+    const m=document.createElement('p'); m.className='meta'; m.textContent=it.date+'.  '+it.title+'.  '+it.object; d.append(m);
+    const l=document.createElement('p'); l.className='lock'; l.textContent=it.lock; d.append(l);
+    if(it.ice){ const i=document.createElement('p'); i.className='ice'; i.textContent='Your own ice that day: '+it.ice; d.append(i); }
+    list.append(d);
+  });
+}
+document.getElementById('clear').addEventListener('click',()=>{ if(confirm('Remove all evidence kept on this device?')){ try{localStorage.removeItem('unquit-ledger');}catch(e){} render(); } });
+render();
+</script>
+</body>
+</html>

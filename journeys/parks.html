@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Rosa Parks, day 200 of the boycott</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the public record of the Montgomery bus boycott and from Unquit: The Oldest Choice. This journey is set in the middle of the boycott, not on its famous first day.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "parks", "title": "Rosa Parks, day 200 of the boycott", "subtitle": "Montgomery, Alabama. A June morning in 1956. Walking again.", "object": "The shoes", "sticker": "The shoes.", "footer": "Drawn from the public record of the Montgomery bus boycott and from Unquit: The Oldest Choice. This journey is set in the middle of the boycott, not on its famous first day.", "arrive": {"heading": "You are standing where Rosa Parks stood, six months after the day everyone knows.", "paragraphs": ["The famous day is December 1, 1955. She refused to give up her seat, and she was not tired except of giving in, and she had been a trained activist for twelve years before that evening. Four days later the buses of Montgomery emptied of Black riders, and everyone assumed it would last a week.", "It is June 21, 1956. Day two hundred. Since December she has lost her job as a seamstress at the department store. Her husband has lost his. The phone rings at night with threats. She travels to speak and raise money and comes home to a city where forty thousand people are still walking, or riding in a carpool of three hundred cars organized out of a church basement by a woman named Jo Ann Robinson, who mimeographed the first flyers in one night.", "Two weeks ago a federal court ruled that the bus segregation is unconstitutional. The city has appealed. Nothing has changed on the street. The buses still run, empty, and the walking goes on into a second summer with no end date.", "Now Rosa steps aside and you step in. The lost job, the threats, the shoes and the two hundredth morning are hers. Whether you walk again today is yours."], "button": "Put on the shoes"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "Six in the morning. The shoes are by the door, resoled twice since December. The bus you are not taking will pass in twenty minutes with no one on it. The phone rang once at two and stopped.", "question": "What are you feeling right now?", "placeholder": "Say it as a woman on day two hundred, not as a woman in a history book.", "helper": {"who": "Jo Ann Robinson, who runs the carpool, on the phone before dawn", "says": "You are not the only one tired, and you are the only one everyone is watching. Before you tell me you are fine, tell me what it is.", "options": ["I feel that the world thinks I did one brave thing in December and does not know I have had to do it every morning since.", "I feel the job I lost and the job he lost and the phone at two in the morning, and none of it is in the newspapers.", "I feel that the court has already ruled and nothing has changed, and I do not know how long a person can walk toward a thing that has technically already happened."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the shoes go on, take an inventory. Not of the boycott, and not of Rosa. Of yourself.", "question": "What have you already done, in your own life, that proves you can make the same decision every morning for longer than anyone expected?", "placeholder": "One thing you did. Not one thing you believe.", "fillIn": true, "helper": {"who": "Jo Ann Robinson", "says": "I can tell you what the woman putting on those shoes carries. Twelve years as secretary of the local branch before anyone knew her name, taking down testimony no one wanted to hear. A summer school on the mountain where she learned what she already knew. And a hundred and ninety-nine mornings of this since December. Now you tell me what you carry. Finish one of these.", "options": ["A time I made the same decision every morning for longer than anyone expected: ", "A time I did the unglamorous work for years before the moment anyone saw: ", "A time I kept walking toward something that had technically already been won: "]}}, {"n": 3, "name": "The deferral", "prompt": "The sentence on day two hundred is: it is won, or it is lost, and either way I can stop. It sounds like relief. It is exhaustion in the shape of relief. You do not have to decide the future of the boycott this morning. You only have to refuse to let the two hundredth morning decide the two hundred and first.", "question": "What is the one reason you will not decide this morning?", "placeholder": "Not a strategy. One reason to walk today.", "helper": {"who": "Jo Ann Robinson", "says": "Forty thousand people are deciding the same thing you are, right now, at their own front doors. Tell me why you will wait to decide anything larger than today.", "options": ["Because the court ruled and the city appealed, and a thing is not won until the buses are full again.", "Because I am not deciding for one person. I am one of forty thousand doors, and mine is watched.", "Because a boycott is not one decision. It is the same decision every morning. Today's is the only one that is mine."]}}, {"n": 4, "name": "One step", "prompt": "The bus will pass in fifteen minutes. Not the appeal. Not the end of segregation. One step, small enough to finish before the empty bus goes by.", "question": "What is it?", "placeholder": "Something you can do with a pair of shoes and a morning.", "helper": {"who": "Jo Ann Robinson", "says": "The carpool has a seat leaving from the church at six thirty. You can take it, or you can walk, or you can drive someone else. Which is the smallest yes today?", "options": ["I will walk. Today. Past the stop, when the bus goes by empty.", "I will take the carpool and, on the way, learn the name of one person in the car I do not know.", "I will spend the morning at the church basement helping with the dispatch board, because the walking only works if the cars do."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. You walked past the stop as the empty bus went by, or you know one more name, or the dispatch board is filled for the afternoon. The appeal is still pending. The phone will ring again tonight.", "question": "What has changed in you?", "placeholder": "Compare it to six in the morning.", "helper": {"who": "Jo Ann Robinson", "says": "The buses are still empty. What is different in you?", "options": ["The tiredness is the same. It has stopped being the thing that decides.", "I stopped counting the days since December. I counted the people in the car.", "Today's decision is made. That is all a boycott ever asks. Tomorrow will ask again."]}}, {"n": 6, "name": "Time passes", "montage": ["The walking goes on through the summer and the fall. In November the city moves to shut down the carpool as an unlicensed business. On the same day, the Supreme Court affirms the ruling. The order reaches Montgomery on December 20, 1956. The next morning, day 382, she boards a bus and sits where she likes.", "The boycott lasted three hundred and eighty-one days. Forty thousand people made the same decision every morning for more than a year, without knowing the outcome, and the day the world remembers is the first one.", "She and her husband left Montgomery the next year. She worked in a congressman's office in Detroit for twenty-three years. The only tired she was, she said, was tired of giving in."], "question": "The world remembers December 1. Here is the question the famous day cannot answer for you: what was the boycott?", "choices": [{"label": "One woman's refusal on one bus.", "short": "one woman's refusal on one bus", "reply": "That was the spark, and she would be the first to correct you. She had been refusing for twelve years. The bus was where a camera happened to be."}, {"label": "A court case.", "short": "a court case", "reply": "The case won it in law. The case was filed by four other women, and the ruling took a year, and nothing changed on the street until the walking made it change. The law followed the shoes."}, {"label": "The same decision, made every morning, by forty thousand people, for 381 days.", "short": "the same decision, made every morning, by forty thousand people", "reply": "Yes. Not one large decision. A hundred thousand small ones, made at front doors before dawn, without knowing the ending, by people whose names no plaque carries. The act is a moment. The boycott is the continuation. Every collective in this series works the same way, and this is the one that proves it."}, {"label": "The carpool.", "short": "the carpool", "reply": "Also true, and almost never said. Three hundred cars, a dispatch board in a church basement, a woman who mimeographed the first flyers in one night. The walking is the story. The cars are why the story lasted."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another two hundredth morning, when the thing is half won and wholly exhausting. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Jo Ann Robinson", "says": "One line for the next long middle. Start with I did.", "options": ["I did walk on the morning it would have been reasonable to stop.", "I did make today's decision and let tomorrow ask again.", "I did count the people in the car instead of the days since December."]}, "ice": {"question": "One more line, and this one is yours. What in your own life is on day two hundred, half won and wholly exhausting?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, on the two hundredth morning", "sub": "Your walk, beside hers", "paragraphs": ["Montgomery, June 21, 1956, day two hundred. You stood where Rosa Parks stood, with resoled shoes by the door and an empty bus due in twenty minutes, and the morning asked you what it asked her. You wrote: {1}", "Before the shoes went on, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was twelve years of unglamorous work before anyone knew her name, and a hundred and ninety-nine mornings like this one.", "You refused to let the two hundredth morning decide the two hundred and first. Your reason: {3} That refusal is the deferral. Not this morning. Not from tiredness.", "Your first step: {4} {overlap}", "After the step, the appeal was still pending and the phone would ring again. Inside, you noticed this: {5}", "Then time did what it does when forty thousand people keep deciding. A summer, a fall, a Supreme Court, day 382, and a woman boarding a bus and sitting where she liked.", "Asked what the boycott was, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["She did this, most mornings, for 381 days, along with forty thousand others.", "The carpool was how the boycott survived a second summer. Riding in it was itself the act. A different first step on the same morning is still a first step.", "This was Jo Ann Robinson's morning, every morning. The dispatch board is the least remembered and most necessary object in the story."], "stepOverlapFree": "Her first step was the same as everyone's: past the stop, on foot or in a carpool, one more day. A different first step on the same morning is still a first step.", "help": {"zero": "You did not pick up for Jo Ann Robinson. Rosa did, and so did forty thousand others, every morning, through a dispatch board in a church basement. Next time, pick up. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You picked up for Jo Ann Robinson {n} on this journey. Without her cars, the walking would not have lasted a second summer. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the two hundredth morning in your own life, as you named it: {ice}", "closing": "The bus stop is a museum now. What you carry away from it is not a seat, and it is not Rosa. It is the evidence that on a morning when the thing was half won and wholly exhausting, you made today's decision and let tomorrow ask again.", "stickerLines": ["Walked with Rosa Parks.", "Montgomery, day two hundred."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The shoes\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n\n  <path d=\"M70,250 L70,290 L230,290 C260,290 280,276 280,262 C280,250 264,244 244,240 L200,224 L176,196 L120,196 L110,250 Z\" stroke-width=\"4\"/>\n  <path d=\"M110,250 L244,240\" stroke-width=\"2\"/>\n  <path d=\"M130,210 L156,210 M126,226 L160,226\" stroke-width=\"2\"/>\n  <path d=\"M96,290 L96,300 L262,300 C268,300 272,296 272,290\" stroke-width=\"2.6\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

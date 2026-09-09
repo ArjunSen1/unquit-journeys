@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Mohandas Gandhi, Pietermaritzburg</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from Gandhi's own account of the night in his autobiography, paraphrased, and from Unquit: The Oldest Choice. He named this night himself as the turning point of his life.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "gandhi", "title": "Mohandas Gandhi, Pietermaritzburg", "subtitle": "A railway waiting room. June 7, 1893. Nine at night.", "object": "The ticket", "sticker": "The ticket.", "footer": "Drawn from Gandhi's own account of the night in his autobiography, paraphrased, and from Unquit: The Oldest Choice. He named this night himself as the turning point of his life.", "arrive": {"heading": "You are standing where a twenty-three-year-old lawyer stood.", "paragraphs": ["He is not Gandhi yet. He is Mohandas, twenty-three, a barrister from Porbandar with a London degree and almost no practice, who has come to South Africa on a one-year contract to help a merchant with a lawsuit. He has been in the country a week. He is shy, he dresses carefully, and he has bought a first-class ticket from Durban to Pretoria because he is a lawyer and that is what lawyers do.", "At Pietermaritzburg a white passenger looked into the compartment and left. Then a railway official came and told him to move to the van, the third-class carriage. He said he had a first-class ticket. He was told that did not matter. He said he would not move. A constable took him by the hand and put him off the train. His luggage was taken and kept by the railway. The train left.", "It is nine at night and it is winter. The waiting room has no light. His overcoat is in the luggage the railway is holding and he is too proud to ask for it. He is shivering. He is the only person in the room.", "He will later write that he spent the night deciding whether to go back to India and forget the whole thing, or stay and finish what he came for. He will write that he decided the hardship he had suffered was superficial, a symptom of a deep disease, and that he should try to root out the disease. That is what he will write. He does not know any of it tonight.", "Now Mohandas steps aside and you step in. The ticket in your pocket, the cold, the missing coat and the empty room are his. What you do with the night is yours."], "button": "Sit down in the waiting room"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The bench is cold through your trousers. Outside, the platform lamps go out one by one. Your coat is forty feet away in a locked room and you have already decided you will not ask for it.", "question": "What are you feeling right now?", "placeholder": "Say it as a twenty-three-year-old would, not as the man he became.", "helper": {"who": "No one comes tonight. But there is a letter you can write in your head, to Dada Abdulla, the merchant who sent for you.", "says": "Sethji, I am writing to you from a waiting room. Before I tell you what I intend to do, I will tell you what I feel.", "options": ["I feel humiliated in a way I did not know a person could be, by a stranger, for nothing I did.", "I feel that I have the ticket in my pocket, and the ticket was right, and being right did nothing.", "I feel that the sensible thing is to go home, and that I have never been more afraid of a sensible thing."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the night decides anything, take an inventory. Not of the railway, and not of Mohandas. Of yourself.", "question": "What have you already done, in your own life, that proves you can stay somewhere you have been told you do not belong?", "placeholder": "One thing you did. Not one thing you believe.", "fillIn": true, "helper": {"who": "The letter in your head, continued", "says": "Sethji, you do not know much about me, so I will tell you what I carry. I crossed the ocean to London at eighteen against my caste's ruling, and was declared an outcaste for it, and went anyway. I kept a vow to my mother for three years in a city built to break it. I have been shy in every room I have ever entered and I have not once left one because of it. Now, whoever is reading this over my shoulder: you tell me what you carry. Finish one of these.", "options": ["A time I stayed in a room I had been told to leave: ", "A time I kept a promise in a place built to break it: ", "A time being right did nothing, and I continued anyway: "]}}, {"n": 3, "name": "The deferral", "prompt": "The sentence tonight is: go home. It sounds like sense. It is cold in the shape of sense. You do not have to decide the next twenty years in a waiting room. You only have to refuse to let the coldest hour of the first week decide them.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a plan for the country. One reason to wait for the morning train.", "helper": {"who": "The letter in your head, continued", "says": "Sethji, I have not decided. I will tell you why I am not deciding tonight.", "options": ["Because I signed a contract for one year and it has been one week. A week is not a verdict on a year.", "Because if I go home the constable decides where I live. I would rather decide that myself, in daylight.", "Because the cold is arguing, and I have never let the cold argue for me before."]}}, {"n": 4, "name": "One step", "prompt": "The morning train is at seven. Not a movement. Not a philosophy. Not the next fifty years. One step, small enough to finish before the train comes.", "question": "What is it?", "placeholder": "Something a man can do with a ticket, a telegraph office and a morning.", "helper": {"who": "The letter in your head, ending", "says": "Sethji, here is what I will do before I board. It is small.", "options": ["I will send a telegram to the general manager of the railway, and another to you, and put on paper what was done here.", "I will buy a first-class ticket again, for the same train, and sit in the same class.", "I will ask the stationmaster for my coat. Asking is not the humiliation. The van was."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. The telegrams are sent, or the new ticket is in your pocket, or the coat is on your shoulders. The railway is the same railway. The law is the same law.", "question": "What has changed in you?", "placeholder": "Compare it to nine at night.", "helper": {"who": "Dada Abdulla, by telegram, the next morning", "says": "Received your wire. Indians in Maritzburg are on their way to the station to meet you. Tell me how you are.", "options": ["The cold is the same. It has stopped deciding.", "I was put off a train for who I am. I have decided to stay for the same reason.", "I came here for one lawsuit. I think I have been handed a different case."]}}, {"n": 6, "name": "Time passes", "montage": ["The general manager wires back that the railway will see him safely to Pretoria. Indian merchants of the town, told by Abdulla, come to the station and tell him what he has just learned is ordinary. He boards the morning train. He is thrown off a stagecoach before the journey ends, and beaten, and he continues.", "The one-year contract becomes twenty-one years in South Africa. He founds a congress, a newspaper, a settlement, and a method he has to invent a word for: satyagraha, truth-force, the refusal that does not strike back. He goes to prison. He returns to India at forty-five and spends the rest of his life walking, and asking, and refusing.", "Decades later, asked to name the most creative experience of his life, he does not name a march or a fast or independence. He names a waiting room in Pietermaritzburg, at nine at night, in the cold."], "question": "He called this night the turning point of his life. Here is the question the record cannot answer for you: what turned?", "choices": [{"label": "The law. Eventually.", "short": "the law, eventually", "reply": "Eventually, and long after this night, and never completely. The law did not turn in the waiting room. It turned because a man came out of the waiting room and spent fifty years on it."}, {"label": "His plans. He stayed instead of going home.", "short": "his plans", "reply": "Closer. A one-year contract became twenty-one years. But plans change every day for every person. What he named was not a change of plan."}, {"label": "The question. From what happened to me, to what is wrong here.", "short": "the question, from what happened to me to what is wrong here", "reply": "Yes. He wrote that the hardship he suffered was superficial, a symptom of a deep disease, and that he should try to root out the disease. That is a twenty-three-year-old moving his own humiliation out of the center of the story on the same night it happened. Everything he later became was that sentence, walked out over fifty years."}, {"label": "Nothing yet. He only stayed.", "short": "nothing yet, he only stayed", "reply": "And that is not nothing. Staying was the whole of what the night asked, and the whole of what he could do. Everything else came later, in daylight, in the company of others. The turning point is not where the turn is finished. It is where the direction changes."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another waiting room, and another cold hour with a sensible sentence in it. Write one sentence for that night. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "The letter, one last line", "says": "Sethji, one more line, so that I remember this night as I choose to and not as the constable would. It begins with I did.", "options": ["I did not let the coldest hour of the first week decide the year.", "I did move my own humiliation out of the center of the story.", "I did stay in the room I was told to leave."]}, "ice": {"question": "One more line, and this one is yours. Where is the waiting room in your own life right now, the place you have been told you do not belong?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the waiting room", "sub": "Your cold night, beside his", "paragraphs": ["Pietermaritzburg, June 7, 1893, nine at night. You sat where a twenty-three-year-old lawyer sat, with a first-class ticket in your pocket and your coat in a locked room, and the night asked you what it asked him. You wrote: {1}", "Before the night decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was an ocean crossed against his caste's ruling, a vow kept for three years in a city built to break it, and a lifetime of shyness that had never once made him leave a room.", "You refused to let the coldest hour of the first week decide the year. Your reason: {3} That refusal is the deferral. Not tonight. Not from the cold.", "Your first step: {4} {overlap}", "After the step, the railway was the same railway and the law was the same law. Inside, you noticed this: {5}", "Then time did what it does when a man changes direction and keeps walking. Twenty-one years in South Africa, a word that had to be invented, prison, a return home at forty-five, and fifty years of refusing without striking back.", "Asked what turned on that night, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He did this. In the morning he wired the general manager of the railway and Dada Abdulla, and by the time the train came, the Indian merchants of the town were on the platform.", "He did this too, in effect. He boarded the next morning and continued the journey he had paid for, and when he was put off a coach later on the same trip, he continued again.", "The record does not say whether he asked. It says he shivered all night rather than ask. A different first step in the same waiting room is still a first step, and this one might have been warmer."], "stepOverlapFree": "His first step was two telegrams and the morning train. A different first step in the same waiting room is still a first step.", "help": {"zero": "No one came to the waiting room that night, and you did not write the letter either. He did, in his head, and in the morning he sent it as a telegram, and the Indians of the town came to the station. Next time, write the letter. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You wrote the letter in your head {n} on this journey. He did the same all night, and in the morning he sent it as a telegram, and the Indians of the town came to the station. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the waiting room in your own life, as you named it: {ice}", "closing": "The waiting room at Pietermaritzburg has a plaque on it now. What you carry out of it is not a movement, and it is not him. It is the evidence that in the coldest hour of a first week, you moved your own humiliation out of the center of the story and stayed.", "stickerLines": ["Walked with Mohandas Gandhi.", "Pietermaritzburg, June 7, 1893."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The ticket\">\n<g transform=\"rotate(-14 200 200)\" fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n\n  <path d=\"M70,150 L330,150 L330,250 L70,250 Z\" stroke-width=\"4\"/>\n  <path d=\"M110,150 L110,250\" stroke-width=\"2.2\" stroke-dasharray=\"6 6\"/>\n  <circle cx=\"300\" cy=\"200\" r=\"9\" stroke-width=\"3\"/>\n  <path d=\"M150,178 L150,222 M142,186 L150,178\" stroke-width=\"5\"/>\n  <path d=\"M176,190 L262,190 M176,212 L246,212\" stroke-width=\"2\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

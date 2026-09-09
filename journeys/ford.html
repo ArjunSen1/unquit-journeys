@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Henry Ford, 1901</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the documented record of Ford's early ventures, paraphrased, and from the world lists. No brand marks. His later record is deeply contested and is not part of this journey.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "ford", "title": "Henry Ford, 1901", "subtitle": "A rented workshop in Detroit. Late 1901. The second company is failing. Nearly forty.", "object": "The quadricycle", "sticker": "The quadricycle.", "footer": "Drawn from the documented record of Ford's early ventures, paraphrased, and from the world lists. No brand marks. His later record is deeply contested and is not part of this journey.", "arrive": {"heading": "You are standing where a mechanic stood after his second company failed.", "paragraphs": ["He built his first car at thirty-three in a shed behind his house and had to knock out the shed wall to get it out. He was a chief engineer at the electric company, and he left to build cars. His first company, with wealthy backers, built a few expensive vehicles slowly and badly and closed in eighteen months. His second, named for him, is failing this winter over the same argument: the backers want expensive cars now, and he wants a cheap one later.", "He is thirty-eight. Two companies. No car in production. A reputation in Detroit as a man who is difficult to fund and slow to deliver. He has just built a racing car to prove the engine works and driven it himself against the country's best driver, and won, and it changed nothing about the argument.", "The backers are about to bring in another engineer over him. He is going to walk out with his name on a company he no longer controls.", "Now Henry steps aside and you step in. The workshop, two failures, the argument about cheap cars and the walking out are his. What you build after the second failure is yours."], "button": "Stand in the workshop"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The workshop is cold. The racing car that won is under a tarp. The backers meet tomorrow and you know what they will say because they have said it twice.", "question": "What are you feeling right now?", "placeholder": "Say it as a mechanic near forty with two failed companies, not as an industry.", "helper": {"who": "Alexander Malcomson, a coal dealer who will fund the third company and has not yet met you", "says": "You do not know me. I sell coal and I have heard you are difficult. Before I decide whether to fund a man who has failed twice, tell me what you feel in that workshop.", "options": ["I feel that I have been right about the car twice and wrong about the men, and that being right about the car does not build one.", "I feel nearly forty and difficult and slow, which is what Detroit says, and I feel that all three are true and none is the point.", "I feel that I won a race with my own hands last month to prove a thing, and the proof changed no one's mind, and I do not know what proof is for."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the third company, take an inventory. Not of the backers, and not of Ford. Of yourself.", "question": "What have you already done, in your own life, that proves you can fail at the vehicle twice and keep the idea?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Malcomson", "says": "I can tell you what the man in that workshop carries. A car built in a shed at thirty-three and a wall knocked down to get it out. A race won with his own hands against the best driver in the country. Two companies that failed over the same argument, which means the argument is the thing he will not give up. Now you tell me what you carry. Finish one of these.", "options": ["A time I failed at the vehicle twice and kept the idea: ", "A time I proved a thing with my own hands and it changed no one's mind, and I kept the proof: ", "A time I was called difficult for not giving up the one thing that mattered: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the workshop is: two failures at forty is a career, not a beginning. It sounds like Detroit. It is Detroit, and Detroit has funded the wrong car twice. You do not have to decide about a third company tonight. You only have to refuse to let two failed vehicles decide the idea.", "question": "What is the one reason you will not decide tonight?", "placeholder": "Not a prospectus. One reason the two failures do not get the vote.", "helper": {"who": "Malcomson", "says": "Two companies. Tell me why that is not the end of the man.", "options": ["Because both failed on the same argument, and the argument was theirs to make and mine to refuse, and I refused it twice. The third time I will pick the men.", "Because the engine works. I drove it past the best man in the country. The failures were about who pays for what, not about whether it runs.", "Because the cheap car does not exist yet and will not until someone difficult and slow builds it, and I have not met anyone else who wants to."]}}, {"n": 4, "name": "One step", "prompt": "Not the third company. Not the car everyone can afford, which is seven years off. One step, small enough to finish before the backers meet.", "question": "What is it?", "placeholder": "Something a mechanic can do in a cold workshop.", "helper": {"who": "Malcomson", "says": "The meeting is tomorrow. What is the smallest thing you can do tonight?", "options": ["I will write down, in one page, the car I want to build and what it must cost, so that the next backer reads that before he meets me.", "I will walk out of the company with my name on it tomorrow before they bring the other engineer in, and keep the racing car.", "I will find one man who does not sell cars and has money, and ask him to fund the car, not the company."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. A page exists describing the car and its price, or you have resigned from your own name, or a coal dealer has a letter. The second company is still failing. Detroit still calls you difficult.", "question": "What has changed in you?", "placeholder": "Compare it to the tarp over the racing car.", "helper": {"who": "Malcomson", "says": "Nothing about Detroit changed tonight. What changed in the workshop?", "options": ["The car is on one page. The two companies never had one. The next one will start from it.", "I left my own name on a door and walked out with the engine. The name was the container. The engine is the thing.", "I have stopped asking men who sell cars to fund a car they would not sell."]}}, {"n": 6, "name": "Time passes", "montage": ["He leaves the company with his name on it in 1902. It becomes, under other management, one of the great luxury marques of the century. He does not care. In 1903, with the coal dealer's money and a dozen small investors, he founds a third company, at thirty-nine, and this time he controls the argument.", "The cheap car takes five more years. In 1908 it appears, and within two decades half the cars on earth are that car. The assembly line comes later, and the five-dollar day, and a great deal else that this journey does not touch and that history judges harshly.", "The point of 1901 is narrow. A man failed at the vehicle twice, kept the idea, and picked the men the third time. Nothing about what he did with the result is part of this story."], "question": "Two failed companies at thirty-eight, a third at thirty-nine. Here is the question the assembly line cannot answer for you: what did he keep through two failures?", "choices": [{"label": "His name.", "short": "his name", "reply": "He left it on the door of the second company and it is still on a luxury car. The name was not what he kept. It was what he gave away."}, {"label": "The engine.", "short": "the engine", "reply": "He kept the racing car and the engine and the knowledge, and they were necessary and not sufficient. Engines do not argue with backers."}, {"label": "The idea, and the refusal to build the wrong car to please the people paying.", "short": "the idea, and the refusal to build the wrong car to please the people paying", "reply": "Yes. Two companies failed on the same argument, which means the argument was the thread. He would not build expensive cars slowly for men who wanted expensive cars, and it cost him two companies and a reputation, and the third time he picked the men. Rebuild is not trying again. It is trying again with the one thing you refused to give up the first two times, and different people."}, {"label": "Nothing. He got lucky the third time.", "short": "nothing, he got lucky the third time", "reply": "A coal dealer took a chance. Luck. He also had a page, an engine that had won a race, and two failures' worth of knowing exactly what not to agree to. That is not what luck looks like."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another second failure and another Detroit that calls you difficult. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Malcomson", "says": "One line for the next third company. Start with I did.", "options": ["I did keep the idea through two failed vehicles.", "I did walk out with the engine and leave the name.", "I did pick the men the third time."]}, "ice": {"question": "One more line, and this one is yours. What argument have you lost twice that you are not willing to give up?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the workshop", "sub": "Your second failure, beside his", "paragraphs": ["A rented workshop in Detroit, late 1901, a racing car under a tarp and a meeting tomorrow. You stood where a mechanic near forty stood, with two companies failed over the same argument, and the cold room asked you what it asked him. You wrote: {1}", "Before the third company, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a car built in a shed, a wall knocked down, and a race won with his own hands that changed no one's mind.", "You refused to let two failed vehicles decide the idea. Your reason: {3} That refusal is the deferral. Not tonight. Not on Detroit's account.", "Your first step: {4} {overlap}", "After the step, the second company was still failing. Inside, you noticed this: {5}", "Then two years did what two years do when a man picks the men. A coal dealer, a dozen small investors, a third company, and in 1908 a car half the world would drive.", "Asked what he kept through two failures, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["He argued the cheap car to the backers of both companies and lost both times. A page would have been in character. A different first step in the same place is still a first step.", "He did this. He left in March 1902 with the racing car and a small settlement. A different first step in the same place is still a first step.", "He did this. Malcomson sold coal, and funded the third company in 1903. A different first step in the same place is still a first step."], "stepOverlapFree": "His first step was to leave the second company with the engine and without the name. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to Malcomson. He had not arrived yet; he was a coal dealer who took a chance in 1903. Next time, look for the one who does not sell what you are trying to replace. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Malcomson {n} on this journey. A coal dealer funded the third company after two car men had funded the wrong car. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the argument you have lost twice, as you named it: {ice}", "closing": "The workshop is gone under a city that runs on what came out of it. What you carry out is not a company, and it is not him. It is the evidence that you can fail at the vehicle twice and keep the idea, and pick the men the third time.", "stickerLines": ["Walked with Henry Ford.", "Detroit, late 1901."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The quadricycle\">\n<g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<circle cx=\"110\" cy=\"280\" r=\"44\" stroke-width=\"4\"/><circle cx=\"290\" cy=\"280\" r=\"44\" stroke-width=\"4\"/><path d=\"M110,236 L290,236\" stroke-width=\"4\"/><path d=\"M130,236 L130,190 L260,190 L260,236\" stroke-width=\"3\"/><path d=\"M150,190 L150,160 L230,160 L230,190\" stroke-width=\"3\"/><path d=\"M180,160 L180,120 M170,120 L190,120\" stroke-width=\"3\"/><path d=\"M140,210 L250,210\" stroke-width=\"1.4\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

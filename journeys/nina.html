@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Nina Volkov, the ambition that cannot be taken</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Nina Volkov is a composite from Chapter Twenty-Three of The Unquit Stories. The former student was added.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "nina", "title": "Nina Volkov, the ambition that cannot be taken", "subtitle": "A university office, half packed. The contract was not renewed. Twenty-six years.", "object": "The key", "sticker": "The key.", "footer": "Nina Volkov is a composite from Chapter Twenty-Three of The Unquit Stories. The former student was added.", "arrive": {"heading": "You are standing where Nina Volkov stood.", "paragraphs": ["Twenty-six years teaching comparative literature at the same university, on contracts renewed faithfully every year, without tenure. Her particular classrooms, her particular students, her particular way of asking a question that made twenty-two-year-olds suddenly care about things they had not known they cared about. She expected to teach until she retired. She expected a continuity that was never guaranteed.", "The position was eliminated in a restructuring, which is a word that tries to sound like architecture. She is sixty-one. The grief has been real and inelegant. Months of anger. Longer of something heavier. Applications sent to universities with no positions, positions beneath her training, positions above what she could document.", "There is an ambition that lives in other people's opinions of you. It needs an audience, and when the audience goes, it goes. There is another kind. She is standing in a half-packed office trying to find out which one she has.", "Now Nina steps aside and you step in. The boxes, the twenty-six years, the key she has to return and the question are hers. What you want that belongs entirely to you is yours."], "button": "Stand in the office"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The shelves are half empty. The key to the seminar room is on the desk, to be returned by Friday. Twenty-six years of students' names are in a drawer you have not decided about.", "question": "What are you feeling right now?", "placeholder": "Say it as a teacher without a classroom, not as a curriculum vitae.", "helper": {"who": "Sasha, a former student, now forty, who has come to help carry boxes", "says": "You taught me to ask what a book wants. I am asking what you want. Before that, tell me what you feel in this room.", "options": ["I feel that I did this for twenty-six years and the word for its ending is restructuring, and I have never hated a word more.", "I feel that I do not know how much of my wanting to teach was wanting to be seen teaching, and the room is about to tell me.", "I feel sixty-one, and applications to places that do not want me, and a drawer full of names."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before the key is returned, take an inventory. Not of the vitae, and not of Nina. Of yourself.", "question": "What have you already done, in your own life, that proves you can want something without an audience for it?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Sasha", "says": "I can tell you what my teacher carries. Twenty-six years of making people care about things they did not know they cared about, on one-year contracts, with no guarantee of a twenty-seventh. A way of asking questions that I still use in rooms she has never been in. Now you tell me what you carry. Finish one of these.", "options": ["A time I wanted something with no audience for it: ", "A time I kept doing the thing on a one-year promise, for twenty-six years: ", "A time I taught someone something they carried into rooms I never saw: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "The sentence in the office is: without the classroom I am not a teacher. It sounds like a definition. It is a job description mistaken for a self. You do not have to decide what you are without the room this week. You only have to refuse to let a restructuring decide it.", "question": "What is the one reason you will not decide this week?", "placeholder": "Not a job search. One reason the boxes do not get the vote.", "helper": {"who": "Sasha", "says": "A university eliminated a position. It did not eliminate a way of asking. Tell me why you will wait.", "options": ["Because I have not yet separated the wanting to teach from the wanting to be seen teaching, and until I have, I do not know what was taken.", "Because I still use the questions on myself. A teacher with one student is a teacher.", "Because Sasha is carrying my boxes and using my questions in rooms I have never seen. The ambition that cannot be taken may already be walking around without me."]}}, {"n": 4, "name": "One step", "prompt": "Not a new position. Not a definition. One step, small enough to finish before the boxes go to the car.", "question": "What is it?", "placeholder": "Something a teacher can do with a drawer of names and no room.", "helper": {"who": "Sasha", "says": "You do not need a classroom for one step. What is the smallest thing you can do today?", "options": ["I will open the drawer of names and write to one of them, not for a reference, to ask what they are reading.", "I will take one book from the shelf I have never had time to teach and read it as a reader, with no syllabus.", "I will ask Sasha what question of mine she still uses, and write it down, so I know what left the room without me."]}}, {"n": 5, "name": "What you feel now", "prompt": "It is done. A letter to a former student is written, or a book is open with no syllabus, or a question of yours has come back to you in someone else's mouth. The position is still eliminated. The key is still due Friday.", "question": "What has changed in you?", "placeholder": "Compare it to the half-empty shelves.", "helper": {"who": "Sasha", "says": "The restructuring stands. What changed?", "options": ["The room is gone. The wanting is not. I checked, and it was not in the room.", "I read a book with no one to teach it to and I wanted to talk about it anyway. That is the other kind of ambition.", "She told me the question she still uses. It is mine. It left the university twenty years ago and has been fine."]}}, {"n": 6, "name": "Time passes", "montage": ["She does not get the position back, and no university with a position calls. What she finds, slowly, is the second kind of ambition: the one that does not need the audience because it was never about the audience. She reads. She writes. She starts a reading circle in a library that grows past what the room can hold.", "The chapter's argument is that the ambition which lives in others' opinions disappears with them, and the other kind does not, and the only way to find out which you have is to lose the audience and see what is still wanting.", "The drawer of names comes home with her. Some of the names write back."], "question": "Twenty-six years, then a restructuring. Here is the question the boxes cannot answer for you: what was taken?", "choices": [{"label": "Her career.", "short": "her career", "reply": "The position, the room, the contract. Real losses, grieved inelegantly, and not the same as a career, which is a word for what you have done and cannot be restructured."}, {"label": "Her audience.", "short": "her audience", "reply": "Yes, this was taken, and the chapter says that is exactly the test. When the audience goes, the ambition that lived in the audience goes with it. She stood in the office finding out whether anything was left."}, {"label": "Nothing that was hers. The wanting was never in the room.", "short": "nothing that was hers, the wanting was never in the room", "reply": "Yes. There is an ambition that needs to be seen, and it is gone the day the seeing stops. There is another that belongs entirely to you, and losing the audience is the only way to prove which one you had. She lost the room and found the wanting standing there without it. That is the ambition that cannot be taken, and she did not know she had it until they took everything else."}, {"label": "Her students.", "short": "her students", "reply": "They took her questions into rooms she never saw, and some wrote back. That is not taking. That is the opposite."}]}, {"n": 7, "name": "Lock it in", "prompt": "There will be another room taken, another audience gone. Write one sentence for it. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Sasha", "says": "One line for the next restructuring. Start with I did.", "options": ["I did separate the wanting from the wanting to be seen.", "I did read the book with no one to teach it to, and wanted to anyway.", "I did find the ambition standing there without the room."]}, "ice": {"question": "One more line, and this one is yours. Which of your ambitions would survive the audience leaving?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in the half-packed office", "sub": "Your key, beside hers", "paragraphs": ["A university office, boxes half full, the key due Friday. You stood where Nina Volkov stood, with twenty-six years of names in a drawer, and the room asked you what it asked her. You wrote: {1}", "Before the key was returned, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was twenty-six one-year contracts and a way of asking that had already left the room in other people.", "You refused to let a restructuring decide what you are. Your reason: {3} That refusal is the deferral. Not this week. Not from a word that sounds like architecture.", "Your first step: {4} {overlap}", "After the step, the position was still eliminated. Inside, you noticed this: {5}", "Then the months did what months do when the audience is gone and the wanting is not. Books read as a reader, a reading circle that outgrew its room, a drawer of names that wrote back.", "Asked what was taken, you chose {choice}. {reply}", "{help}"], "stepOverlap": ["The drawer came home with her, the chapter says. Whether she wrote first, it does not. A different first step in the same place is still a first step.", "This is close to what she did: read as a reader, without a syllabus, and found the wanting intact. A different first step in the same place is still a first step.", "Her students carried her questions; the chapter is explicit. Whether she asked one to say it back, it does not say. A different first step in the same place is still a first step."], "stepOverlapFree": "Her first step was to read without a syllabus and find she still wanted to talk about it. A different first step in the same place is still a first step.", "help": {"zero": "You did not turn to Sasha. Nina's students are where her ambition had been living all along, in rooms she never saw. Next time, ask the one carrying the boxes. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You turned to Sasha {n} on this journey. Nina's students were the evidence that the wanting had never been in the room. Asking is not the opposite of continuing. It is how continuing is done."}, "lockLabel": "The evidence you are taking with you", "iceLine": "And the ambition that would survive the audience leaving, as you named it: {ice}", "closing": "The office has a new name on it. What you carry out is not a position, and it is not Nina. It is the evidence that you know which of your wants would still be standing if no one were watching.", "stickerLines": ["Walked with Nina Volkov.", "A half-packed office, twenty-six years in."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The key\">\n<g transform=\"rotate(-30 200 200)\" fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<circle cx=\"130\" cy=\"200\" r=\"46\" stroke-width=\"4\"/><circle cx=\"130\" cy=\"200\" r=\"16\" stroke-width=\"2.4\"/><path d=\"M176,200 L330,200\" stroke-width=\"5\"/><path d=\"M296,200 L296,230 M318,200 L318,222 M270,200 L270,220\" stroke-width=\"5\"/>\n</g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>
