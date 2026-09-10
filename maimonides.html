@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Maimonides</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Historical details drawn from the public record and from Maimonides' own letter to Japheth ben Elijah, written some years after his brother's death. The year of David's drowning is given variously between 1169 and 1177 and is flagged in the script.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "maimonides", "title": "Maimonides", "subtitle": "About 1178. Fustat, Old Cairo. The end of the year in bed.", "object": "The letter", "sticker": "The letter.", "footer": "Historical details drawn from the public record and from Maimonides' own letter to Japheth ben Elijah, written some years after his brother's death. The year of David's drowning is given variously between 1169 and 1177 and is flagged in the script.", "arrive": {"heading": "You are standing where Maimonides stood.", "paragraphs": ["Moses ben Maimon is about forty. He was born in Córdoba and driven out of it at ten, when a new dynasty gave the Jews of Spain the choice of conversion or exile. The family wandered for nearly twenty years, through Fez, where they lived quietly as something they were not, through the Holy Land, and finally to Egypt, to the old city of Fustat beside Cairo. His father died soon after they arrived. Moses had already begun the work of his life: a commentary on the whole of the oral law, written on the road, and behind it a larger plan, to set the entire law in order in one book so that no one would need to search the sea of the Talmud again.", "None of this earned a living. His younger brother David did that. David was a merchant in precious stones, and he carried the family: Moses, Moses's wife, David's own wife and small daughter. Moses studied and wrote and taught for nothing, and David sailed. A year ago David sailed for India from a port on the Red Sea, carrying his own capital and most of his brother's. The ship went down in the Indian Ocean. Everything went with it.", "Moses took to his bed. He has been there, or nearly, for about a year. A fever at first, then a heaviness of the heart that the physicians of Cairo have no name for except grief. He has written to no one. The commentary lies where he left it. The great book is a plan on paper. He is the head of a household with no income, and he is a scholar who has never been paid for anything.", "Tonight Moses steps aside and you step in. The bed, the drowned brother, the widow and the child in the next room, the unfinished book and the tradition that forbids a scholar to sell his learning are his. Every decision from here is yours. He is not asking you to become him. He is asking you to lie in a room in Fustat at the end of a year of grief and decide whether there is a way to stand up that is not a betrayal of the man who drowned.", "Two roads lead out of this bed. One is to become a paid rabbi, which he has written is a desecration of the law. The other is a trade he has studied but never practised: medicine. Either way, the brother who carried him is gone, and someone must carry the house."], "button": "Step into the room"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "Evening. The lamp is lit. David's daughter is laughing in the courtyard at something. The letter you have never answered, from a friend in Acre asking how you are, is on the chest by the bed.", "question": "What are you feeling right now?", "placeholder": "Write it plainly. No one else will read this.", "helper": {"who": "Your wife, who has kept the house for a year without asking you for anything", "says": "You have not said it aloud in twelve months. Say it to me.", "options": ["I feel that the better man drowned, and the useless one was left to explain it.", "I feel that God has taken the one person who let me be who I am.", "I feel ashamed that a scholar of the law has lain in bed for a year while a widow and a child waited."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about tomorrow, take an inventory of tonight. Not of the household accounts. Of yourself.", "question": "What have you already done, in your own life, that proves you know how to continue after the one who carried you is gone?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Joseph ben Judah, your student, who has come from the Maghreb to learn from you", "says": "I know what you carry. You lost a city at ten and a country at twenty and wrote a commentary on the whole of the law on the road between them. You buried your father in a strange country and finished the work anyway. Now tell me what you carry. Finish one of these.", "options": ["A time I lost the person who made my work possible and found another way to make it possible: ", "A time I was uprooted and carried the work with me: ", "A time grief put me down for a season and I stood up changed but standing: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "Tonight one sentence is trying to become true: the work died with him, because he was the only reason it could be done. If you let it settle after a year in bed, it becomes the truth of your life. You do not have to argue with it. You only have to refuse to decide it tonight.", "question": "What is the one reason you will not let tonight decide anything?", "placeholder": "Not a plan. One reason to wait until the light changes.", "helper": {"who": "Your wife", "says": "Do not decide your life from this bed. Sit up. Eat something. Then tell me why you waited.", "options": ["Because a year in bed is grief speaking, and grief is not the only authority in this house.", "Because the child in the courtyard is laughing, and if she can, then something has continued that I have not noticed.", "Because I studied medicine in Fez for pleasure, and I do not yet know what it is for."]}}, {"n": 4, "name": "One step", "prompt": "Morning. You are sitting up. The household is awake. You need one step. Not a career. Not a philosophy of suffering. One step small enough that you cannot fail it today.", "question": "What is it?", "placeholder": "Something you can finish before the midday prayer.", "helper": {"who": "Joseph ben Judah", "says": "Whatever you do first, the house will do next. What will you do first?", "options": ["I will go out today and offer myself as a physician to anyone in Fustat who will pay. The law is not for sale. My knowledge of the body can be.", "I will answer the letter from Acre. I will tell him plainly that my brother drowned and that I have been ill a year with grief, and that I am now getting up.", "I will open the commentary to the page where I stopped and write one line. Not a chapter. One line, so that the book knows I am back."]}}, {"n": 5, "name": "What you feel now", "prompt": "You did it. You have walked to the market as a physician, or the letter is sealed, or one line is written. Nothing about your situation has changed. David is still gone. The household still has no income this morning.", "question": "What has changed in you?", "placeholder": "Compare it to last night.", "helper": {"who": "Your wife", "says": "I watched you go out the door. Do you want to know what I saw?", "options": ["The grief is the same size. But it is walking beside me now, not lying on top of me.", "I have stopped asking why he was taken and started asking what he made possible that I can keep.", "I am afraid I will be a poor physician. I find I am not afraid of being a physician."]}}, {"n": 6, "name": "Time passes", "montage": ["You practise medicine in Fustat, and then in Cairo, and within a few years you are physician to the household of the vizier al-Fadil and, later, to the court of Saladin himself. You write medical books between patients: on asthma, on poisons, on the regimen of health.", "About 1180. You finish the great book. Fourteen volumes, the whole of the law set in order in plain Hebrew, so that a person could find any ruling without searching the sea. You call it the Mishneh Torah. It is still in daily use.", "About 1190. You finish the Guide for the Perplexed, written in Arabic as letters to Joseph ben Judah, the student who stood by your bed. It will be read by Aquinas, by Spinoza, by people who have never heard the word Talmud.", "You write to Japheth ben Elijah in Acre at last. You tell him that the worst blow of your life was the death of your brother in the Indian Ocean, that you lay a year in bed, and that whenever you see his handwriting or one of his books your heart turns over. You say you are still not comforted. Then you describe your day: the court in the morning, the sick in your courtyard until night, so tired you can barely speak. You are still working.", "December 1204. You die in Fustat and are carried to Tiberias for burial. On your tomb they will later write that from Moses to Moses there was none like Moses."], "question": "The evidence has arrived, and it is still in daily use. Here is the question the fourteen volumes cannot answer. On which day was the unquitter made?", "choices": [{"label": "About 1180. The day the Mishneh Torah was finished.", "short": "the day the great book was finished", "reply": "Look again. The book was the evidence arriving. It was finished because a man got out of bed two years earlier with no income and a drowned brother, and went looking for a way to feed the house. A great work does not make an unquitter. It is written by one."}, {"label": "The day you first took up the commentary on the road out of Spain.", "short": "the day you took up the commentary on the road", "reply": "A great beginning, made young. But you had a father and a brother then. The decision that counted came when both were gone and the work had no one left to carry it but you."}, {"label": "The morning you got out of bed and went into Fustat as a physician.", "short": "the morning you went into Fustat as a physician", "reply": "Yes. There was no court appointment, no Guide, no Mishneh Torah. There was a year of grief, a widow and a child, and a trade you had studied for pleasure. Unquitters are not made when the work is honoured. They are made the morning they stand up unconsoled and go to work anyway. Tonight, in the same room, you made yours."}, {"label": "The year the family left Córdoba, when you were ten.", "short": "the year the family left Córdoba", "reply": "Even earlier. Which means Maimonides was already an unquitter before Fustat. The drowning did not make him one. It found one. That is what your own evidence in step two was for. It was there before tonight."}]}, {"n": 7, "name": "Lock it in", "prompt": "You will lose the one who carries you. Different room. Write one sentence you want to be able to read on that day. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Joseph ben Judah", "says": "I will keep your letters. What should this one say?", "options": ["I did get up unconsoled and go to work, and the work did not require me to be consoled first.", "I did find a way to carry the house that did not sell the thing I loved.", "I did let the grief walk beside me instead of lying under it."]}, "ice": {"question": "One more line, and this one is yours. Where is the year in bed in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in Maimonides' room", "sub": "Your decisions, beside his", "stepOverlap": ["He made the same choice. He became a physician to support the household, rising to serve the vizier's court, and he never took payment for teaching the law.", "He made the same choice, years later. His letter to Japheth ben Elijah is the source for almost everything known about the year in bed, and it ends with a description of a working day.", "He made the same choice, in effect. The Mishneh Torah was finished within a few years of his getting up. The line he stopped at was picked up again."], "stepOverlapFree": "His first step was different. He went out into Fustat as a physician, kept the law unpaid, and finished the book. A different choice in the same room is still a choice made.", "help": {"zero": "You did not ask for help on this journey. Maimonides did, in his way. A wife who kept the house, a student who stayed, a friend in Acre he finally wrote to. Next time, try the door. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You asked for help {n} on this journey. Maimonides had a wife who kept the house, a student who stayed, and a friend in Acre he finally wrote to. Asking is not the opposite of continuing. It is how continuing is done."}, "closing": "The book is still in daily use. The letter is still read. What you carry out of the room is not the fourteen volumes and it is not Maimonides. It is the evidence that you stood up unconsoled and went to work.", "paragraphs": ["About 1178. A room in Fustat, the lamp lit, a letter unanswered on the chest. You stood where Maimonides lay, and the end of the year asked you what it asked him. That night you wrote: {1} His own words, written years later, say that he lay a year in bed with a fever and despair, and that he never was comforted.", "Before you decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a commentary written on the road out of Spain, and a father buried in a foreign country with the work still going.", "You refused to let the first night decide. Your reason: {3} That refusal has a name in the Unquit vocabulary. The deferral. Not tonight. Sit up. Eat. Tomorrow's light will be different.", "Your first step: {4} {overlap}", "After the step, nothing outside had changed. Inside, you noticed this: {5}", "Then time did what time does. A physician's courtyard. A vizier's court. Fourteen volumes about 1180, a Guide about 1190, and a letter to Acre that ends with a working day.", "Asked on which day the unquitter was made, you chose {choice}. {reply}", "{help}"], "lockLabel": "The evidence you are taking with you", "iceLine": "And the year in bed in your own life, as you named it tonight: {ice}", "stickerLines": ["Walked with Maimonides.", "Fustat, about 1178."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The letter\"><g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M100,90 L300,90 L300,320 L100,320 Z\" stroke-width=\"3.5\"/><path d=\"M126,130 L274,130 M126,156 L274,156 M126,182 L250,182 M126,208 L274,208 M126,234 L236,234 M126,260 L274,260 M126,286 L200,286\" stroke-width=\"1.6\"/><path d=\"M300,120 Q330,110 340,84 Q316,70 300,90\" stroke-width=\"2.2\"/><path d=\"M60,330 q20,-30 40,0 q20,30 40,0\" stroke-width=\"1.4\"/></g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Mary Anning</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Historical details drawn from the public record, Anning's surviving letters and the collections of the Natural History Museum and Lyme Regis Museum.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "anning", "title": "Mary Anning", "subtitle": "October 1833. The cliffs at Black Ven, Lyme Regis, Dorset.", "object": "The hammer", "sticker": "The hammer.", "footer": "Historical details drawn from the public record, Anning's surviving letters and the collections of the Natural History Museum and Lyme Regis Museum.", "arrive": {"heading": "You are standing where Mary Anning stood.", "paragraphs": ["Mary Anning is thirty-four. She has been walking these cliffs since she was a child, first with her father, a cabinetmaker who sold curiosities to summer visitors and died in debt when she was eleven, then alone. At twelve she and her brother uncovered the first ichthyosaur skeleton to be recognised in London. At twenty-four she found the first complete plesiosaur. At twenty-nine, the first pterosaur outside Germany. The men who bought them wrote the papers. Her name appears in almost none of them.", "The cliffs give up their fossils only when they fall, so she works in winter, after storms, when the mud slides and the sea has not yet taken what the land let go. It is the most dangerous time to be under Black Ven. Every collector in Lyme knows it. She goes anyway, because she has a mother to feed and because no one else can see what she sees in a grey lump of shale.", "This morning the cliff came down. It came down a few feet from her, so close that the sound arrived after the mud did. Her dog Tray, the black and white terrier who marked her finds while she went for help, was standing between her and the fall. He was killed in an instant. She was not. That is the whole of the difference, and it was a matter of a step.", "Tonight Mary steps aside and you step in. The cliffs, the debt, the dog and the unwritten name are hers. Every decision from here is yours. She is not asking you to become her. She is asking you to stand on a shingle beach in October with the hammer still in your hand and the ground you have trusted since childhood now proven a liar.", "The season has just begun. The storms that bring the fossils are the storms that bring the cliff. There is no version of this work that is safe. There is only whether you go back down."], "button": "Step onto the shingle"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "You have carried Tray up the path. The mud on your skirt is the same mud that would have buried you. Your mother has not asked. She has put the kettle on.", "question": "What are you feeling right now?", "placeholder": "Write it plainly. No one else will read this.", "helper": {"who": "Elizabeth Philpot, collector, your friend of twenty years", "says": "You need not put it in a letter. Say it to me.", "options": ["I feel that the cliff has finally told me the truth, and the truth is that it will have me one day.", "I feel the loss of the one companion who never took credit for what I found.", "I feel numb, and I know the numbness is a kind of mercy that will not last."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about tomorrow, take an inventory of tonight. Not of the fossils. Of yourself.", "question": "What have you already done, in your own life, that proves you know how to continue after the ground gives way?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Molly Anning, your mother", "says": "I can tell you what you carry. Your father died owing more than we had, and you went to the beach the next week with his hammer. You have fed this house on things other people walked past. Now tell me what you carry. Finish one of these.", "options": ["A time I lost the person who stood beside me and kept the work going: ", "A time the ground I trusted gave way and I found footing anyway: ", "A time I did the work without the credit, and kept doing it: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "Tonight one sentence is trying to become true: the cliffs are not worth my life. It may even be right. But a true sentence decided in grief is still a sentence decided in grief. You do not have to argue with it. You only have to refuse to decide it tonight.", "question": "What is the one reason you will not let tonight decide anything?", "placeholder": "Not a plan. One reason to wait until the light changes.", "helper": {"who": "Henry De la Beche, geologist, who learned the cliffs from you as a boy", "says": "I will not write to London tonight about what you intend. Tomorrow the tide will show us a different beach. Why wait?", "options": ["Because the cliff that fell today is the cliff that has fed us for twenty years, and one day does not cancel twenty years.", "Because grief is a poor surveyor. It measures everything as deep.", "Because the next storm will bring down what this one loosened, and I am the only one in Lyme who will know what it is."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The tide is out. The fall has left a new face of blue lias below Black Ven, and the shingle is full of what it carried. You need one step. Not a decision about the rest of your life. One step small enough that you cannot fail it today.", "question": "What is it?", "placeholder": "Something you can finish before the tide turns.", "helper": {"who": "Elizabeth Philpot", "says": "Whatever you do first will tell you what you have decided. What will you do first?", "options": ["I will bury Tray at the top of the path where he waited for me, and then I will walk back down.", "I will write the letter I have been putting off, to Mrs Murchison in London, and tell her plainly what happened and that I am still here.", "I will take the hammer down to the new fall and look. Only look. Not dig. Not yet."]}}, {"n": 5, "name": "What you feel now", "prompt": "You did it. The grave is dug, or the letter is sealed, or you have stood at the foot of the fall with the hammer in your hand. Nothing about your situation has changed. The cliff is still the cliff. The debt is still the debt.", "question": "What has changed in you?", "placeholder": "Compare it to last night.", "helper": {"who": "Molly Anning", "says": "I watched you go down the path. Do you want to know what I saw?", "options": ["The fear is still there, but it has a shape now. It is a place on the cliff, not a weather over everything.", "I went back down for Tray as much as for the fossils. He would have gone.", "I have stopped waiting for the cliff to be safe. It never was. I was working anyway."]}}, {"n": 6, "name": "Time passes", "montage": ["You go back to the cliffs that winter and every winter after. In your letter to Charlotte Murchison you write that the cliff fell close to your feet and that it was but a moment between you and the same fate. You post it, and you keep collecting.", "1838. The British Association for the Advancement of Science, with a contribution from the government, grants you an annuity of twenty-five pounds a year. It is the first public acknowledgement, and it comes from men who had been buying your fossils for twenty-seven years.", "1839. Your one published sentence appears in the Magazine of Natural History, correcting a professor about a shark spine. You sign it with your name.", "March 9, 1847. You die of breast cancer at forty-seven. The Geological Society of London, which would not admit women for another fifty-seven years, publishes a eulogy. Your friends pay for a stained glass window in the parish church.", "The plesiosaur you found at twenty-four still stands in the Natural History Museum in London. The label now carries your name. Children learn a tongue twister about a woman who sold sea shells by the sea shore. Most of them do not know it is about you. Some of them will."], "question": "The evidence has arrived, most of it late. Here is the question the museum label cannot answer. On which day was the unquitter made?", "choices": [{"label": "1838. The day the annuity was granted.", "short": "the day the annuity was granted", "reply": "Look again. The annuity was the world catching up. It rewarded a decision made five years earlier on a shingle beach, and twenty-seven years earlier in a cabinetmaker's debt. Recognition does not make an unquitter. It finds one."}, {"label": "1811. The day you and your brother found the ichthyosaur.", "short": "the day you found the ichthyosaur", "reply": "A great day, and the beginning of everything. But a find is not a decision. The decision came when the same cliffs that gave you the ichthyosaur tried to take you, and you went back."}, {"label": "The morning after the landslide, when you walked back down the path.", "short": "the morning you walked back down the path", "reply": "Yes. The cliff had shown you the terms. You accepted them with a hammer in your hand and a dead dog buried at the top of the path. Unquitters are not made when the world is safe. They are made when it has proven it is not. Tonight, on the same shingle, you made yours."}, {"label": "1810. The week after your father died, when you went to the beach with his hammer.", "short": "the week after your father died", "reply": "Even earlier. Which means Mary Anning was already an unquitter at eleven, before London had heard of her. The landslide did not make her one. It found one. That is what your own evidence in step two was for. It was there before tonight."}]}, {"n": 7, "name": "Lock it in", "prompt": "The ground will give way again. Different ground. Write one sentence you want to be able to read on that day. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Henry De la Beche", "says": "You taught me to read the cliff. Teach me what to write about you. What should the line say?", "options": ["I did go back down the path the morning after the cliff proved it could take me.", "I did the work without the name, and the work was still mine.", "I did bury what I lost at the top of the path, and then I went to look for what was left."]}, "ice": {"question": "One more line, and this one is yours. Where is the cliff in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, on Mary Anning's shingle", "sub": "Your decisions, beside hers", "stepOverlap": ["She made the same choice. Tray was buried, and she was back under Black Ven that winter. Her letters from the following years are about finds, not about the fall.", "She made the same choice, in almost the same words. Her letter to Charlotte Murchison names the fall, names the dog, and says that it was but a moment between her and the same fate. Then it goes on to other business.", "She made the same choice. She went back to look. Looking, for Mary Anning, was never separate from finding."], "stepOverlapFree": "Her first step was different. She buried the dog, wrote one plain letter to London, and was back on the cliffs before the season ended. A different choice on the same shingle is still a choice made.", "help": {"zero": "You did not ask for help on this journey. Mary did, sparingly, and it took the form of two or three friends who kept her name alive when London would not. Next time, try the door. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You asked for help {n} on this journey. Mary asked sparingly, and it took the form of two or three friends who kept her name alive when London would not. Asking is not the opposite of continuing. It is how continuing is done."}, "closing": "The cliff is still there. So is the plesiosaur. What you carry off the beach is not the museum label and it is not Mary. It is the evidence that you went back down the path when the ground had proven what it was.", "paragraphs": ["October 1833. The beach below Black Ven. You stood where Mary Anning stood, and the cliff asked you what it asked her. With the mud still on your skirt, you wrote: {1} Her own letter about that day is short and unornamented. The fall, the dog, the moment, and then the next find.", "Before you decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was 1810, a father dead in debt, and an eleven-year-old walking to the beach with his hammer.", "You refused to let the first night decide. Your reason: {3} That refusal has a name in the Unquit vocabulary. The deferral. Not tonight. Tomorrow's tide will show a different beach.", "Your first step: {4} {overlap}", "After the step, nothing outside had changed. Inside, you noticed this: {5}", "Then time did what time does. The annuity in 1838. The one signed sentence in 1839. The death at forty-seven. And the plesiosaur, still standing in London, with her name now on the label.", "Asked on which day the unquitter was made, you chose {choice}. {reply}", "{help}"], "lockLabel": "The evidence you are taking with you", "iceLine": "And the cliff in your own life, as you named it tonight: {ice}", "stickerLines": ["Walked with Mary Anning.", "October 1833."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The hammer\"><g transform=\"rotate(32 200 200)\" fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M190,120 L190,350 M210,120 L210,350\" stroke-width=\"3\"/><path d=\"M190,350 Q200,362 210,350\" stroke-width=\"3\"/><path d=\"M130,100 L270,100 L270,124 L130,124 Z\" stroke-width=\"4\"/><path d=\"M270,100 Q300,96 306,112 Q300,128 270,124\" stroke-width=\"4\"/><path d=\"M130,100 Q104,86 92,64 Q118,80 130,124\" stroke-width=\"4\"/><path d=\"M196,150 L204,150 M196,176 L204,176 M196,202 L204,202\" stroke-width=\"1.6\"/></g><g fill=\"none\" stroke=\"#8e1b1b\" stroke-width=\"1.6\"><path d=\"M52,330 a26,26 0 0 1 0,-52 M52,278 a52,52 0 0 0 -30,52\"/><path d=\"M348,340 a18,18 0 0 1 0,-36 a36,36 0 0 0 -20,36\"/></g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Jorge Luis Borges</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Historical details drawn from the public record, Borges's own essays and lectures, including the Poem of the Gifts, and standard biographies. The exact degree of his sight in 1955 is described by him as an inability to read print, not total darkness, and is flagged in the script.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "borges", "title": "Jorge Luis Borges", "subtitle": "1955. The National Library, Mexico Street, Buenos Aires.", "object": "The key", "sticker": "The key.", "footer": "Historical details drawn from the public record, Borges's own essays and lectures, including the Poem of the Gifts, and standard biographies. The exact degree of his sight in 1955 is described by him as an inability to read print, not total darkness, and is flagged in the script.", "arrive": {"heading": "You are standing where Jorge Luis Borges stood.", "paragraphs": ["Jorge Luis Borges is fifty-five. He has been going blind for most of his life, the same slow hereditary blindness that took his father and his grandmother, arriving not as a curtain but as a fog that thickens each year. He can no longer read. He can see colour, movement, a kind of luminous mist, but not a printed page. The one thing he has wanted since childhood, more than sight itself, is books, and books are now closed to him.", "For most of his life he has been poor and unfamous. Through the years of the last government he was punished for his politics: taken from his small post at a municipal library and appointed, as a public humiliation, inspector of poultry and rabbits in the markets. He resigned. Now that government has fallen, and the new one wishes to honour the writers it drove out. This year they have offered him the grandest literary post in the country. Director of the National Library of Argentina. Nine hundred thousand volumes. He has just been appointed.", "He has taken the office. The desk is enormous. The catalogue runs to rooms. And he cannot read a single spine. He is the master of nine hundred thousand books and he is blind. He knows that two of the directors before him were also blind at the end. It is either the cruelest joke God has made at his expense, or it is the point.", "Tonight Jorge Luis steps aside and you step in. The office, the fog, the nine hundred thousand books you cannot open and the mother waiting at home who will now have to read to you are his. Every decision from here is yours. He is not asking you to become him. He is asking you to sit at a director's desk in Buenos Aires holding the key to a building full of the one thing you love and can no longer use.", "You could treat the post as an honour to be worn quietly, a title with a salary, and let the fog have the rest. Or you could ask what a blind man is supposed to do with nine hundred thousand books. The library is yours either way. The question is whether you are still a writer."], "button": "Sit at the desk"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "Evening in the great office. The lamps are lit, though the light is only a warmth to you now. Somewhere in the building a clerk is shelving books you will never see. Your mother is at home, and you both know she will read to you tonight.", "question": "What are you feeling right now?", "placeholder": "Write it plainly. No one else will read this.", "helper": {"who": "Leonor Acevedo, your mother, who is eighty and will read to you for years", "says": "You need not make it into an epigram for me. Just tell me.", "options": ["I feel the irony of it in my body, the books and the blindness arriving together, and I do not yet know whether to laugh or grieve.", "I feel that I have been given the shape of everything I wanted and none of the use of it.", "I feel afraid that the writer is finished, and that the director is a tomb they have built for him with honours."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about tomorrow, take an inventory of tonight. Not of the catalogue. Of yourself.", "question": "What have you already done, in your own life, that proves you know how to continue after the tool you worked with is taken?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Adolfo Bioy Casares, your friend and collaborator of twenty years", "says": "I know what you carry. When they made you inspector of poultry to shame you, you resigned rather than perform the shame. You have written stories dictated aloud, walking, for years now. You composed whole paragraphs in your head before you lost the page. Now tell me what you carry. Finish one of these.", "options": ["A time the tool I relied on was taken and I found the work lived somewhere else: ", "A time they tried to shame me out of my work and I did not accept the shame: ", "A time I made something entirely inside my head before it existed on paper: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "Tonight one sentence is trying to become true: a blind man cannot be a writer, so wear the title and be quiet. It has the sound of mercy. If you let it settle at this desk, the writer is buried under the director. You do not have to argue with it. You only have to refuse to decide it tonight.", "question": "What is the one reason you will not let tonight decide anything?", "placeholder": "Not a plan. One reason to wait until the light changes.", "helper": {"who": "Estela Canto, who has argued with you about everything for years", "says": "Do not compose the melancholy version tonight, the one where you are a tragic figure among unreadable books. Sleep. Then tell me why you waited.", "options": ["Because I have not written blindness into a poem yet, and until I have, I do not know what it is.", "Because a man who has just been given nine hundred thousand books he cannot read is in no condition to say what they are for.", "Because two blind directors came before me. That is not a joke. That is a lineage, and I want to know what they knew."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The staff are waiting to learn what kind of director you will be. Your mother is ready with the first book. You need one step. Not a philosophy of blindness. One step small enough that you cannot fail it today.", "question": "What is it?", "placeholder": "Something you can finish before the library opens.", "helper": {"who": "Adolfo Bioy Casares", "says": "Whatever you do first, everyone will take as the measure of the man. What will you do first?", "options": ["I will dictate a poem today about this exact thing. The books and the night given to me at the same time. If I can name it, it cannot only be a wound.", "I will set my mother to read to me for two hours every evening, and treat it not as help but as the way I read now. Reading with two people instead of one.", "I will begin to learn Old English by ear, out loud, with the young people who come to the library. If I cannot read what exists, I will hear my way into what is oldest."]}}, {"n": 5, "name": "What you feel now", "prompt": "You did it. The poem is dictated, or the evening readings are fixed, or the first Anglo-Saxon words are in your mouth. Nothing about your situation has changed. The fog is the same. The nine hundred thousand spines are still unreadable.", "question": "What has changed in you?", "placeholder": "Compare it to last night.", "helper": {"who": "Leonor Acevedo", "says": "I read to you for two hours tonight. Do you want to know what I heard in your voice?", "options": ["The irony is the same size, but I have made it into a line, and a line can be lived inside.", "I have stopped mourning the reader I was and started building the reader I can be, which needs a second person and does not mind.", "I am afraid the writer is gone. I find the writer is dictating this to you right now."]}}, {"n": 6, "name": "Time passes", "montage": ["You dictate the Poem of the Gifts. In it you say that God, with magnificent irony, gave you at once the books and the night, and that you drift through a dim library, no longer able to read a single volume. You name the two blind directors before you. You do not ask for pity. You call it a gift.", "You direct the library for eighteen years. You never read a book there with your eyes. Your mother reads to you at home; students read to you at the library; you learn to hold long texts entire in your memory, quoting pages you last saw decades ago.", "You dictate everything now: essays, stories, and above all lectures, given from memory to rooms that fill and overflow. Blindness, you come to say, is one more instrument, like exile or old age. A writer, you tell audiences, must think of everything that happens to him as a resource, even this.", "The fame you never had arrives late and enormous. You are read in every language, invited to every country, described by younger writers as the man who reinvented what a story could be. You marvel that it came after the sight left.", "June 14, 1986. You die in Geneva, the city where you first went blind as a schoolboy, and are buried there. Your last books were dictated to the end. You never saw a page of them."], "question": "The evidence has arrived, and it was dictated. Here is the question the fame cannot answer. On which day was the unquitter made?", "choices": [{"label": "The years the world finally read you.", "short": "the years the world finally read you", "reply": "Look again. The fame was the world arriving decades late. It arrived because a blind man at a great desk decided, on his first morning, that the writer was not finished. Applause does not make an unquitter. It finds one."}, {"label": "The day you were appointed director of the National Library.", "short": "the day you were appointed director", "reply": "An honour, and a heavy one. But an appointment is not a decision. The decision came the morning after, when you chose what a blind man would do with nine hundred thousand books rather than merely owning the key to them."}, {"label": "The morning you dictated the poem instead of wearing the title in silence.", "short": "the morning you dictated the poem", "reply": "Yes. There was no late fame yet, no lectures, no worldwide reader. There was a fog, a desk, an unreadable catalogue and a choice about whether the writer survived the director. Unquitters are not made when the world reads them at last. They are made the morning they dictate the first line. Tonight, at the same desk, you made yours."}, {"label": "The year they made you inspector of poultry and you resigned rather than be shamed.", "short": "the year you resigned rather than be shamed", "reply": "Even earlier. Which means Borges was already an unquitter before the library. The blindness did not make him one. It found one. That is what your own evidence in step two was for. It was there before tonight."}]}, {"n": 7, "name": "Lock it in", "prompt": "The tool you work with will be taken again. Different desk. Write one sentence you want to be able to read on that day, or have read to you. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Adolfo Bioy Casares", "says": "Dictate it to me. I will write it down as you always do.", "options": ["I did make the wound into a line, and then I lived inside the line.", "I did learn to read with a second person and stopped calling it help.", "I did dictate the first morning, so the writer would know he had survived the director."]}, "ice": {"question": "One more line, and this one is yours. Where is the fog in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, at Borges's desk", "sub": "Your decisions, beside his", "stepOverlap": ["He made the same choice. He dictated the Poem of the Gifts, which turns the books and the blindness arriving together into an irony he can name rather than a wound he must hide.", "He made the same choice. His mother read to him for years, and students read to him at the library, and he came to call this simply the way he now read.", "He made the same choice. He took up Old English and later Old Norse by ear, learning by voice what he could no longer take from the page."], "stepOverlapFree": "His first step was different. He dictated a poem, fixed the evening readings, and learned an ancient language by ear. A different choice at the same desk is still a choice made.", "help": {"zero": "You did not ask for help on this journey. Borges did, every evening. A mother's voice, a student's voice, a friend's pen. His reading became a thing done by two people. Next time, try the door. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You asked for help {n} on this journey. Borges asked every evening: a mother's voice, a student's voice, a friend's pen. His reading became a thing done by two people. Asking is not the opposite of continuing. It is how continuing is done."}, "closing": "The library still stands. The poems are still read aloud. What you carry from the desk is not the fame and it is not Borges. It is the evidence that you dictated the first line rather than wearing the title in silence.", "paragraphs": ["1955. The director's office at the National Library, the lamps a warmth you cannot read by. You stood where Borges stood, and the nine hundred thousand books asked you what they asked him. That evening you wrote: {1} His own poem names the irony without asking for pity, and calls it a gift.", "Before you decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a resignation rather than a shaming, and years of composing whole paragraphs in his head.", "You refused to let the first night decide. Your reason: {3} That refusal has a name in the Unquit vocabulary. The deferral. Not tonight. Tomorrow's light, such as it is, will be different.", "Your first step: {4} {overlap}", "After the step, nothing outside had changed. Inside, you noticed this: {5}", "Then time did what time does. Eighteen years as director, not one book read by eye. Lectures from memory to overflowing rooms. A late and enormous fame. And a death in Geneva, the city where the fog began.", "Asked on which day the unquitter was made, you chose {choice}. {reply}", "{help}"], "lockLabel": "The evidence you are taking with you", "iceLine": "And the fog in your own life, as you named it tonight: {ice}", "stickerLines": ["Walked with Jorge Luis Borges.", "Buenos Aires, 1955."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The key\"><g transform=\"rotate(40 200 200)\" fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"200\" cy=\"110\" r=\"52\" stroke-width=\"4\"/><circle cx=\"200\" cy=\"110\" r=\"24\" stroke-width=\"3\"/><path d=\"M200,162 L200,340\" stroke-width=\"5\"/><path d=\"M200,300 L236,300 M200,270 L228,270 M200,330 L224,330\" stroke-width=\"5\"/></g><g fill=\"none\" stroke=\"#8e1b1b\" stroke-width=\"1.6\"><path d=\"M300,300 L360,300 M300,320 L360,320 M300,340 L340,340\"/></g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

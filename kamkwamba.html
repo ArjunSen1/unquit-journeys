@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. William Kamkwamba</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the public record and from William Kamkwamba's own account, The Boy Who Harnessed the Wind. He is living. This journey is included for testing only and will not be public without his agreement.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "kamkwamba", "title": "William Kamkwamba", "subtitle": "2002. Masitala village, Kasungu District, Malawi. The library at Wimbe.", "object": "The dynamo", "sticker": "The dynamo.", "footer": "Drawn from the public record and from William Kamkwamba's own account, The Boy Who Harnessed the Wind. He is living. This journey is included for testing only and will not be public without his agreement.", "arrive": {"heading": "You are standing where William Kamkwamba stood.", "paragraphs": ["William Kamkwamba is fourteen. Last year the rains failed across Malawi and the maize died in the fields. His family, seven children and two parents on a small farm near the village of Wimbe, ate one meal a day, then less. People in the villages died of hunger through the season the radio would not call a famine. The Kamkwambas lived, thinly. Then the school fees came due.", "He had started secondary school that year. The fees were about eighty dollars for the year, and after the famine the family had nothing. He was sent home. He watched the other boys walk to school in the morning with their books and he went to the fields. He was not angry with his father. There was no money. There was nothing to be angry at except the weather and the arithmetic.", "A few miles away there is a small library at the primary school, three shelves of books donated from America. He goes there because it is the only place with pages in it. This afternoon he found a textbook called Using Energy, with a picture on the cover of tall white towers with blades, and a sentence inside that said a windmill could pump water and make electricity. Two things his village does not have. Electricity is in two percent of Malawian homes. Water is carried.", "Tonight William steps aside and you step in. The fields, the fees you cannot pay, the book you can barely read because the English is hard, the scrapyard behind the school and the village that will call you misala, crazy, are his. Every decision from here is yours. He is not asking you to become him. He is asking you to sit under a tree in Masitala with a borrowed book open on your knees and a picture of something no one you know has ever built.", "You have no money, no tools, no teacher and no electricity. You have a picture, a scrapyard and a cousin who might help. The fees are not coming back this year. The book is due back at the library."], "button": "Step under the tree"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "Late afternoon. The other boys are walking home from school past your field. The book is open at the page with the windmill. You have read the sentence four times to be sure.", "question": "What are you feeling right now?", "placeholder": "Write it plainly. No one else will read this.", "helper": {"who": "Geoffrey, your cousin, who has been in the fields with you all season", "says": "You do not have to pretend with me. What is it?", "options": ["I feel left behind, and I feel it every morning at the same time when they walk past.", "I feel something that is not quite hope. It is more like a question I cannot put down.", "I feel foolish already, before I have told anyone, because I know what they will say."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about tomorrow, take an inventory of tonight. Not of the scrapyard. Of yourself.", "question": "What have you already done, in your own life, that proves you know how to continue when you have been left out and have nothing but what is around you?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Agnes, your mother", "says": "I know what you carry. You took apart every radio in this house and put them back together working. You fed yourself and your sisters on one meal a day through the hunger and you did not stop moving. Now tell me what you carry. Finish one of these.", "options": ["A time I was shut out of the place I wanted to be and learned anyway: ", "A time I built something from what other people had thrown away: ", "A time I kept going on less than I needed: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "Tonight one sentence is trying to become true: boys like me do not build things like that. It is wearing the voice of every adult in the village. If you let it settle under this tree, it will decide every idea you ever have after this one. You do not have to argue with it. You only have to refuse to decide it tonight.", "question": "What is the one reason you will not let tonight decide anything?", "placeholder": "Not a plan. One reason to wait until the light changes.", "helper": {"who": "Gilbert, your friend, the chief's son", "says": "Do not tell anyone tonight. They will laugh and you will believe them. Tomorrow you can tell me. Why will you wait?", "options": ["Because the book says it can be done, and the book has been right about everything else in it that I could check.", "Because a decision made the day I was sent home from school is the fees deciding, not me.", "Because the scrapyard is still there tomorrow, and I have not looked at it yet with this picture in my head."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The book has to go back to the library soon. The scrapyard behind the school is a field of broken tractors and bicycles. You need one step. Not a windmill. One step small enough that you cannot fail it today.", "question": "What is it?", "placeholder": "Something you can finish before dark.", "helper": {"who": "Geoffrey", "says": "Whatever you do first, I will help with. What will you do first?", "options": ["I will go to the scrapyard and find one thing that turns. A fan, a wheel, anything. Just one piece.", "I will build a small one first, a hand-sized windmill out of a bottle and a radio motor, and see if it makes the radio hum. If it hums, the big one is possible.", "I will tell Gilbert what I need and ask him for the one thing I cannot find in the scrap: a bicycle dynamo. Ask, and let him say no if he is going to."]}}, {"n": 5, "name": "What you feel now", "prompt": "You did it. You have a tractor fan, or a bottle windmill that hums, or a dynamo in your hand. Nothing about your situation has changed. You are still out of school. The village still has no electricity.", "question": "What has changed in you?", "placeholder": "Compare it to under the tree.", "helper": {"who": "Agnes", "says": "I saw you come back from the scrapyard. Do you want to know what I saw?", "options": ["The question has become a project. A project has parts, and I can hold parts.", "I have stopped waiting for school to give me the next thing. I have found where the next thing is.", "I am still afraid they will laugh. I find I am more afraid of not finding out."]}}, {"n": 6, "name": "Time passes", "montage": ["It takes months. Blue gum poles for the tower. A bicycle frame. A tractor fan for the blades, with PVC pipe flattened over a fire and cut into shape. The dynamo Gilbert bought. People walk past the tower going up and say the word: misala. Your mother tells them to leave you alone.", "The day it turns, a crowd gathers. You climb the tower with a bulb wired to the dynamo, and the wind comes, and the bulb lights. The crowd stops laughing. Later there are four bulbs in the house, and the neighbours come to charge their phones.", "You build a second windmill to pump water. A solar panel follows. A journalist from the Daily Times in Lilongwe hears about the boy with the windmill, and a blog picks it up, and in 2007 you are flown to Arusha to stand on a stage at a conference and speak English to a room of strangers about what you built. You are shaking. They stand up.", "You go back to school, then to the African Leadership Academy in South Africa, then to Dartmouth College in the United States, where you graduate in 2014. Your book, written with Bryan Mealer, is read in schools. In 2019 it becomes a film.", "You go home. You work on projects across Malawi: water, power, schools. The first windmill is gone now, replaced. The village has electricity. The library at Wimbe still has the book."], "question": "The evidence has arrived, and it lit a bulb. Here is the question the stage in Arusha cannot answer. On which day was the unquitter made?", "choices": [{"label": "2007. The day you stood on the stage in Arusha.", "short": "the day you stood on the stage in Arusha", "reply": "Look again. Arusha was the world finding out. It happened because a boy who had been sent home from school went to a scrapyard five years earlier with a picture in his head. The stage does not make an unquitter. It finds one."}, {"label": "The day the bulb lit and the crowd stopped laughing.", "short": "the day the bulb lit", "reply": "The best day, and the one people remember. But the bulb lit because of a decision made months earlier, when there was no tower, no blades and every reason to put the book back on the shelf."}, {"label": "The morning you went to the scrapyard with the book still in your head.", "short": "the morning you went to the scrapyard", "reply": "Yes. There was no windmill, no light, no crowd. There was a boy out of school, a library book, a field of broken machines and a village already laughing. Unquitters are not made when the bulb lights. They are made on the walk to the scrapyard. Tonight, under the same tree, you made yours."}, {"label": "The hunger season, when you took apart the radios to see how they worked.", "short": "the hunger season, taking apart the radios", "reply": "Even earlier. Which means William Kamkwamba was already an unquitter before the library. The book did not make him one. It found one. That is what your own evidence in step two was for. It was there before tonight."}]}, {"n": 7, "name": "Lock it in", "prompt": "You will be shut out again, with nothing but what is around you. Different tree. Write one sentence you want to be able to read on that day. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Gilbert", "says": "I will remember this for you. What is the line?", "options": ["I did go to the scrapyard while the village was still laughing.", "I did build the small one first and let it tell me the big one was possible.", "I did ask for the one thing I could not find, and I let the answer be no if it had to be."]}, "ice": {"question": "One more line, and this one is yours. Where is the library book in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, under William Kamkwamba's tree", "sub": "Your decisions, beside his", "stepOverlap": ["He made the same choice. The scrapyard behind the school gave him the tractor fan, the shock absorber and the bicycle frame that became the first windmill.", "He made the same choice. Before the tower, he built a small windmill from a bottle and a radio motor and used it to test whether the idea worked at all.", "He made the same choice. Gilbert, his friend, bought the bicycle dynamo he could not find in the scrap. It is the piece that made the light."], "stepOverlapFree": "His first step was different. He went to the scrapyard, built a small test windmill, and asked a friend for a dynamo. A different choice under the same tree is still a choice made.", "help": {"zero": "You did not ask for help on this journey. William did. A cousin who carried poles, a friend who bought the dynamo, a mother who told the village to leave him alone. Next time, try the door. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You asked for help {n} on this journey. William had a cousin who carried poles, a friend who bought the dynamo, and a mother who told the village to leave him alone. Asking is not the opposite of continuing. It is how continuing is done."}, "closing": "The first windmill is gone. The village has light. What you carry from under the tree is not the stage and it is not William. It is the evidence that you walked to the scrapyard while people were still laughing.", "paragraphs": ["2002. Under a tree in Masitala, a library book open at a picture of a windmill. You stood where William Kamkwamba sat, and the page asked you what it asked him. With the other boys walking past from school, you wrote: {1} His own account of those months is patient and practical. What he had, what he lacked, and what he found.", "Before you decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a hunger season survived and a house full of radios taken apart and put back together.", "You refused to let the first night decide. Your reason: {3} That refusal has a name in the Unquit vocabulary. The deferral. Not tonight. Tomorrow's light will be different.", "Your first step: {4} {overlap}", "After the step, nothing outside had changed. Inside, you noticed this: {5}", "Then time did what time does. Months of blue gum poles and flattened pipe. A bulb on a tower. A stage in Arusha in 2007. A degree in 2014, a book, a film, and a village with light.", "Asked on which day the unquitter was made, you chose {choice}. {reply}", "{help}"], "lockLabel": "The evidence you are taking with you", "iceLine": "And the library book in your own life, as you named it tonight: {ice}", "stickerLines": ["Walked with William Kamkwamba.", "Wimbe, 2002."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The dynamo\"><g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M200,340 L200,200\" stroke-width=\"3.5\"/><path d=\"M170,340 L230,340\" stroke-width=\"3.5\"/><circle cx=\"200\" cy=\"200\" r=\"14\" stroke-width=\"3\"/><path d=\"M200,186 Q194,120 214,70 Q230,130 200,186 Z\" stroke-width=\"3\"/><path d=\"M212,208 Q272,236 318,270 Q256,262 212,208 Z\" stroke-width=\"3\"/><path d=\"M188,208 Q128,236 82,270 Q144,262 188,208 Z\" stroke-width=\"3\"/><path d=\"M150,340 L200,250 L250,340\" stroke-width=\"1.6\"/><path d=\"M176,296 L224,296 M164,318 L236,318\" stroke-width=\"1.4\"/></g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

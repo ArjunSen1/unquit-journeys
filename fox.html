@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Terry Fox</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Historical details drawn from the public record, the Terry Fox Foundation and contemporary Canadian press reports. Figures are given as reported at the time.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "fox", "title": "Terry Fox", "subtitle": "September 1, 1980. Highway 17, east of Thunder Bay, Ontario.", "object": "The shoe", "sticker": "The shoe.", "footer": "Historical details drawn from the public record, the Terry Fox Foundation and contemporary Canadian press reports. Figures are given as reported at the time.", "arrive": {"heading": "You are standing where Terry Fox stood.", "paragraphs": ["One hundred and forty-three days ago, on April 12, Terry Fox dipped his artificial right leg into the Atlantic at St. John's, Newfoundland, filled two bottles with sea water, and began running west. He was twenty-one. Three years earlier a bone cancer had taken the leg above the knee. The night before the amputation he read a magazine story about a man who had run the New York marathon on one leg, and he decided he would run across Canada. He called it the Marathon of Hope. The goal was a dollar from every Canadian for cancer research. Twenty-four million dollars.", "He has run close to a marathon a day, every day, through Newfoundland ice, Quebec traffic that did not know who he was, and an Ontario summer that finally did. Doug Alward, his best friend since high school, drives the van a mile ahead and waits. His brother Darrell, seventeen, joined them in Quebec. The running is a hop and a step, a hop and a step, on a leg that was never built for this. His stump bleeds most days. He runs anyway. 3,339 miles so far. 5,373 kilometres.", "This morning, east of Thunder Bay, the cough that has been with him for days turned into something else. Pain in the chest, not the leg. He asked Doug to drive him to the hospital. The X-rays are back. The cancer is in both lungs. One tumour is the size of a golf ball, the other the size of a lemon.", "Tonight Terry steps aside and you step in. The road, the leg, the van, the two bottles of Atlantic water and the promise to a whole country are his. Every decision from here is yours. He is not asking you to become him. He is asking you to stand on the shoulder of Highway 17 with a body that has just changed the terms.", "Half the country is still ahead of you. The Pacific is 2,000 miles away. You cannot run there. That much is now a fact, not a fear. What continues, and how, is the only question left on the road."], "button": "Step onto the shoulder"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The doctor has said it plainly. You are sitting in a hospital corridor in Thunder Bay with your running shorts on and one shoe. Doug is in the parking lot with the van. The press does not know yet.", "question": "What are you feeling right now?", "placeholder": "Write it plainly. No one else will read this.", "helper": {"who": "Doug Alward, who has driven every mile a mile ahead of you", "says": "You don't have to tell the cameras anything yet. Tell me.", "options": ["I feel cheated. I did everything right and it came back anyway.", "I feel the road slipping away from me and I am not ready to let go of it.", "I feel something like relief under the fear, and I am ashamed of it."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about tomorrow, take an inventory of tonight. Not of the miles. Of yourself.", "question": "What have you already done, in your own life, that proves you know how to continue when your body changes the terms?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Darrell Fox, your brother, seventeen", "says": "I know what you carry. Three years ago you woke up without a leg and were playing wheelchair basketball inside a year. You ran three thousand miles in training before anyone believed you would start. Now tell me what you carry. Finish one of these.", "options": ["A time my body changed and I found a new way to move: ", "A time I was told to rest and I found the one thing I could still do: ", "A time I finished something everyone expected me to abandon: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "Tonight one sentence is trying to become true: it was for nothing. If you let it settle in a hospital corridor, it becomes the story. You do not have to argue with it. You only have to refuse to decide it tonight.", "question": "What is the one reason you will not let tonight decide anything?", "placeholder": "Not a plan. One reason to wait until the light changes.", "helper": {"who": "Bill Vigars of the Canadian Cancer Society, who has travelled with you since Ontario", "says": "I am not calling the newspapers tonight. Tomorrow you can say whatever you decide. What is the reason to wait?", "options": ["Because the money already raised is real, and money does not know whether I finish.", "Because a decision made in a hospital corridor with one shoe on is not a decision. It is shock talking.", "Because 3,339 miles are already run. Nothing tonight can un-run them."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The van is parked outside the hospital. Reporters are gathering because someone always tells them. You need one step. Not a plan for the Pacific. One step small enough that you cannot fail it today.", "question": "What is it?", "placeholder": "Something you can finish before noon.", "helper": {"who": "Doug Alward", "says": "Whatever you do first, the country will do next. What will you do first?", "options": ["I will say it myself, out loud, on the stretcher if I have to. The cancer has spread. I am going home to fight it. Then I will ask them to keep the Marathon going without me.", "I will call my mother before the news does.", "I will put the two bottles of Atlantic water somewhere safe. Someone will carry them to the Pacific. It does not have to be me."]}}, {"n": 5, "name": "What you feel now", "prompt": "You did it. The words are said, or the call is made, or the bottles are in the van. Nothing about your situation has changed. The cancer is still in both lungs. The Pacific is still 2,000 miles away.", "question": "What has changed in you?", "placeholder": "Compare it to last night.", "helper": {"who": "Darrell Fox", "says": "I watched you while you spoke. Do you want to know what I saw?", "options": ["The run is over and the reason for it is not. I can feel the difference now.", "I am still afraid. But I am afraid as a man with a fight ahead, not as a man whose fight is behind him.", "The weight is shared now. Thousands of people were running with me and I did not know it."]}}, {"n": 6, "name": "Time passes", "montage": ["September 2, 1980. You hold a press conference from a stretcher outside the Port Arthur hospital and say the words yourself. You ask Canadians to carry on. You do not cry until you are inside.", "September 9. The CTV network runs a five-hour telethon. It raises more than ten million dollars in one evening. Money arrives from people who had never heard your name a month ago.", "February 1, 1981. The Marathon of Hope fund passes 24.17 million dollars. One dollar for every Canadian. The goal you set on a highway in Newfoundland is met while you are in treatment in British Columbia.", "June 28, 1981. You die in the hospital in New Westminster, one month before your twenty-third birthday. The country lowers its flags.", "September 13, 1981. The first Terry Fox Run. More than 300,000 people run on the same day in Canada and around the world. The run has happened every September since. The total raised for cancer research is now counted in the hundreds of millions of dollars, and it is still counting."], "question": "The evidence has arrived, and it outlived the runner. Here is the question the money cannot answer. On which day was the unquitter made?", "choices": [{"label": "September 13, 1981. The day 300,000 people ran.", "short": "the day 300,000 people ran", "reply": "Look again. That day was the evidence arriving. Every one of those runners was carrying a decision already made by someone else, a year earlier, on a highway shoulder. The run did not make an unquitter. It followed one."}, {"label": "April 12, 1980. The day you dipped the leg in the Atlantic.", "short": "the day you dipped the leg in the Atlantic", "reply": "A beginning, and a brave one. But beginnings are easy to mistake for decisions. The Atlantic was the start of the run. The decision about who you were came when the run was taken away."}, {"label": "September 1, 1980. The day you said, I am going home to fight it, and asked the country to carry on.", "short": "the day you asked the country to carry on", "reply": "Yes. Stopping the run was not quitting. It was the day the run and the purpose came apart, and you chose the purpose. Unquitters are not made at the finish line. They are made at the sentence. Tonight, on the same shoulder of the same highway, you made yours."}, {"label": "The night in 1977 before the amputation, when you read about a man who ran a marathon on one leg.", "short": "the night before the amputation", "reply": "Even earlier. Which means Terry Fox was already an unquitter before the first mile. The road did not make him one. It found one. That is what your own evidence in step two was for. It was there before tonight."}]}, {"n": 7, "name": "Lock it in", "prompt": "You will face a road that ends before you are ready. Different road. Write one sentence you want to be able to read on that day. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Doug Alward", "says": "I kept the logbook every night so we could read it later. What should tonight's line say?", "options": ["I did not confuse the run with the reason. When one ended, I kept the other.", "I did say it myself, out loud, before anyone could say it for me.", "I did hand the bottles to someone else. Finishing was never the point."]}, "ice": {"question": "One more line, and this one is yours. Where is the highway shoulder in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, on Terry Fox's highway", "sub": "Your decisions, beside his", "stepOverlap": ["He made the same choice, in almost the same words, on September 2, 1980. From a stretcher he told the reporters the cancer had spread and asked Canadians to keep the Marathon going. Then he went home to fight.", "He made the same choice. His parents flew to Thunder Bay that day. The family heard it from him, not from the radio.", "He made the same choice. The two bottles of Atlantic water were kept. He never reached the Pacific. The Marathon did, in his name, every September."], "stepOverlapFree": "His first step was different. He held a press conference from a stretcher and said it himself, then asked the country to carry on without him. A different choice on the same shoulder is still a choice made.", "help": {"zero": "You did not ask for help on this journey. Terry did. He asked a whole country to carry what he could not. Next time, try the door. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You asked for help {n} on this journey. Terry asked a whole country to carry what he could not. Asking is not the opposite of continuing. It is how continuing is done."}, "closing": "The run stopped at 5,373 kilometres. The reason for it did not stop. What you carry off the highway is not the money and it is not Terry. It is the evidence that you chose the purpose when the plan was taken.", "paragraphs": ["September 1, 1980. A hospital corridor in Thunder Bay. You stood where Terry Fox stood, and the X-ray asked you what it asked him. When the doctor finished, you wrote: {1} His own words the next day were plain. The cancer had spread. He was going home to fight it.", "Before you decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a hospital bed in 1977, a magazine story about a one-legged marathoner, and a promise he made to himself before anyone else could hear it.", "You refused to let the first night decide. Your reason: {3} That refusal has a name in the Unquit vocabulary. The deferral. Not tonight. Tomorrow's light will be different.", "Your first step: {4} {overlap}", "After the step, nothing outside had changed. Inside, you noticed this: {5}", "Then time did what time does. The fund passed a dollar for every Canadian while you were in treatment. You died in June 1981. In September, 300,000 people ran, and they have run every September since.", "Asked on which day the unquitter was made, you chose {choice}. {reply}", "{help}"], "lockLabel": "The evidence you are taking with you", "iceLine": "And the highway shoulder in your own life, as you named it tonight: {ice}", "stickerLines": ["Walked with Terry Fox.", "September 1, 1980."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The shoe\"><g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M60,258 L60,232 Q60,214 78,210 L150,194 Q186,186 214,158 L238,134 Q252,122 262,136 L290,182 Q312,214 336,226 L350,232 Q364,238 364,252 L364,258 Z\" stroke-width=\"4\"/><path d=\"M60,258 L364,258\" stroke-width=\"4\"/><path d=\"M74,272 L350,272\" stroke-width=\"2\"/><path d=\"M160,196 L196,226 M188,182 L224,214 M216,168 L250,204\" stroke-width=\"2\"/><path d=\"M236,232 Q260,210 292,220\" stroke-width=\"2\"/><path d=\"M96,214 Q120,240 180,246\" stroke-width=\"2\"/></g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

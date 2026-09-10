@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Nise da Silveira</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Historical details drawn from the public record, the Museu de Imagens do Inconsciente and Nise da Silveira's own writings. Some dates in her early hospital years vary between accounts and are flagged in the script.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "nise", "title": "Nise da Silveira", "subtitle": "1944. Centro Psiquiátrico Nacional, Engenho de Dentro, Rio de Janeiro.", "object": "The brush", "sticker": "The brush.", "footer": "Historical details drawn from the public record, the Museu de Imagens do Inconsciente and Nise da Silveira's own writings. Some dates in her early hospital years vary between accounts and are flagged in the script.", "arrive": {"heading": "You are standing where Nise da Silveira stood.", "paragraphs": ["Nise da Silveira is thirty-nine. In 1926 she graduated from the medical school in Bahia, the only woman in a class of one hundred and fifty-seven. In 1936 a nurse reported her for keeping Marxist books in her room, and she spent eighteen months in prison without trial, in a cell with women who would later be sent to Germany. She was struck from the public service. For eight years she could not practise in the hospitals she had trained for.", "This year she was allowed back. The state has assigned her to the psychiatric centre at Engenho de Dentro, in the north of Rio, a hospital of long corridors and locked wards. The treatments here are the treatments everywhere in 1944. Insulin coma. Electroshock. And a newer one, arriving from Portugal and America with prizes attached: the lobotomy.", "This morning the head of the ward handed her the schedule. Her name is on the electroshock list. It is not a request. It is the job. Refusing means the one section of the hospital no doctor wants, the storerooms where patients are given brooms and rags and called occupied. It may mean worse. She has been unemployed for eight years already. She has a husband, no children, and a reputation that a second dismissal would end.", "Tonight Nise steps aside and you step in. The schedule, the ward, the prison years and the eight lost years are hers. Every decision from here is yours. She is not asking you to become her. She is asking you to stand in a corridor at Engenho de Dentro with a piece of paper in your hand that says what you must do to people who cannot refuse.", "There is no evidence yet that anything else works. There is only your conviction that a person who cannot speak is still a person, and that you did not train for eight years, and wait for eight more, to hold someone down."], "button": "Step into the corridor"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The paper is in your pocket. Down the corridor a woman is screaming and no one is going to her. You have been back at work for a few weeks. You are still learning the names of the nurses.", "question": "What are you feeling right now?", "placeholder": "Write it plainly. No one else will read this.", "helper": {"who": "The ward nurse, who has seen doctors come and go", "says": "Doctor, you look like you have read something you did not want to read. You can say it to me. I have heard everything in this building.", "options": ["I feel anger, and under it the old fear of being the one who is removed.", "I feel that the eight years I waited have brought me exactly here, to be asked to do the thing I waited to refuse.", "I feel alone. Every other name on this list has already said yes."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about tomorrow, take an inventory of tonight. Not of the ward. Of yourself.", "question": "What have you already done, in your own life, that proves you know how to continue when refusing costs you the ground you stand on?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Emygdio de Barros, a patient, admitted this year, who does not speak", "says": "He says nothing. He looks at you for a long time and then looks at the wall. You remember what you carry: the only woman in a class of one hundred and fifty-seven. Eighteen months in a cell for owning books. Eight years outside, studying anyway. Now tell yourself what you carry. Finish one of these.", "options": ["A time I refused what everyone around me accepted, and paid for it, and would refuse again: ", "A time I was shut out of my own work and kept the work alive without a door: ", "A time I was the only one in the room, and stayed in the room: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "Tonight one sentence is trying to become true: I cannot afford to be right. If you let it settle, it becomes who you are in every corridor after this one. You do not have to argue with it. You only have to refuse to decide it tonight.", "question": "What is the one reason you will not let tonight decide anything?", "placeholder": "Not a plan. One reason to wait until the light changes.", "helper": {"who": "Mário Pedrosa, the critic, your friend since the prison years", "says": "Do not write your resignation tonight, and do not write your consent either. Sleep. Then tell me why you waited.", "options": ["Because a refusal made in fear looks the same as a refusal made in conviction, and I want to know which one I am making.", "Because eight years of waiting taught me that a door closed today is not a door closed forever.", "Because the woman screaming down the corridor will still be there tomorrow, and she is the question, not the paper."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The ward head is waiting for your answer. You need one step. Not a theory of the mind. One step small enough that you cannot fail it today.", "question": "What is it?", "placeholder": "Something you can finish before the afternoon round.", "helper": {"who": "The ward nurse", "says": "Whatever you do first, this building will remember it. What will you do first?", "options": ["I will say no, plainly, to the electroshock and the insulin and the surgeries, and I will accept whatever section they send me to.", "I will ask for the occupational therapy section before they offer it as a punishment. Ask for the rooms no one wants.", "I will go to the storeroom, find something to paint with, and put it in front of the man who does not speak."]}}, {"n": 5, "name": "What you feel now", "prompt": "You did it. The no is said, or the section is asked for, or a brush is in a patient's hand. Nothing about your situation has changed. The hospital still runs on electricity and surgery. You are still one doctor in the least regarded corridor.", "question": "What has changed in you?", "placeholder": "Compare it to last night.", "helper": {"who": "Emygdio de Barros", "says": "He has picked up the brush. He has not put it to the paper yet. He is looking at you. What do you see?", "options": ["I am no longer the one being removed. I am the one who chose the room.", "The fear is still there, but it is the fear of someone with work to do, not the fear of someone waiting to be told.", "I have stopped asking what works. I have started asking what he is trying to say."]}}, {"n": 6, "name": "Time passes", "montage": ["1946. You open the Seção de Terapêutica Ocupacional. The painting studio is run by a young clerk from the hospital office named Almir Mavignier, who will become one of Brazil's concrete artists. Brushes and cheap paint. No instructions. Patients who have not spoken in years begin to paint every day.", "1947. The first exhibition of the patients' work, at the Ministry of Education. 1949, the second, in São Paulo, and the critics argue about whether to call it art. Emygdio de Barros, admitted in 1944, paints thousands of canvases. Adelina Gomes sculpts. Fernando Diniz films.", "1952. You found the Museu de Imagens do Inconsciente inside the hospital to keep what the patients made. The collection will grow past three hundred and fifty thousand works.", "1954. You write to Carl Jung in Zurich about the circles your patients paint without having been taught to. He answers. In 1957 he shows their work at the International Congress of Psychiatry.", "October 30, 1999. You die in Rio at ninety-four. You never administered a single electroshock. The hospital at Engenho de Dentro carries your name."], "question": "The evidence has arrived, and it filled a museum. Here is the question the collection cannot answer. On which day was the unquitter made?", "choices": [{"label": "1957. The day Jung showed the paintings in Zurich.", "short": "the day Jung showed the paintings in Zurich", "reply": "Look again. Zurich was the world arriving late. It confirmed a decision made thirteen years earlier in a corridor, with no evidence and no allies. Recognition does not make an unquitter. It finds one."}, {"label": "1946. The day the studio opened.", "short": "the day the studio opened", "reply": "A beginning worth remembering. But the studio was the consequence of a refusal, not the refusal itself. The door had already been chosen two years before, when the only thing behind it was a storeroom."}, {"label": "1944. The day you said no to the electroshock schedule and accepted the section no one wanted.", "short": "the day you said no to the schedule", "reply": "Yes. There was no museum then, no Jung, no exhibition. There was a piece of paper and a corridor and eight lost years behind you. Unquitters are not made when the method is proven. They are made when it is only a conviction. Tonight, in the same corridor, you made yours."}, {"label": "1936. The eighteen months in prison, when you kept studying.", "short": "the eighteen months in prison", "reply": "Even earlier. Which means Nise da Silveira was already an unquitter before Engenho de Dentro. The corridor did not make her one. It found one. That is what your own evidence in step two was for. It was there before tonight."}]}, {"n": 7, "name": "Lock it in", "prompt": "You will be handed a schedule again. Different paper. Write one sentence you want to be able to read on that day. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Mário Pedrosa", "says": "I will write about this one day. Tell me what the sentence should be.", "options": ["I did say no when saying no cost me the only door I had waited eight years to open.", "I did ask for the rooms no one wanted, and I found the people no one was looking at.", "I did put a brush in a hand before I had any proof it would matter."]}, "ice": {"question": "One more line, and this one is yours. Where is the schedule in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in Nise da Silveira's corridor", "sub": "Your decisions, beside hers", "stepOverlap": ["She made the same choice. She refused every one of the treatments on the list and was sent to the occupational therapy section, which the hospital regarded as a punishment.", "She made the same choice, or near enough. The section came to her as a punishment. She treated it as an appointment.", "She made the same choice. The first materials were what the hospital had. The first painters were people the hospital had stopped looking at."], "stepOverlapFree": "Her first step was different. She said no to the schedule and walked into the section no doctor wanted. Within two years there was a studio in it. A different choice in the same corridor is still a choice made.", "help": {"zero": "You did not ask for help on this journey. Nise did. She wrote to Zurich, to a man she had never met, and he answered. Next time, try the door. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You asked for help {n} on this journey. Nise wrote to Zurich, to a man she had never met, and he answered. Asking is not the opposite of continuing. It is how continuing is done."}, "closing": "The hospital still stands, and it carries her name. What you carry out of the corridor is not the museum and it is not Nise. It is the evidence that you refused when refusing had no proof behind it.", "paragraphs": ["1944. A corridor at Engenho de Dentro. You stood where Nise da Silveira stood, and the schedule asked you what it asked her. With the paper in your pocket, you wrote: {1} Her own account of those weeks is spare. She would not do it. She was sent where no one wanted to go.", "Before you decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was a prison cell in 1936, and eight years outside the hospitals, studying anyway.", "You refused to let the first night decide. Your reason: {3} That refusal has a name in the Unquit vocabulary. The deferral. Not tonight. Tomorrow's light will be different.", "Your first step: {4} {overlap}", "After the step, nothing outside had changed. Inside, you noticed this: {5}", "Then time did what time does. A studio in 1946. A museum in 1952. A letter answered from Zurich. Three hundred and fifty thousand works by people the world had filed as finished.", "Asked on which day the unquitter was made, you chose {choice}. {reply}", "{help}"], "lockLabel": "The evidence you are taking with you", "iceLine": "And the schedule in your own life, as you named it tonight: {ice}", "stickerLines": ["Walked with Nise da Silveira.", "1944."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The brush\"><g transform=\"rotate(-38 200 200)\" fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M193,40 L193,240 M207,40 L207,240\" stroke-width=\"3\"/><path d=\"M193,40 Q200,32 207,40\" stroke-width=\"3\"/><path d=\"M188,240 L212,240 L212,272 L188,272 Z\" stroke-width=\"3\"/><path d=\"M188,272 Q186,330 200,352 Q214,330 212,272\" stroke-width=\"3\"/><path d=\"M194,280 L192,330 M200,282 L200,336 M206,280 L208,330\" stroke-width=\"1.4\"/><path d=\"M188,256 L212,256\" stroke-width=\"1.6\"/></g><g fill=\"none\" stroke=\"#8e1b1b\" stroke-width=\"2.2\"><circle cx=\"300\" cy=\"300\" r=\"40\"/><circle cx=\"300\" cy=\"300\" r=\"24\"/><circle cx=\"300\" cy=\"300\" r=\"8\"/></g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

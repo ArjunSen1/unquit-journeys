@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. The thirty-three</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Drawn from the public record of the 2010 Copiapó mining accident and the accounts of the miners, several of whom are living. This journey is included for testing only and will not be public without the agreement of those it draws on. The two-day ration detail varies between accounts and is flagged in the script.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "miners", "title": "The thirty-three", "subtitle": "August 2010. The San José mine, near Copiapó, Atacama Desert, Chile.", "object": "The lamp", "sticker": "The lamp.", "footer": "Drawn from the public record of the 2010 Copiapó mining accident and the accounts of the miners, several of whom are living. This journey is included for testing only and will not be public without the agreement of those it draws on. The two-day ration detail varies between accounts and is flagged in the script.", "arrive": {"heading": "You are standing where the thirty-three stood.", "paragraphs": ["The San José mine is a copper and gold mine that everyone who works it knows is unsafe. On August 5, 2010, the mountain above the men gave way. A single block of rock the height of a skyscraper, weighing perhaps seven hundred thousand tonnes, slid down the central shaft and sealed the mine. Thirty-three men were below it, half a mile down and three miles in along the ramp, in a refuge chamber meant to shelter a handful for a day or two.", "It has been about two weeks. Above ground, the drills are searching, but the mine's maps are wrong and the rock is hard and the boreholes keep missing the refuge by metres. The men below do not know this. They do not know whether anyone is even looking. What they know is the emergency store: a few days' food for a few men, now feeding thirty-three. The shift foreman, Luis Urzúa, has taken the food into his own keeping and rationed it to almost nothing. Two spoonfuls of tuna, a sip of milk, a bite of biscuit, every second day. The men are losing pounds a week. The lamps are dying.", "This is a collective journey. You are not one man. You are the thirty-three, or you are one of them speaking for all, in the refuge, in the heat and the dark, on about the seventeenth day, before the drill has broken through, when no one above ground has heard a sound from below and no one below has heard a sound from above.", "Tonight the thirty-three step aside and you step in. The sealed shaft, the failing food, the dying lamps and the silence from the rock are theirs. Every decision from here is yours. They are not asking you to become them. They are asking you to sit in a refuge chamber half a mile under a desert with thirty-two other men and decide how a group stays a group when it has no reason left to believe.", "You cannot dig your way out; the block is immovable. You cannot know if anyone is coming. The temptation is not to give up your body. It is to give up each other: to hoard, to turn on one another, to let thirty-three frightened men become thirty-three separate deaths. That is the only decision the mountain has left you, and it is entirely yours."], "button": "Step into the refuge"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "The seventeenth day, or near it. A lamp is propped in the corner, turned low to save it. Someone is praying. Someone else has not spoken in two days. The tuna tin is passed and each man takes his two spoonfuls.", "question": "What are you feeling, together, right now?", "placeholder": "Write it plainly. No one else will read this.", "helper": {"who": "Mario Sepúlveda, one of the thirty-three, who cannot keep still", "says": "We do not have to be brave for the group right now. Say the true thing.", "options": ["We feel the silence from the rock more than the hunger, because the hunger has a bottom and the silence does not.", "We feel it starting: the pull to stop being thirty-three and start being one man each.", "We feel that we have been abandoned, and that the belief we are looked for is the only food we cannot ration."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about tomorrow, take an inventory of tonight. Not of the food store. Of yourselves.", "question": "What have you already done, in your own lives, that proves you know how to continue as a group when there is no reason left to believe?", "placeholder": "One thing you did together, or one thing each of you did. Not one thing you believe.", "helper": {"who": "Luis Urzúa, the shift foreman, who has kept the food and the order", "says": "I know what we carry. We have gone down this unsafe mountain every day for the money because the families needed it, and we came up alive by looking out for the man beside us. We have shared less than this before. Now say what we carry. Finish one of these.", "options": ["A time we kept a group together when it would have been easier to scatter: ", "A time we survived on far less than we needed by dividing it fairly: ", "A time we did the frightening thing every day because someone at home was counting on us: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "In the refuge one sentence is trying to become true: no one is coming, so it is every man for himself now. It is the most reasonable sentence in the dark. If you let it settle, thirty-three men become thirty-three deaths by morning of the mind. You do not have to argue with it. You only have to refuse to let it decide tonight.", "question": "What is the one reason you will not let tonight decide?", "placeholder": "Not a plan. One reason to stay thirty-three until the light, or the drill, changes.", "helper": {"who": "José Henríquez, the one they call the pastor", "says": "Do not let despair take the vote tonight. We will pray, and we will wait one more day. Why will we wait?", "options": ["Because the drills could be a metre away and we would not hear them yet, and a silence we cannot interpret is not a verdict.", "Because a decision made on the seventeenth hungry day is the mountain deciding, not us.", "Because thirty-three men who stay thirty-three can be found. Thirty-three men who scatter cannot be saved even if they are."]}}, {"n": 4, "name": "One step", "prompt": "You cannot dig out. You cannot summon the drill. You need one step. Not a rescue. One step small enough that thirty-three men cannot fail it today, and that keeps them thirty-three.", "question": "What is it?", "placeholder": "Something you can do in the refuge before the next ration.", "helper": {"who": "Mario Sepúlveda", "says": "Whatever we do first, the group becomes. What will we do first?", "options": ["We will make it one man, one vote, on everything, starting with the food. Urzúa keeps the store, but the group decides. No one is more or less than the others down here.", "We will give each man a job. Someone minds the lamps, someone the water, someone the count of days, someone the prayers. A man with a job is a man who is still needed.", "We will write one letter each, to the people above, to be sent up if a hole is ever drilled. Not goodbye letters. Letters that assume we will be found. We will write as though the drill is coming."]}}, {"n": 5, "name": "What you feel now", "prompt": "You did it. The vote is agreed, or the jobs are given, or the letters are written and folded. Nothing about your situation has changed. The shaft is still sealed. The food is still almost gone. The rock is still silent.", "question": "What has changed in you, together?", "placeholder": "Compare it to the first minute in the dark.", "helper": {"who": "Luis Urzúa", "says": "I watched the group tonight. Do you want to know what I saw?", "options": ["The hunger is the same. But we are one thing again, and one thing is harder to kill than thirty-three things.", "We have stopped counting how long until rescue and started counting what we can still do together each day.", "We are still afraid. But we are afraid as thirty-three, and that fear does not turn us against each other."]}}, {"n": 6, "name": "Time passes", "montage": ["Day 17. August 22, 2010. A drill breaks into the refuge area. When it is pulled back to the surface, there is a note taped to the bit, in red letters: Estamos bien en el refugio, los 33. We are well in the refuge, the thirty-three. Above ground, a nation that had almost given up hearing screams and weeps.", "For the next fifty-two days you live by the rules you set. One man, one vote. Jobs for everyone. A daily discipline. Food, water, oxygen and letters come down through a borehole the width of a grapefruit. You keep yourselves ready. You keep yourselves thirty-three.", "A rescue capsule is built, painted in the national colours, named Fénix, phoenix. A shaft is drilled wide enough to lift a man. On October 12 the first miner comes up. Over the next twenty-four hours, one by one, all thirty-three are raised half a mile through solid rock to the surface.", "October 13, 2010. Luis Urzúa, the foreman, is the last man up, by the group's own decision, as a captain leaves last. Sixty-nine days underground. Every one of the thirty-three is alive. It is watched, live, by something like a billion people.", "The years after are not simple. There are books, films, arguments over money and credit, illness and hardship. But the thing that was decided in the dark held long enough. Thirty-three men went down. Thirty-three men came up."], "question": "The evidence arrived on the tip of a drill. Here is the question the rescue cannot answer. On which day were the unquitters made?", "choices": [{"label": "October 13, 2010. The day the last man came up.", "short": "the day the last man came up", "reply": "Look again. The surface was the evidence arriving. Thirty-three men were raised alive because they had already decided, weeks before any drill found them, to stay thirty-three. The rescue did not make the unquitters. It found them."}, {"label": "August 22, 2010. The day the drill broke through and found the note.", "short": "the day the drill broke through", "reply": "A day the world remembers, and rightly. But the note said we are well because a group had already chosen, days earlier, to remain a group. The breakthrough confirmed a decision. It did not make it."}, {"label": "Around the seventeenth day, when you chose one man, one vote, and stayed thirty-three.", "short": "the day you chose to stay thirty-three", "reply": "Yes. There was no drill yet, no note, no capsule. There was a sealed shaft, a dying lamp and the pull to become every man for himself. Unquitters are not made when the hole breaks through. They are made in the dark, when they decide not to scatter. Tonight, in the same refuge, you made that decision."}, {"label": "Every ordinary shift, going down a mountain everyone knew was unsafe for the sake of the families above.", "short": "every ordinary shift down an unsafe mountain", "reply": "Even earlier. Which means the thirty-three were already unquitters before the collapse. The mountain did not make them so. It found them so. That is what your own evidence in step two was for. It was there before tonight."}]}, {"n": 7, "name": "Lock it in", "prompt": "You will be sealed in again, as a group with no reason left to believe. Different dark. Write one sentence you want the group to be able to read on that day. Not advice. Evidence.", "question": "Begin with the words We did.", "placeholder": "We did...", "helper": {"who": "José Henríquez", "says": "I will keep this for all of us. What should it say?", "options": ["We did stay thirty-three when it would have been easier to become one man each.", "We did give every man a vote and a job, so that no one was expendable in the dark.", "We did write as though the drill was coming, and it came to men who were ready to be found."]}, "ice": {"question": "One more line, and this one is yours alone. Where is the sealed shaft in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, with the thirty-three", "sub": "Your decisions, beside theirs", "stepOverlap": ["They made the same choice. They ran the refuge by one man, one vote, and Urzúa flattened the ranks so that a foreman and a labourer had equal say in the dark.", "They made the same choice. Each man was given a role, from minding the lamps to leading the prayers, so that no one was merely waiting.", "They made the same choice. When the first borehole reached them, the note taped to the drill assumed rescue: we are well in the refuge, the thirty-three."], "stepOverlapFree": "Their first step was different. They flattened the ranks, gave every man a job, and wrote as though rescue was certain. A different choice in the same refuge is still a choice made.", "help": {"zero": "You did not ask for help on this journey, because for seventeen days there was no one to ask. The thirty-three became one another's help. When the drill finally offered a door, they used it. Next time there is a door sooner, take it.", "some": "You asked for help {n} on this journey. For seventeen days the thirty-three had only each other, and that was enough to stay alive until the drill offered a door. When there is a door, take it."}, "closing": "The mine is closed now. The thirty-three came up. What you carry out of the refuge is not the rescue and it is not any one of the men. It is the evidence that a group can decide, in the dark, to stay a group.", "paragraphs": ["August 2010. A refuge chamber half a mile under the Atacama, a lamp turned low. You stood where the thirty-three stood, and the sealed shaft asked you what it asked them. In the dark you wrote: {1} Their own accounts of those first weeks describe the same thing: the pull to scatter, and the decision not to.", "Before you decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Theirs was a lifetime of going down an unsafe mountain for the families above, and coming up by watching the man beside them.", "You refused to let the seventeenth day decide. Your reason: {3} That refusal has a name in the Unquit vocabulary. The deferral. Not tonight. The drill, or the light, will change.", "Your first step: {4} {overlap}", "After the step, nothing outside had changed. Inside, you noticed this: {5}", "Then time did what time does. A note on a drill bit on the seventeenth day. Fifty-two more days by the rules you set. A capsule named for a phoenix. And on October 13, the last man up, and all thirty-three alive.", "Asked on which day the unquitters were made, you chose {choice}. {reply}", "{help}"], "lockLabel": "The evidence you are taking with you", "iceLine": "And the sealed shaft in your own life, as you named it tonight: {ice}", "stickerLines": ["Walked with the thirty-three.", "San José mine, 2010."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The lamp\"><g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M150,150 L250,150 L250,130 L150,130 Z\" stroke-width=\"3.5\"/><path d=\"M168,130 L168,110 a32,32 0 0 1 64,0 L232,130\" stroke-width=\"3\"/><path d=\"M160,150 Q140,220 150,300 L250,300 Q260,220 240,150 Z\" stroke-width=\"3.5\"/><path d=\"M150,300 L250,300 L244,326 L156,326 Z\" stroke-width=\"3\"/><circle cx=\"200\" cy=\"222\" r=\"34\" stroke-width=\"3\"/><path d=\"M200,222 m-34,0 a34,34 0 0 1 68,0\" stroke-width=\"0\"/><path d=\"M176,238 Q200,196 224,238\" stroke-width=\"2\"/><path d=\"M186,168 L214,168 M180,186 L220,186\" stroke-width=\"1.4\"/></g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

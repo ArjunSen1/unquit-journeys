@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. William Wilberforce</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Historical details drawn from the public record, the parliamentary journals and the biographies by his sons and by William Hague. Vote counts are as recorded in the Commons journals.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "wilberforce", "title": "William Wilberforce", "subtitle": "April 19, 1791. The House of Commons, Westminster. After the vote.", "object": "The candle", "sticker": "The candle.", "footer": "Historical details drawn from the public record, the parliamentary journals and the biographies by his sons and by William Hague. Vote counts are as recorded in the Commons journals.", "arrive": {"heading": "You are standing where William Wilberforce stood.", "paragraphs": ["William Wilberforce is thirty-one. He has been a member of Parliament since he was twenty-one, a small man with a large voice who could have had any office he wanted. Six years ago a religious conversion turned him inside out, and he nearly left politics altogether. His friend William Pitt, now prime minister, talked him out of it under an oak tree. An old slave-ship captain named John Newton, who had become a clergyman, told him the same thing in a room in London: stay where you are. The Lord has raised you up for the good of his church and the good of the nation.", "So he stayed, and in 1787 he took up the cause that would use up the rest of his life. The abolition of the slave trade. Not slavery itself, not yet. The trade: the ships out of Liverpool and Bristol, the coast of West Africa, the middle passage, the eleven million human beings. Thomas Clarkson rode thousands of miles collecting evidence. Wilberforce collected it into speeches.", "Last night he rose in the Commons and spoke for four hours. He laid the evidence before them: the shackles, the mortality, the testimony of the surgeons. Members wept. This afternoon they voted. One hundred and sixty-three against, eighty-eight for. It was not close. The Liverpool members are toasting. The abolition of the slave trade has been defeated by a margin of nearly two to one, and every man in the chamber knew the evidence when he voted.", "Tonight William steps aside and you step in. The empty chamber, the four-hour speech that changed nothing, the friends who told you to stay in politics and the eleven million are his. Every decision from here is yours. He is not asking you to become him. He is asking you to sit in a room in Westminster with the candle burning down and the vote counted.", "You have done everything a member can do. You gathered the evidence, you made the case, you moved the motion. They heard you, and they voted against you anyway. The question tonight is not whether you were right. It is what a man does the year after he is right and loses."], "button": "Step into the chamber"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "Late. The chamber has emptied. You can hear the celebration from the coffee house. Your voice is gone from four hours of speaking. The candle on your desk is the only light.", "question": "What are you feeling right now?", "placeholder": "Write it plainly. No one else will read this.", "helper": {"who": "Thomas Clarkson, who gathered the evidence you laid before them", "says": "You need not compose a sentence for the pamphlets tonight. Tell me.", "options": ["I feel that I have failed eleven million people, and I know their number because I read it into the record.", "I feel a fury at men who heard the evidence and voted for the ships anyway.", "I feel tired in a way that sleep will not fix, and I am afraid the tiredness is the truth."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about tomorrow, take an inventory of tonight. Not of the vote. Of yourself.", "question": "What have you already done, in your own life, that proves you know how to continue after losing in front of everyone?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "John Newton, once a slave-ship captain, now a clergyman", "says": "I can tell you what you carry. I carried a cargo of human beings and lived to write a hymn about grace. You nearly left this House six years ago and stayed. You have been mocked in every newspaper the trade can buy and you rose anyway. Now tell me what you carry. Finish one of these.", "options": ["A time I lost in public and returned the next season: ", "A time I was told to leave the room and I stayed in it: ", "A time I kept a promise long after anyone was watching me keep it: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "Tonight one sentence is trying to become true: the House will never do this, and I have given it my best years for nothing. If you let it settle, it becomes the story of the whole cause. You do not have to argue with it. You only have to refuse to decide it tonight.", "question": "What is the one reason you will not let tonight decide anything?", "placeholder": "Not a plan. One reason to wait until the light changes.", "helper": {"who": "William Pitt, prime minister, your friend since Cambridge", "says": "Do not write to the abolition committee tonight. Sleep, if you can. Tomorrow you may say whatever you decide. Why will you wait?", "options": ["Because eighty-eight men voted with me who would have voted the other way four years ago. A number that moves is not a verdict.", "Because a decision made with no voice left and one candle is exhaustion, not judgement.", "Because the evidence did not lose tonight. The evidence is the same tomorrow. Only the vote is different."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The newspapers have the count. The committee is waiting to hear whether there is still a campaign. You need one step. Not a plan for the next sixteen years. One step small enough that you cannot fail it today.", "question": "What is it?", "placeholder": "Something you can finish before the House sits again.", "helper": {"who": "Thomas Clarkson", "says": "Whatever you do first, the committee will do next, and so will the trade. What will you do first?", "options": ["I will give notice today that I will bring the motion again next session. Not after a pause. Next session. Let the House know it will hear this every year until it votes the other way.", "I will write to Clarkson to ride again. More witnesses, more ports, more surgeons. If they voted against the evidence, the evidence was not yet heavy enough.", "I will write down the names of the eighty-eight, and I will thank each one before I do anything else."]}}, {"n": 5, "name": "What you feel now", "prompt": "You did it. The notice is given, or the letter is sent, or the eighty-eight letters are written. Nothing about your situation has changed. The ships are sailing this morning. The vote stands.", "question": "What has changed in you?", "placeholder": "Compare it to last night.", "helper": {"who": "John Newton", "says": "I have watched men after a defeat for fifty years. Tell me what you see in yourself.", "options": ["The defeat is the same size, but it has become a season, not a sentence.", "I have stopped asking whether the House will do it and started asking how many sessions it will take.", "The fury is still here, and I have given it a job."]}}, {"n": 6, "name": "Time passes", "montage": ["April 1792. You bring the motion again. The House votes for gradual abolition, then lets it die in the Lords. 1793. Again. 1794. Again. The war with France gives every member an excuse. You bring it anyway, in almost every session, for the rest of the decade.", "1796. The bill fails in the Commons by four votes. A dozen of its supporters are at the opera. You do not stop.", "The 1800s. Clarkson, broken by the work, retires for years and then comes back. You marry, have six children, and keep the cause on the order paper. Younger members join. The eighty-eight become a majority slowly, one member at a time.", "February 23, 1807. The Commons votes for the Abolition of the Slave Trade by two hundred and eighty-three to sixteen. Members rise to cheer you. You sit with your head in your hands, weeping. The Act receives the royal assent on March 25. Sixteen years after the night of the candle.", "July 26, 1833. The bill to abolish slavery itself in the British Empire passes its final reading in the Commons. You hear the news at home. Three days later, on July 29, you die. You are buried in Westminster Abbey beside your friend Pitt."], "question": "The evidence has arrived, twice. Here is the question the Act cannot answer. On which day was the unquitter made?", "choices": [{"label": "February 23, 1807. The night the House cheered you.", "short": "the night the House cheered you", "reply": "Look again. The cheering was the evidence arriving. It arrived because of sixteen sessions of motions brought after a defeat, each one made without knowing which year would be the year. The vote did not make an unquitter. It found one."}, {"label": "1787. The day you took up the cause under the oak.", "short": "the day you took up the cause", "reply": "A beginning, and a serious one. But taking up a cause is not the decision. The decision comes the morning after the cause has been beaten two to one, when you give notice for the next session."}, {"label": "April 20, 1791. The morning you gave notice that you would bring the motion again next session.", "short": "the morning you gave notice for the next session", "reply": "Yes. There was no Act, no cheering, no majority. There was a chamber that had just said no by one hundred and sixty-three to eighty-eight, and a man with no voice left saying: next session. Unquitters are not made when the House rises for them. They are made the morning after it sits against them. Tonight, by the same candle, you made yours."}, {"label": "1785. The night John Newton told you to stay in politics.", "short": "the night Newton told you to stay", "reply": "Even earlier. Which means Wilberforce was already an unquitter before the first motion. The vote did not make him one. It found one. That is what your own evidence in step two was for. It was there before tonight."}]}, {"n": 7, "name": "Lock it in", "prompt": "You will lose again in front of everyone. Different chamber. Write one sentence you want to be able to read on that day. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Thomas Clarkson", "says": "I have kept the record of this cause since the first ride. What should tonight's entry say?", "options": ["I did give notice for the next session the morning after they voted me down two to one.", "I did count the eighty-eight instead of the one hundred and sixty-three.", "I did keep the evidence on the table until the room changed around it."]}, "ice": {"question": "One more line, and this one is yours. Where is the counted vote in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in Wilberforce's chamber", "sub": "Your decisions, beside his", "stepOverlap": ["He made the same choice. He brought the motion again in 1792, and again, in almost every session, until 1807. The House learned that it would hear the question every year until it answered differently.", "He made the same choice. Clarkson rode again. The evidence grew until it could not be voted around.", "He made the same choice in spirit. He kept the eighty-eight close and built from them. Many of the men who cheered in 1807 had voted no in 1791."], "stepOverlapFree": "His first step was different. He gave notice for the next session, and then the one after, for sixteen years. A different choice by the same candle is still a choice made.", "help": {"zero": "You did not ask for help on this journey. Wilberforce did, all his life. Pitt under the oak, Newton in a London room, Clarkson on horseback. Next time, try the door. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You asked for help {n} on this journey. Wilberforce asked all his life: Pitt under the oak, Newton in a London room, Clarkson on horseback. Asking is not the opposite of continuing. It is how continuing is done."}, "closing": "The Act is on the statute book. The ships are museum pieces. What you carry out of the chamber is not the Act and it is not Wilberforce. It is the evidence that you gave notice for the next session the morning after you lost.", "paragraphs": ["April 19, 1791. The Commons, after the vote, one candle. You stood where William Wilberforce stood, and the count asked you what it asked him. With no voice left, you wrote: {1} His own diary from those days records the defeat without self-pity and moves to the next motion.", "Before you decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} His was a conversation under an oak with Pitt and a room in London with John Newton, six years earlier, when he nearly left and stayed.", "You refused to let the first night decide. Your reason: {3} That refusal has a name in the Unquit vocabulary. The deferral. Not tonight. Tomorrow's light will be different.", "Your first step: {4} {overlap}", "After the step, nothing outside had changed. Inside, you noticed this: {5}", "Then time did what time does. Motions every session. A loss by four votes in 1796. Two hundred and eighty-three to sixteen in 1807. And the abolition of slavery itself, three days before he died.", "Asked on which day the unquitter was made, you chose {choice}. {reply}", "{help}"], "lockLabel": "The evidence you are taking with you", "iceLine": "And the counted vote in your own life, as you named it tonight: {ice}", "stickerLines": ["Walked with William Wilberforce.", "April 19, 1791."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The candle\"><g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M176,150 L176,320 L224,320 L224,150\" stroke-width=\"3.5\"/><path d=\"M176,150 Q200,142 224,150\" stroke-width=\"3.5\"/><path d=\"M200,150 L200,128\" stroke-width=\"2.4\"/><path d=\"M200,128 Q178,100 200,66 Q222,100 200,128 Z\" stroke-width=\"3\"/><path d=\"M200,118 Q190,104 200,90 Q210,104 200,118\" stroke-width=\"1.4\"/><path d=\"M224,160 Q232,190 226,216 Q222,236 230,250\" stroke-width=\"1.6\"/><path d=\"M140,320 L260,320\" stroke-width=\"3.5\"/><path d=\"M150,320 Q200,346 250,320\" stroke-width=\"3\"/><path d=\"M200,346 L200,360 M170,360 L230,360\" stroke-width=\"3\"/></g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

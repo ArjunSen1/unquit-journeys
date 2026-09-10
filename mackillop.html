@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Mary MacKillop</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Historical details drawn from the public record, the archives of the Sisters of St Joseph and the documents of Mary MacKillop's canonisation. The precise sequence of the September 1871 events is recorded in the diocesan and order archives and is flagged in the script.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "mackillop", "title": "Mary MacKillop", "subtitle": "September 22, 1871. Adelaide, South Australia. The day of the excommunication.", "object": "The bell", "sticker": "The bell.", "footer": "Historical details drawn from the public record, the archives of the Sisters of St Joseph and the documents of Mary MacKillop's canonisation. The precise sequence of the September 1871 events is recorded in the diocesan and order archives and is flagged in the script.", "arrive": {"heading": "You are standing where Mary MacKillop stood.", "paragraphs": ["Mary MacKillop is twenty-nine. Five years ago, with a priest named Julian Tenison Woods, she started a school in a disused stable in Penola, in the bush of South Australia, for the children of the poor who had no other. From that stable came an order of nuns, the Sisters of St Joseph, who wear brown and go where the bishops' orders will not: the goldfields, the tiny settlements, the orphanages, the reformatories. There are now more than a hundred of them and dozens of schools. They own nothing. They ask for nothing. They are called the Brown Joeys.", "The order answers to Mary as its leader, not to each local bishop, and this is the trouble. Some of the clergy want the sisters under their own control, parish by parish. There has been a quarrel over money, over a chaplain, and, in the background, over a matter the sisters raised the year before: reports that a priest in a nearby parish was abusing children. The sisters spoke. It was not forgotten.", "This morning the Bishop of Adelaide, old and ill and surrounded by advisers who dislike her, summoned Mary to the convent chapel. In front of the assembled clergy, in his vestments, he pronounced her excommunicated. Cut off from the sacraments, from the Church, from the body of the faithful. He ordered the order to disband and the sisters to return to their families. Some of the priests present were said to be weeping. She knelt, and then she left the chapel, and she has not spoken against him.", "Tonight Mary steps aside and you step in. The sentence, the order that has just been dissolved by decree, the hundred sisters now told to go home and the bishop who holds, in his hands, your standing before God are hers. Every decision from here is yours. She is not asking you to become her. She is asking you to sit in a borrowed room in Adelaide on the day the Church you have given your life to has thrown you out of it.", "You have done nothing you can repent of. You cannot un-excommunicate yourself. The sisters are watching to see what you do. The easy path is to obey: disband, go home, wait for the Church to change its mind, if it ever does. The hard path is to keep the sisters together as women without an order, outside the sacraments, and trust that this sentence, unlike God, can be wrong."], "button": "Step into the room"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "Evening. A family that is not afraid to be seen with you has given you a room. You can hear, from somewhere, the sisters gathering, uncertain, asking each other what happens now. You have not eaten.", "question": "What are you feeling right now?", "placeholder": "Write it plainly. No one else will read this.", "helper": {"who": "Sister Josephine, one of the first to follow you from Penola", "says": "Mother, you do not have to be the Mother Superior tonight. Tell me.", "options": ["I feel cut off from God in a way I know is not true and cannot stop feeling.", "I feel a great calm underneath, and I do not trust it yet.", "I feel the hundred of them waiting, and I am afraid I will choose wrongly for all of them."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about tomorrow, take an inventory of tonight. Not of the order. Of yourself.", "question": "What have you already done, in your own life, that proves you know how to continue when the authority you trusted turns against you?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Your mother, Flora MacKillop, who raised eight children while your father lost every venture", "says": "I know what you carry, Mary. You went out to work at fourteen to keep this family fed. You started a school in a stable when the diocese gave you nothing. You spoke about that priest when silence would have been safer. Now tell me what you carry. Finish one of these.", "options": ["A time the people in charge were wrong and I acted as though they were, quietly: ", "A time I built something from nothing because no one in authority would build it: ", "A time I told an uncomfortable truth and was punished for it and did not take it back: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "Tonight one sentence is trying to become true: if the bishop has cut me off, then I am cut off, and the order is finished. It carries the whole weight of the Church behind it. If you let it settle in a borrowed room, it disbands a hundred women by morning. You do not have to argue with it. You only have to refuse to decide it tonight.", "question": "What is the one reason you will not let tonight decide anything?", "placeholder": "Not a plan. One reason to wait until the light changes.", "helper": {"who": "Father Woods, your co-founder, far away and unable to help now", "says": "Do not disband them tonight, and do not defy him tonight. Pray. Then tell me why you waited.", "options": ["Because a sentence pronounced by an old and ill man surrounded by my enemies is a human act, and human acts can be reviewed.", "Because I have done nothing I must repent, and a punishment for nothing is not from God even when it comes through the Church.", "Because the sisters are still sisters tonight whatever the decree says, and I will not scatter them in the dark."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The sisters need to know what to do. The city is talking. You need one step. Not an appeal to Rome, not yet. One step small enough that you cannot fail it today.", "question": "What is it?", "placeholder": "Something you can finish before the day's end.", "helper": {"who": "Sister Josephine", "says": "Whatever you do first, all of us will do next. What will you do first?", "options": ["I will send word to the sisters: hold together, keep the children in the schools, wear the brown, and wait. We are dissolved on paper. We are not dissolved.", "I will accept the sentence without a word against him, take shelter with the families who will have me, and receive the sacraments quietly from the priests who know this is wrong.", "I will begin, calmly, the case for Rome. Write down exactly what was done and why, and find the one honest churchman who will carry it over the bishop's head."]}}, {"n": 5, "name": "What you feel now", "prompt": "You did it. The word has gone to the sisters, or you have found shelter and kept silent, or the first pages for Rome are written. Nothing about your situation has changed. You are still excommunicated. The decree still stands.", "question": "What has changed in you?", "placeholder": "Compare it to last night.", "helper": {"who": "Your mother, Flora MacKillop", "says": "I watched you this morning. Do you want to know what I saw?", "options": ["The sense of being cut off is still there, but it has stopped speaking for God. It speaks only for the bishop now.", "I have stopped waiting for the Church to restore me and started keeping the sisters whole until it does.", "I am at peace, and I no longer distrust the peace. It is the one thing they could not excommunicate."]}}, {"n": 6, "name": "Time passes", "montage": ["The sisters do not disband. Most keep the brown habit and keep teaching, sheltered by families and by priests who ignore the decree. You accept the sentence without a public word against the bishop. You are said to pray for him.", "February 1872. The bishop, on his deathbed, sends for you. He lifts the excommunication and declares you innocent of any wrong. Five months, from the chapel to the deathbed.", "1873 to 1875. You travel to Rome. The Pope receives you and gives the order his approval, with Mary as its head, answering to Rome rather than to each bishop, which was the point of the whole quarrel. You come home with the thing they excommunicated you for wanting.", "You spend the rest of your life doing exactly what you began: schools for the poor, refuges, orphanages, across Australia and New Zealand. There are more quarrels with bishops. You are removed as superior for a time and reinstated. You never stop.", "August 8, 1909. You die in North Sydney. On October 17, 2010, in Rome, you are declared a saint, the first born on the continent. The Church that excommunicated you canonises you. The order still teaches. The brown is still worn."], "question": "The evidence has arrived, and the Church that cut you off has made you a saint. Here is the question the canonisation cannot answer. On which day was the unquitter made?", "choices": [{"label": "October 17, 2010. The day you were declared a saint.", "short": "the day you were declared a saint", "reply": "Look again. Rome was the Church catching up by more than a century. It honoured a decision made in a borrowed room in 1871, when a hundred women could have been sent home by nightfall. Canonisation does not make an unquitter. It finds one."}, {"label": "February 1872. The day the bishop lifted the sentence on his deathbed.", "short": "the day the sentence was lifted", "reply": "A vindication, and a swift one. But the lifting of the sentence rewarded a decision already made five months earlier, when there was no sign the sentence would ever be lifted."}, {"label": "The morning you sent word to the sisters to hold together while the decree still stood.", "short": "the morning you told the sisters to hold together", "reply": "Yes. There was no deathbed, no Rome, no sainthood. There was an excommunicated woman, a dissolved order and a hundred sisters waiting to be told to go home. Unquitters are not made when the Church repents. They are made the morning they refuse to scatter. Tonight, in the same room, you made yours."}, {"label": "The day you started a school in a stable because the diocese would not.", "short": "the day you started a school in a stable", "reply": "Even earlier. Which means Mary MacKillop was already an unquitter before the excommunication. The decree did not make her one. It found one. That is what your own evidence in step two was for. It was there before tonight."}]}, {"n": 7, "name": "Lock it in", "prompt": "The authority you trust will turn on you again. Different room. Write one sentence you want to be able to read on that day. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Sister Josephine", "says": "I will keep this for the order. What should it say?", "options": ["I did refuse to scatter the sisters on the night we were told to disband.", "I did accept the punishment without letting it speak for God.", "I did carry the truth over the bishop's head to Rome, quietly, without a word of malice."]}, "ice": {"question": "One more line, and this one is yours. Where is the sentence in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, in Mary MacKillop's room", "sub": "Your decisions, beside hers", "stepOverlap": ["She made the same choice. The order did not disband. The sisters kept the habit and the schools, sheltered by families and sympathetic priests, until the sentence was lifted.", "She made the same choice. She accepted the excommunication without a public word against the bishop, and was said to pray for him.", "She made a choice in the same spirit. Within two years she took the case to Rome and won the order's independence, the very thing the quarrel had been about."], "stepOverlapFree": "Her first step was different. She held the sisters together, kept her silence about the bishop, and later carried the case to Rome. A different choice in the same room is still a choice made.", "help": {"zero": "You did not ask for help on this journey. Mary did. Families who sheltered her, priests who ignored the decree, sisters who held together. Next time, try the door. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You asked for help {n} on this journey. Mary had families who sheltered her, priests who ignored the decree, and sisters who held together. Asking is not the opposite of continuing. It is how continuing is done."}, "closing": "The order still teaches. The Church that cut her off calls her a saint. What you carry from the room is not the canonisation and it is not Mary. It is the evidence that you refused to scatter the sisters the night you were told to.", "paragraphs": ["September 22, 1871. A borrowed room in Adelaide, the excommunication pronounced that morning. You stood where Mary MacKillop stood, and the sentence asked you what it asked her. That night you wrote: {1} Her own conduct in those days is the record: no word against the bishop, and a refusal to send the sisters home.", "Before you decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was a school in a stable and a truth told about a priest when silence would have been safer.", "You refused to let the first night decide. Your reason: {3} That refusal has a name in the Unquit vocabulary. The deferral. Not tonight. Tomorrow's light will be different.", "Your first step: {4} {overlap}", "After the step, nothing outside had changed. Inside, you noticed this: {5}", "Then time did what time does. A deathbed in February 1872 and the sentence lifted. Rome, and the order's independence won. A life of schools for the poor. And in 2010, a saint.", "Asked on which day the unquitter was made, you chose {choice}. {reply}", "{help}"], "lockLabel": "The evidence you are taking with you", "iceLine": "And the sentence in your own life, as you named it tonight: {ice}", "stickerLines": ["Walked with Mary MacKillop.", "September 22, 1871."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The bell\"><g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M200,80 L200,96\" stroke-width=\"3\"/><circle cx=\"200\" cy=\"74\" r=\"10\" stroke-width=\"3\"/><path d=\"M200,96 Q140,110 128,220 Q124,258 96,286 L304,286 Q276,258 272,220 Q260,110 200,96 Z\" stroke-width=\"3.5\"/><path d=\"M96,286 L304,286 L304,300 L96,300 Z\" stroke-width=\"3\"/><circle cx=\"200\" cy=\"318\" r=\"14\" stroke-width=\"3\"/><path d=\"M200,300 L200,306\" stroke-width=\"2.4\"/><path d=\"M150,230 Q200,246 250,230\" stroke-width=\"1.4\"/></g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>

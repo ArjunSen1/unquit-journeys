@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unquit Journeys. Wangari Maathai</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#000000; --muted:#6b6b6b; --red:#8e1b1b; --rule:#e6e6e6;
+    --font: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:28px 40px 0;font-size:15px;color:var(--muted)}
+  header b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+  header b span{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:minmax(0,640px) minmax(0,320px);gap:56px;padding:72px 40px 96px;max-width:1120px;width:100%;margin:0 auto;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:minmax(0,1fr);gap:32px;padding:48px 24px 72px}header{padding:20px 24px 0}}
+  .screen{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.screen.enter{animation:fade .35s ease-out}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1{font-size:44px;line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--red);font-size:19px;margin:0 0 40px}
+  p{margin:0 0 20px;max-width:34em}
+  .prompt{margin-bottom:24px}
+  .question{font-size:26px;line-height:1.3;font-weight:600;margin:0 0 28px;letter-spacing:-.005em}
+  .stepname{font-size:15px;color:var(--muted);margin:0 0 20px}
+  textarea{width:100%;min-height:120px;resize:vertical;border:0;border-bottom:1px solid var(--ink);padding:12px 0;font:inherit;font-size:20px;line-height:1.5;color:var(--ink);background:transparent;outline:none}
+  textarea::placeholder{color:#9a9a9a}
+  textarea:focus{border-bottom:2px solid var(--red)}
+  .actions{display:flex;gap:16px;align-items:center;margin-top:36px;flex-wrap:wrap}
+  button{font:inherit;font-size:17px;cursor:pointer;border-radius:0}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:12px 28px}
+  .btn:disabled{background:#bdbdbd;border-color:#bdbdbd;cursor:default}
+  .btn:focus-visible,.link:focus-visible,.opt:focus-visible,.choice:focus-visible,.help-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .link{background:none;border:0;color:var(--muted);padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+  aside{padding-top:2px}
+  .help-btn{width:100%;text-align:left;background:none;border:1px solid var(--ink);padding:16px 18px;font-size:17px}
+  .help-btn:hover{border-color:var(--red);color:var(--red)}
+  .helper{border-left:2px solid var(--red);padding:4px 0 4px 18px}
+  .helper .who{font-size:15px;color:var(--muted);margin:0 0 6px}
+  .helper .says{font-size:19px;margin:0 0 22px}
+  .opt{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:14px 0;font-size:17px;line-height:1.45;color:var(--ink)}
+  .opt:last-child{border-bottom:1px solid var(--rule)}
+  .opt:hover{color:var(--red)}
+  .hint{font-size:15px;color:var(--muted);margin-top:14px}
+  .montage p{margin-bottom:22px}
+  .choices{margin-top:8px}
+  .choice{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:16px 0;font-size:19px;color:var(--ink)}
+  .choice:last-of-type{border-bottom:1px solid var(--rule)}
+  .choice:hover{color:var(--red)}
+  .choice.picked{color:var(--red);font-weight:600}
+  .choice[disabled]{cursor:default;color:var(--muted)}
+  .choice.picked[disabled]{color:var(--red)}
+  .reply{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink);max-width:34em}
+  .story p{max-width:36em}
+  .story .you{color:var(--red)}
+  .story .lock{font-size:24px;line-height:1.35;font-weight:600;margin:36px 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-width:30em}
+  .note{border-left:2px solid var(--red);padding:6px 0 6px 20px;margin:36px 0 32px;max-width:34em}
+  .note .from{font-size:15px;color:var(--muted);margin:0 0 8px}
+  .note p{margin:0}
+  .sticker{width:300px;border:3px solid var(--red);display:flex;flex-direction:column;padding:22px 26px 26px;margin:8px 0 0}
+  .sticker svg{width:200px;height:200px;display:block;margin:0 auto 10px}
+  .sticker .big{font-size:26px;line-height:1.2;font-weight:600;color:var(--red)}
+  .sticker .small{font-size:14px;color:var(--muted);margin-top:18px;line-height:1.4}
+  .ice-block{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
+  .ice-block .question{font-size:21px}
+  footer{padding:0 40px 28px;font-size:14px;color:var(--muted)}
+  @media (max-width:900px){footer{padding:0 24px 24px}}
+  @media print{header,aside,.actions,footer,.noprint{display:none !important}main{display:block;padding:0}body{font-size:12pt}.sticker{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><b><a href="../index.html" style="color:inherit;text-decoration:none">UNQUIT<span>®</span> JOURNEYS</a></b><span id="progress"></span></header>
+<main>
+  <section class="screen" id="screen"></section>
+  <aside id="aside"></aside>
+</main>
+<footer>Unquit Journeys. Prototype. Historical details drawn from the public record, Wangari Maathai's memoir Unbowed and the Green Belt Movement's own history. Tree counts are given in round figures because they change.</footer>
+<script>
+const D = {"series": "Unquit Journeys", "slug": "maathai", "title": "Wangari Maathai", "subtitle": "March 3, 1992. Nairobi Hospital, after Freedom Corner.", "object": "The seedling", "sticker": "The seedling.", "footer": "Historical details drawn from the public record, Wangari Maathai's memoir Unbowed and the Green Belt Movement's own history. Tree counts are given in round figures because they change.", "arrive": {"heading": "You are standing where Wangari Maathai stood.", "paragraphs": ["Wangari Maathai is fifty-one. She was the first woman in East and Central Africa to earn a doctorate, in 1971, and the first to chair a university department. In 1977 she planted seven trees in a Nairobi park on World Environment Day and called it the Green Belt Movement. The idea was simple enough to be laughed at. Pay rural women a few shillings for every seedling that survived, and let them heal the land the government would not. Fifteen years later there are millions of trees, and the government has stopped laughing.", "Her husband divorced her and told the court she was too educated, too strong and too hard to control. A judge jailed her for saying the judge was incompetent. In 1989 she fought a sixty-storey tower planned for Uhuru Park, the one open green space in the centre of the city, and the president called her a madwoman. The tower was never built.", "Four days ago she joined a group of mothers at the corner of that same park. Their sons are political prisoners, held without trial. The mothers had begun a hunger strike and they asked her to sit with them. She sat. They named the place Freedom Corner. This morning the riot police came. She was clubbed to the ground and beaten until she lost consciousness. The mothers, some of them in their seventies, stripped naked in front of the police, the oldest curse a Kikuyu woman can lay on a man. Some of the police wept and ran.", "Tonight Wangari steps aside and you step in. The hospital bed, the bandaged head, the mothers still at the corner and the president who has said her name on the radio are hers. Every decision from here is yours. She is not asking you to become her. She is asking you to lie in a hospital bed in Nairobi and decide whether the corner is still yours to go back to.", "You are not the mother of any of the prisoners. You could stay in this bed and no one could call you a coward. The mothers are asking whether you are coming back."], "button": "Step into the ward"}, "steps": [{"n": 1, "name": "What you feel", "prompt": "Night in the ward. Your head is stitched. Your daughter Wanjira has been and gone. Outside, the radio is repeating that a group of hooligans disturbed the peace at Uhuru Park.", "question": "What are you feeling right now?", "placeholder": "Write it plainly. No one else will read this.", "helper": {"who": "Vertistine Mbaya, your friend and colleague from the movement's first years", "says": "You do not have to be Professor Maathai tonight. Tell me what is under the bandage.", "options": ["I feel the fear they wanted me to feel, and I hate that it worked, even for an hour.", "I feel that my body has been made into an argument, and I did not consent to the argument.", "I feel the mothers waiting for me, and I am not sure I have anything left to bring them."]}}, {"n": 2, "name": "The evidence you already carry", "prompt": "Before you decide anything about tomorrow, take an inventory of tonight. Not of the movement. Of yourself.", "question": "What have you already done, in your own life, that proves you know how to continue after being knocked down in public?", "placeholder": "One thing you did. Not one thing you believe.", "helper": {"who": "Wanjira, your daughter", "says": "Mother, I know what you carry. You were divorced in a courtroom for being too strong and you did not become weaker. You were jailed for a sentence and you did not take it back. You stopped a tower. Now tell me what you carry. Finish one of these.", "options": ["A time I was humiliated in public and went back to the same place: ", "A time I planted something that would not be seen for years and tended it anyway: ", "A time I was called mad and the madness turned out to be the plan: "]}, "fillIn": true}, {"n": 3, "name": "The deferral", "prompt": "Tonight one sentence is trying to become true: this is not my fight. It may be dressed as wisdom. It may even be partly true. But a sentence like that, decided in a hospital bed with a stitched head, is a sentence decided by the club. You do not have to argue with it. You only have to refuse to decide it tonight.", "question": "What is the one reason you will not let tonight decide anything?", "placeholder": "Not a plan. One reason to wait until the light changes.", "helper": {"who": "Monica Wamwere, one of the mothers, whose son Koigi has been in prison for years", "says": "We are still at the corner. We are not asking you to come tonight. Tomorrow you can tell us. Why will you wait?", "options": ["Because a decision made under a bandage is the police deciding, not me.", "Because the mothers have waited years for their sons. I can wait one night for my own answer.", "Because the trees taught me that what is beaten down in March is not gone in March."]}}, {"n": 4, "name": "One step", "prompt": "Morning. The doctor says you can leave. Reporters are outside because the president has made you news. You need one step. Not a strategy for the release of every prisoner. One step small enough that you cannot fail it today.", "question": "What is it?", "placeholder": "Something you can finish before dark.", "helper": {"who": "Vertistine Mbaya", "says": "Whatever you do first, the mothers will do next, and so will the police. What will you do first?", "options": ["I will go back to Freedom Corner today, with the bandage on, and sit down where I was sitting when they hit me.", "I will go to the cathedral across the road, All Saints, and ask them for the crypt so the mothers have a place the police cannot clear.", "I will say one sentence to the reporters and no more: I was beaten for sitting in a park with mothers. Then I will walk to the park."]}}, {"n": 5, "name": "What you feel now", "prompt": "You did it. You are back at the corner, or the crypt is open, or the sentence is said. Nothing about your situation has changed. The sons are still in prison. The president still owns the radio.", "question": "What has changed in you?", "placeholder": "Compare it to last night.", "helper": {"who": "Monica Wamwere", "says": "We watched you walk across the grass. Do you want to know what we saw?", "options": ["The fear is still here, but it is beside me now, not on top of me.", "I am not the mother of these men. I have stopped needing a reason more than that they asked.", "The bandage is doing more than my speeches ever did. My body has become the argument after all, and this time I chose it."]}}, {"n": 6, "name": "Time passes", "montage": ["The mothers move into the crypt of All Saints Cathedral across the road from the corner. They stay for almost a year. The police do not clear a church. You come and go, and each time you come, the press comes with you.", "Early 1993. The last of the sons are released. Monica Wamwere's son Koigi walks out. The mothers go home. The corner keeps the name they gave it.", "The trees keep going. By the time you die there are tens of millions of them, planted by women who were paid a few shillings each for the ones that lived. The movement has spread to other countries under other names.", "December 2002. The government that beat you loses the election. You win your parliamentary seat with ninety-eight percent of the vote and become an assistant minister for the environment.", "October 8, 2004. You are awarded the Nobel Peace Prize, the first African woman to receive it. You hear the news in a hotel room in Nyeri, near where you were born. You go outside and plant a tree. September 25, 2011, you die in Nairobi. Your daughter Wanjira chairs the movement now."], "question": "The evidence has arrived, and it has roots. Here is the question the prize cannot answer. On which day was the unquitter made?", "choices": [{"label": "October 8, 2004. The day the Nobel was announced.", "short": "the day the Nobel was announced", "reply": "Look again. Oslo was the world catching up. It honoured a decision made twelve years earlier, in a hospital bed, with a stitched head and no prize in sight. Recognition does not make an unquitter. It finds one."}, {"label": "June 5, 1977. The day you planted seven trees.", "short": "the day you planted seven trees", "reply": "A beginning, and a good one. But a beginning is not a decision. The decision came when the same government that let you plant beat you unconscious for sitting, and you went back to the same corner."}, {"label": "March 4, 1992. The morning you went back to Freedom Corner with the bandage on.", "short": "the morning you went back to Freedom Corner", "reply": "Yes. There was no release yet, no election, no prize. There was a park, a group of old women and a head that had been split open the day before. Unquitters are not made when the world applauds. They are made in the morning they walk back across the grass. Tonight, in the same ward, you made yours."}, {"label": "The day in the divorce court when they called you too strong and you did not apologise.", "short": "the day in the divorce court", "reply": "Even earlier. Which means Wangari Maathai was already an unquitter before Freedom Corner. The police did not make her one. They found one. That is what your own evidence in step two was for. It was there before tonight."}]}, {"n": 7, "name": "Lock it in", "prompt": "You will be knocked down in public again. Different park. Write one sentence you want to be able to read on that day. Not advice. Evidence.", "question": "Begin with the words I did.", "placeholder": "I did...", "helper": {"who": "Wanjira", "says": "Mother, I will keep this for the movement. What should it say?", "options": ["I did go back to the corner the morning after they beat me, and I sat down in the same place.", "I did not need it to be my fight. The mothers asked, and that was reason enough.", "I did plant what I could not live to see, and I tended it as though I would."]}, "ice": {"question": "One more line, and this one is yours. Where is the corner in your own life right now?", "placeholder": "Optional. It stays with you.", "skip": "Skip this"}}], "story": {"heading": "You, at Wangari Maathai's corner", "sub": "Your decisions, beside hers", "stepOverlap": ["She made the same choice. She returned to Freedom Corner and to the mothers, bandaged, and kept returning through the year they spent in the cathedral crypt.", "She made the same choice. The mothers took refuge in the crypt of All Saints Cathedral, across the road from the park, and stayed for the better part of a year until the sons were released.", "She made the same choice. Her statements from those days were short and factual, and the press carried them further than any speech."], "stepOverlapFree": "Her first step was different. She went back to the corner, and then to the cathedral crypt with the mothers, and stayed with them until the prisoners were free. A different choice at the same corner is still a choice made.", "help": {"zero": "You did not ask for help on this journey. Wangari did, and it took the form of thousands of women with seedlings and a church with a crypt. Next time, try the door. Asking is not the opposite of continuing. It is how continuing is done.", "some": "You asked for help {n} on this journey. Wangari's help took the form of thousands of women with seedlings and a church with a crypt. Asking is not the opposite of continuing. It is how continuing is done."}, "closing": "The corner still carries the name. The trees are still growing. What you carry out of the ward is not the prize and it is not Wangari. It is the evidence that you walked back across the grass the morning after.", "paragraphs": ["March 3, 1992. A hospital bed in Nairobi, the radio calling you a hooligan. You stood where Wangari Maathai stood, and the bandage asked you what it asked her. That night you wrote: {1} Her own account of the beating, in her memoir, is brief and unsentimental. Then it moves to what happened next.", "Before you decided anything, you did what every unquitter does first. You looked for evidence, and it was your own: {2} Hers was a divorce court that called her too strong, a jail cell for a sentence she would not retract, and seven trees in a park in 1977.", "You refused to let the first night decide. Your reason: {3} That refusal has a name in the Unquit vocabulary. The deferral. Not tonight. Tomorrow's light will be different.", "Your first step: {4} {overlap}", "After the step, nothing outside had changed. Inside, you noticed this: {5}", "Then time did what time does. The crypt. The release in 1993. The election in 2002. Oslo in 2004, and a tree planted in Nyeri the same afternoon.", "Asked on which day the unquitter was made, you chose {choice}. {reply}", "{help}"], "lockLabel": "The evidence you are taking with you", "iceLine": "And the corner in your own life, as you named it tonight: {ice}", "stickerLines": ["Walked with Wangari Maathai.", "March 3, 1992."]}, "stickerSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\" role=\"img\" aria-label=\"The seedling\"><g fill=\"none\" stroke=\"#8e1b1b\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M200,340 L200,190\" stroke-width=\"3.5\"/><path d=\"M200,250 Q150,232 128,180 Q180,186 200,250 Z\" stroke-width=\"3\"/><path d=\"M200,220 Q250,200 274,148 Q222,156 200,220 Z\" stroke-width=\"3\"/><path d=\"M200,190 Q196,150 214,120 Q222,150 200,190 Z\" stroke-width=\"3\"/><path d=\"M164,204 Q186,216 200,240 M236,176 Q214,192 200,220\" stroke-width=\"1.4\"/><path d=\"M120,340 L280,340\" stroke-width=\"3\"/><path d=\"M140,358 Q200,372 260,358\" stroke-width=\"1.6\"/></g></svg>"};
+const state = {answers:{}, help:{}, day:null, ice:'', idx:-1, stepMode:{}};
+const screen = document.getElementById('screen');
+const aside = document.getElementById('aside');
+const progress = document.getElementById('progress');
+
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){ if(k==='text') e.textContent=v; else if(k==='html') e.innerHTML=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v); }
+  for(const k of kids){ if(k==null) continue; e.append(k.nodeType?k:document.createTextNode(k)); }
+  return e;
+}
+function show(node, sideNode){
+  screen.classList.remove('enter'); void screen.offsetWidth;
+  screen.replaceChildren(node); aside.replaceChildren(); if(sideNode) aside.append(sideNode);
+  screen.classList.add('enter'); window.scrollTo({top:0,behavior:'auto'});
+}
+
+function arrive(){
+  progress.textContent = 'Before the game begins';
+  const a = D.arrive;
+  const wrap = el('div');
+  wrap.append(el('h1',{text:a.heading}), el('p',{class:'sub',text:D.subtitle}));
+  a.paragraphs.forEach(t=>wrap.append(el('p',{text:t})));
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:a.button,onclick:()=>step(0)})));
+  show(wrap);
+}
+
+function step(i){
+  const s = D.steps[i];
+  progress.textContent = 'Step '+s.n+' of 7';
+  if(s.n===6) return timePasses(i);
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  wrap.append(el('p',{class:'prompt',text:s.prompt}));
+  wrap.append(el('p',{class:'question',text:s.question}));
+  if(D.two) wrap.append(el('p',{class:'stepname',text:D.two.a}));
+  const ta = el('textarea',{placeholder:s.placeholder,'aria-label':s.question});
+  ta.value = state.answers[s.n]||'';
+  wrap.append(ta);
+  let tb=null;
+  if(D.two){ wrap.append(el('p',{class:'stepname',style:'margin-top:28px',text:D.two.b})); tb = el('textarea',{placeholder:s.placeholder,'aria-label':s.question+' ('+D.two.b+')'}); tb.value = state.answers[s.n+'b']||''; wrap.append(tb); }
+  let iceTa=null;
+  if(s.ice){
+    const ib = el('div',{class:'ice-block'});
+    ib.append(el('p',{class:'question',text:s.ice.question}));
+    iceTa = el('textarea',{placeholder:s.ice.placeholder,'aria-label':s.ice.question,style:'min-height:80px'});
+    iceTa.value = state.ice||'';
+    ib.append(iceTa);
+    wrap.append(ib);
+  }
+  const cont = el('button',{class:'btn',text: s.n===7 ? 'See your journey' : 'Continue', disabled:'true', onclick:()=>{
+    state.answers[s.n]=ta.value.trim();
+    if(tb) state.answers[s.n+'b']=tb.value.trim();
+    if(iceTa) state.ice=iceTa.value.trim();
+    if(i+1<D.steps.length) step(i+1); else story();
+  }});
+  const opts = s.helper.options || [].concat(s.helper.optionsA||[], s.helper.optionsB||[]);
+  const check=()=>{ const v=ta.value.trim(); const bare = s.fillIn && opts.some(o=>o.trim()===v); let ok = v.length>2 && !bare; if(tb){ const w=tb.value.trim(); ok = ok && w.length>2 && !(s.fillIn && opts.some(o=>o.trim()===w)); } if(ok) cont.removeAttribute('disabled'); else cont.setAttribute('disabled','true'); };
+  ta.addEventListener('input',check); if(tb) tb.addEventListener('input',check); check();
+  const actions = el('div',{class:'actions'}, cont);
+  if(i>0) actions.append(el('button',{class:'link',text:'Back',onclick:()=>{state.answers[s.n]=ta.value.trim(); i===0?arrive():step(i-1);}}));
+  wrap.append(actions);
+
+  // helper box on the right
+  const side = el('div');
+  const btn = el('button',{class:'help-btn',text:s.helpLabel||'Ask for help'});
+  const openHelper=()=>{
+    state.help[s.n]=true;
+    const h = el('div',{class:'helper'});
+    h.append(el('p',{class:'who',text:s.helper.who}));
+    h.append(el('p',{class:'says',text:s.helper.says}));
+    if(D.two){
+      h.append(el('p',{class:'who',text:D.two.a}));
+      (s.helper.optionsA||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus();}})); });
+      h.append(el('p',{class:'who',style:'margin-top:18px',text:D.two.b}));
+      (s.helper.optionsB||[]).forEach((o,k)=>{ h.append(el('button',{class:'opt',text:o,onclick:()=>{tb.value=o; state.stepMode[s.n+'b']= s.fillIn ? 'free' : k; check(); tb.focus();}})); });
+    } else {
+    s.helper.options.forEach((o,k)=>{
+      h.append(el('button',{class:'opt',text:o,onclick:()=>{ta.value=o; state.stepMode[s.n]= s.fillIn ? 'free' : k; check(); ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);}}));
+    });
+    }
+    h.append(el('p',{class:'hint',text:'Choose one to continue, or use it as a start and write your own.'}));
+    side.replaceChildren(h);
+  };
+  btn.addEventListener('click',openHelper);
+  side.append(btn);
+  if(state.help[s.n]) openHelper();
+  ta.addEventListener('input',()=>{ const o=(s.helper.options||s.helper.optionsA||[]); if(typeof state.stepMode[s.n]==='number' && ta.value.trim()!==o[state.stepMode[s.n]]) state.stepMode[s.n]='free'; });
+  show(wrap, side);
+  ta.focus({preventScroll:true});
+}
+
+function timePasses(i){
+  const s = D.steps[i];
+  const wrap = el('div');
+  wrap.append(el('p',{class:'stepname',text:s.name}));
+  const m = el('div',{class:'montage'});
+  s.montage.forEach(t=>m.append(el('p',{text:t})));
+  wrap.append(m);
+  wrap.append(el('p',{class:'question',text:s.question}));
+  const ch = el('div',{class:'choices'});
+  const replyBox = el('div');
+  const cont = el('button',{class:'btn',text:'Continue',disabled:'true',onclick:()=>step(i+1)});
+  s.choices.forEach((c,k)=>{
+    const b = el('button',{class:'choice',text:c.label,onclick:()=>{
+      state.day=k;
+      [...ch.children].forEach((x,j)=>{x.classList.toggle('picked',j===k); x.setAttribute('disabled','true');});
+      replyBox.replaceChildren(el('div',{class:'reply'}, el('p',{text:c.reply})));
+      cont.removeAttribute('disabled');
+    }});
+    if(state.day===k) b.classList.add('picked');
+    ch.append(b);
+  });
+  wrap.append(ch, replyBox);
+  if(state.day!=null){ replyBox.append(el('div',{class:'reply'}, el('p',{text:s.choices[state.day].reply}))); cont.removeAttribute('disabled'); [...ch.children].forEach(x=>x.setAttribute('disabled','true')); }
+  wrap.append(el('div',{class:'actions'}, cont, el('button',{class:'link',text:'Back',onclick:()=>step(i-1)})));
+  show(wrap);
+}
+
+function you(t){ return el('span',{class:'you',text:t}); }
+function render(tpl, vars){
+  const p=el('p');
+  tpl.split(/(\{[a-z0-9]+\})/).forEach(part=>{
+    const m=part.match(/^\{([a-z0-9]+)\}$/);
+    if(!m){ if(part) p.append(document.createTextNode(part)); return; }
+    const v=vars[m[1]]; if(v==null) return;
+    if(v.red) p.append(you(v.text)); else p.append(document.createTextNode(v.text));
+  });
+  return p;
+}
+function story(){
+  progress.textContent = 'Your journey';
+  const A = state.answers, S = D.story;
+  const mode = D.two ? state.stepMode['4b'] : state.stepMode[4];
+  const overlap = (typeof mode==='number') ? S.stepOverlap[mode] : S.stepOverlapFree;
+  const c = D.steps[5].choices[state.day];
+  const n = Object.keys(state.help).length;
+  const words = ['','once','twice','three times','four times','five times','six times'];
+  const help = n===0 ? S.help.zero : S.help.some.replace('{n}', words[n]||(n+' times'));
+  const vars = {
+    '1':{text:A[1],red:true},'2':{text:A[2],red:true},'3':{text:A[3],red:true},'4':{text:A[4],red:true},'5':{text:A[5],red:true},
+    overlap:{text:overlap}, choice:{text:c.short,red:true}, reply:{text:c.reply}, help:{text:help}, ice:{text:state.ice,red:true},
+    '1b':{text:A['1b'],red:true},'2b':{text:A['2b'],red:true},'3b':{text:A['3b'],red:true},'4b':{text:A['4b'],red:true},'5b':{text:A['5b'],red:true}
+  };
+  try{ const key='unquit-ledger'; const cur=JSON.parse(localStorage.getItem(key)||'[]'); cur.push({slug:D.slug,title:D.title,object:D.sticker,lock:A[7]+(A['7b']?('  /  '+A['7b']):''),ice:state.ice||'',day:c.short,date:new Date().toISOString().slice(0,10)}); localStorage.setItem(key,JSON.stringify(cur)); }catch(e){}
+  const wrap = el('div',{class:'story'});
+  wrap.append(el('h1',{text:S.heading}), el('p',{class:'sub',text:S.sub}));
+  S.paragraphs.forEach(t=>wrap.append(render(t,vars)));
+  wrap.append(el('p',{class:'stepname',text:S.lockLabel}));
+  wrap.append(el('div',{class:'lock you',text:A[7]}));
+  if(D.two && A['7b']) wrap.append(el('div',{class:'lock you',style:'margin-top:-20px',text:A['7b']}));
+  if(state.ice) wrap.append(render(S.iceLine,vars));
+  wrap.append(el('p',{text:S.closing}));
+  if(S.personalNote){ wrap.append(el('div',{class:'note'}, el('p',{class:'from',text:S.personalNote.from}), el('p',{text:S.personalNote.text}))); }
+  const art = el('div',{html:D.stickerSvg||''}); const st = el('div',{class:'sticker'}, art, el('div',{class:'big',text:D.sticker}), el('div',{class:'small',html:S.stickerLines.join('<br>')}));
+  wrap.append(st);
+  wrap.append(el('div',{class:'actions'}, el('button',{class:'btn',text:'Print or save',onclick:()=>window.print()}), el('button',{class:'link',text:'Walk it again',onclick:()=>{Object.assign(state,{answers:{},help:{},day:null,ice:'',stepMode:{}}); arrive();}}), el('a',{class:'link',href:'../ledger.html',text:'Your evidence',style:'font-size:17px'}), el('a',{class:'link',href:'../index.html',text:'All journeys',style:'font-size:17px'})));
+  show(wrap);
+}
+arrive();
+</script>
+</body>
+</html>
