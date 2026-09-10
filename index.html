@@ -93,7 +93,7 @@
   <div>
     <h1>The world<br>keeps going.</h1>
     <p class="lead">Somewhere, someone is deciding whether&nbsp;to.</p>
-    <p class="cap">Every light is a moment before the story could go either way. One hundred and one of them, across seven continents and four thousand years. Touch one.</p>
+    <p class="cap">Every light is a moment before the story could go either way. One hundred and two of them, across seven continents and four thousand years. Touch one.</p>
     <div class="actions">
       <a class="btn" href="#find">Explore the world</a>
       <button type="button" class="btn ghost" id="oneMoment">Give me one moment</button>
@@ -205,6 +205,7 @@
 <a href="journeys/borges.html" data-slug="borges"><circle cx="343.6" cy="339.6" r="4.2"/><title></title></a>
 <a href="journeys/mackillop.html" data-slug="mackillop"><circle cx="803.4" cy="340.5" r="4.2"/><title></title></a>
 <a href="journeys/miners.html" data-slug="miners"><circle cx="311.9" cy="318.1" r="4.2"/><title></title></a>
+<a href="journeys/skyred.html" data-slug="skyred"><circle cx="693.8" cy="175.1" r="4.2"/><title></title></a>
 </g></svg>
   </div>
 </section>
@@ -247,7 +248,7 @@
 <button type="button" class="era" data-era="c20" aria-pressed="false">The 1900s</button>
 <button type="button" class="era" data-era="today" aria-pressed="false">Today</button>
   </div>
-  <p class="count"><span id="countText">All 101 journeys, in order. Journey Zero first.</span><button type="button" id="clearFilters" hidden>Show all</button></p>
+  <p class="count"><span id="countText">All 102 journeys, in order. Journey Zero first.</span><button type="button" id="clearFilters" hidden>Show all</button></p>
   <div class="list" id="list">
 <a class="j" data-slug="zero" data-door="middle" data-era="today" data-kind="record" data-title="The food truck man, Journey Zero" href="journeys/zero.html">
       <p class="t">The food truck man, Journey Zero</p>
@@ -723,6 +724,12 @@
       <p class="d">You could empty the basket. It is what baskets are for. He threw them away for a reason, and he is tired, and it is not your story.</p>
       <p class="k">The Helper. Consent required.</p>
     </a>
+<a class="j" data-slug="skyred" data-door="no" data-era="today" data-kind="record" data-title="Arjun Sen, the red sky" href="journeys/skyred.html">
+      <p class="t">Arjun Sen, the red sky</p>
+      <p class="w">Kolkata. About age ten.</p>
+      <p class="d">You painted the sky red. The teacher says there is no art in you. The crack he just named was already there.</p>
+      <p class="k">Repair, thirty years wide. A borrowed belief closes a crack.</p>
+    </a>
 <a class="j" data-slug="einstein" data-door="middle" data-era="c20" data-kind="record" data-title="Albert Einstein, the decade" href="journeys/einstein.html">
       <p class="t">Albert Einstein, the decade</p>
       <p class="w">A study in Berlin. November 1915. Eight years of equations that will not close.</p>
@@ -857,8 +864,8 @@
     </a>
   </div>
   <details>
-    <summary>All one hundred and one slots, in order</summary>
-    <p class="note" style="color:#6b6b6b;font-size:14px;margin:0 0 24px">Testing build, September 2026. One hundred and one journeys are live for review. Journeys marked consent required are included for testing only and will not be public until their subjects have agreed.</p>
+    <summary>All one hundred and two journeys, in order</summary>
+    <p class="note" style="color:#6b6b6b;font-size:14px;margin:0 0 24px">Testing build, September 2026. All one hundred and two journeys are live for review. Journeys marked consent required are included for testing only and will not be public until their subjects have agreed.</p>
     <div class="order">
 <div class="row"><span class="n">0</span><span class="name"><a href="journeys/zero.html">The food truck man, Journey Zero</a></span><span class="e">Unknown</span></div>
 <div class="row"><span class="n">1</span><span class="name"><a href="journeys/arjuna.html">Arjuna, the lowered bow</a></span><span class="e">Yours vs not yours</span></div>
@@ -939,7 +946,7 @@
 <div class="row"><span class="n">76</span><span class="name"><a href="journeys/vangogh.html">Vincent van Gogh, the letters to Theo</a></span><span class="e">Long Middle, unresolved</span></div>
 <div class="row"><span class="n">77</span><span class="name"><a href="journeys/ratan.html">Ratan Tata, Detroit</a></span><span class="e">Arrival, nine years. Consent required</span></div>
 <div class="row"><span class="n">78</span><span class="name"><a href="journeys/king.html">Stephen and Tabitha King, the wastebasket</a></span><span class="e">The Helper. Consent required</span></div>
-<div class="row coming"><span class="n">79</span><span class="name">Arjun Sen, Sky Red</span><span class="e">Awaiting Arjun</span></div>
+<div class="row"><span class="n">79</span><span class="name"><a href="journeys/skyred.html">Arjun Sen, the red sky</a></span><span class="e">Repair, thirty years wide</span></div>
 <div class="row"><span class="n">80</span><span class="name"><a href="journeys/einstein.html">Albert Einstein, the decade</a></span><span class="e">Arrival</span></div>
 <div class="row"><span class="n">81</span><span class="name"><a href="journeys/karsanbhai.html">Karsanbhai Patel, Nirma</a></span><span class="e">Continuation through grief. Consent required</span></div>
 <div class="row"><span class="n">82</span><span class="name"><a href="journeys/dyson.html">James Dyson, prototype 5,127</a></span><span class="e">Arrival by data. Consent required</span></div>
@@ -1030,7 +1037,7 @@
     cards.forEach(function(c){var ok=(!door||c.dataset.door===door)&&(!era||c.dataset.era===era);c.classList.toggle('hidden',!ok);if(ok)n++;});
     doors.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.door===door))});
     eras.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.era===era))});
-    if(!door&&!era){count.textContent='All 101 journeys, in order. Journey Zero first.';clear.hidden=true;}
+    if(!door&&!era){count.textContent='All 102 journeys, in order. Journey Zero first.';clear.hidden=true;}
     else{var parts=[];if(door)parts.push(doorNames[door].toLowerCase());if(era)parts.push(eraNames[era].toLowerCase());count.textContent=n+(n===1?' journey':' journeys')+' for '+parts.join(', ')+'.';clear.hidden=false;}
   }
   doors.forEach(function(b){b.addEventListener('click',function(){door=(door===b.dataset.door)?null:b.dataset.door;apply();})});
